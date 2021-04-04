@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}FAQ |
+{% endblock title %}
+
+{% block css %}
+.collapsible-link::before {
+  content: '';
+  width: 14px;
+  height: 2px;
+  background: #333;
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 1rem;
+  display: block;
+  transition: all 0.3s;
+}
+
+.collapsible-link::after {
+  content: '';
+  width: 2px;
+  height: 14px;
+  background: #333;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: calc(1rem + 6px);
+  display: block;
+  transition: all 0.3s;
+}
+
+.collapsible-link[aria-expanded='true']::after {
+  transform: rotate(90deg) translateX(-1px);
+}
+
+.collapsible-link[aria-expanded='true']::before {
+  transform: rotate(180deg);
+}
+
+.bg {
+  background: #dd5e89;
+  background: -webkit-linear-gradient(to left, #dd5e89, #f7bb97);
+  background: linear-gradient(to left, #dd5e89, #f7bb97);
+}
+
+{% endblock css %}
+
+{% block body %}
+<div class="bg">
+    <div class="container mt-5">
+        <div class="row py-5">
+            <div class="col-lg-9 mx-auto text-white text-center">
+                <h1 class="display-4" style="font-family:sans-serif;">Frequently Asked Questions</h1>
+                <p class="lead mb-0" style="font-family:calibri;">We show you frequently asked questions by our clients.</p>
+                <p class="lead">Added by
+                    <a href="/" class="text-white">
+                    <u class="fw-bold">Pazar</u>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 mx-auto">
+                <div id="accordionExample" class="accordion shadow">
+                    {% for faq in faq %}
+                    <div class="card mb-5">
+                        <div id="heading{{faq.id}}" class="card-header bg-white shadow-sm border-0">
+                            <h6 class="mb-0 fw-bold"><a href="#" style="text-decoration:none;font-family:serif;" data-bs-toggle="collapse" data-bs-target="#collapse{{faq.id}}" aria-expanded="true" aria-controls="collapse{{faq.id}}" class="d-block position-relative text-dark text-uppercase collapsible-link py-2">{{faq.question}}</a></h6>
+                        </div>
+                        <div id="collapse{{faq.id}}" aria-labelledby="heading{{faq.id}}" data-bs-parent="#accordionExample" class="collapse show">
+                            <div class="card-body p-5">
+                                <p class="font-weight-light m-0" style="font-family:calibri;">{{faq.answer}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

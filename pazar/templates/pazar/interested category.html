@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Interested Categories |
+{% endblock title %}
+
+{% block css %}
+.card{
+    margin:4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    transition:0.5s ease;
+}
+.card:hover{
+     transform: scale(1.05);
+     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.card-text{
+  font-family:calibri;
+}
+.bg{
+  background:url({% static 'bg4.jpg' %})no-repeat center center/cover;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container-fluid w-100 h-50 mt-5 bg">
+    <div class="d-flex m-5 p-5 align-items-center justify-content-center">
+        <h1 style="font-size:60px;font-family:monospace;" class="text-info">Interested Categories</h1>
+    </div>
+</div>
+<div class="container-fluid">
+    <h2 class="text-center text-uppercase fw-bold text-primary mt-2 mb-5 fs-3" style="font-family:serif;">Interested Categories</h2>
+    <div class="row">
+      <div class="col-md-2">
+            <nav class="navbar navbar-expand-lg navbar-light" style="padding:0;">
+                <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-action active bg-info border-0"><a style="text-decoration:none;color:white;font-family: 'Baloo Tamma 2', cursive;" href="/categories"><img src="{% static 'All Category Icon.png' %}" alt="Category Icon" style="display:inline-block;" class="img-fluid mr-3">All Category</a></li>
+                        {% for category in category %}
+                        <li class="list-group-item list-group-item-action"><a style="text-decoration:none; color:black;font-family: 'Baloo Tamma 2', cursive;" href="category/{{category.id}}/{{category.slug}}">{% if category.icon %}<img class="img-fluid mr-3" src="{{category.icon.url}}" style="height:25px;width:25px;object-fit:scale-down;display:inline-block;" alt="{{category.name}}">{% endif %}{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+      </div>
+      <div class="col-md-10">
+      <div class="row">
+        {% for cat in categories %}
+            <div class="card col-md-5 mb-4 shadow p-3">
+              {% if cat.image %}
+              <img src="{{cat.image.url}}" class="d-block w-100" alt="{{cat.name}}" style="height:350px;">
+              {% endif %}
+              <div class="card-body">
+                <h3 class="card-title fw-bold">{{cat.name}}</h3>
+                <p class="card-text">{{cat.description|truncatechars:190}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="{% url 'category-detail' cat.id cat.slug %}" style='font-family:calibri;'><button type="button" class="btn btn-sm btn-primary mt-2">View</button></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+            <p class="font-family:calibri;">No Interested Categories. Please go and choose your interests first.</p>
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

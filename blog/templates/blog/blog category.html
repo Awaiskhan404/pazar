@@ -1,0 +1,111 @@
+{% extends 'blog/blog base.html' %}
+{% load static %}
+
+{% block title %}{{category.name}} |
+{% endblock title %}
+
+{% block meta %}
+<meta name="title" content="{{category.title}}">
+<meta name="description" content="{{category.description}}">
+<link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta name="keywords" content="{{category.keywords}}">
+<meta property="og:title" content="{{category.title}}">
+<meta property="og:type" content="article" />
+<meta property="og:description" content="{{category.description}}">
+{% if category.image %}
+<meta property="og:image" content="{{category.image.url}}">
+{% endif %}
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+{% if category.image %}
+<meta name="twitter:image" content="{{category.image.url}}">
+{% endif %}
+{% if category.image %}
+<meta name="twitter:card" content="{{category.image.url}}">
+{% endif %}
+<meta name="twitter:image:alt" content="{{category.name}}">
+{% if category.image %}
+<meta name="twitter:image:src" content="{{category.image.url}}">
+{% endif %}
+<meta itemprop="name" content="{{category.name}}">
+<meta itemprop="description" content="{{category.description}}">
+{% if category.image %}
+<meta itemprop="image" content="{{category.image.url}}">
+{% endif %}
+<meta itemscope itemtype="http://schema.org/Article">
+<meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+{% endblock meta %}
+
+{% block categoryactive %}active
+{% endblock categoryactive %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'CSS/bg animation.css' %}">
+{% endblock extra_head %}
+
+{% block css %}
+.post-body{
+    font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.content h2:nth-child(1){
+    color:transparent;
+    -webkit-text-stroke:2px #03a9f4;
+}
+.content h2:nth-child(2){
+    color:#03a9f4;
+    animation:animated 4s ease-in-out infinite;
+}
+@keyframes animated{
+    0%, 100%{
+        clip-path:polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+    }
+    50%{
+        clip-path:polygon(0 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+    }
+}
+{% endblock css %}
+
+{% block content %}
+	<div class="animation-area">
+        <div class="d-flex justify-content-center text-light content">
+            <h2 style="position:absolute;top:250px;font-family: 'Poppins', sans-serif;font-size:4em;">{{category.name}}</h2>
+            <h2 style="position:absolute;top:250px;font-family: 'Poppins', sans-serif;font-size:4em;">{{category.name}}</h2>
+        </div>
+		<ul class="box-area">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+<div class="container mt-5">
+    <h2>{{category.name}} Blogs</h2>
+    <div class="row mb-2">
+        {% for blogpost in blogpost %}
+            <div class="col-md-6">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <strong class="d-inline-block mb-2 text-primary" style="font-family: 'Montserrat', sans-serif;">{{blogpost.category}}</strong>
+                        <a href="{% url 'blog-post' blogpost.slug %}" class="text-dark" style="text-decoration:none;font-family:serif;"><h3 class="mb-0">{{blogpost.title}}</h3></a>
+                        <div class="mb-1 text-muted" style="font-family: 'Yusei Magic', sans-serif;">{{blogpost.timestamp|date:"F j Y"}}</div>
+                            <p class="card-text mb-auto post-body">{{blogpost.content|safe|truncatewords:10}}</p>
+                            <a href="{% url 'blog-post' blogpost.slug %}" class="stretched-link" style="font-family: 'Yusei Magic', sans-serif;text-decoration:none;">Continue reading <i class="fas fa-angle-double-right"></i></a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            {% if blogpost.thumbnail %}
+                                <img src="{{blogpost.thumbnail.url}}" class="bd-placeholder-img" height="250" width="250">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+            <p class="font-family:calibri;">No Blog Post.</p>
+            {% endfor %}
+            </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,257 @@
+{% extends 'dashboard base.html' %}
+{% load static %}
+
+{% block title %}Quotation No.-{{quotes.pk}} |
+{% endblock title %}
+
+{% block quotationsactive %}active
+{% endblock quotationsactive %}
+
+{% block css %}
+.bg{
+    color: #000;
+}
+
+/*Invoice*/
+.invoice .top-left {
+	color:#3ba0ff;
+}
+
+.invoice .top-right {
+	text-align:right;
+	padding-right:20px;
+}
+
+.invoice .payment-info {
+	font-weight:500;
+}
+.invoice .invoice-total {
+	margin-right:-10px;
+	font-size:16px;
+}
+
+.invoice .last-row {
+	border-bottom:1px solid #ddd;
+}
+
+.invoice-ribbon {
+	width:85px;
+	height:88px;
+	overflow:hidden;
+	position:absolute;
+	top:-44px;
+	right:-43px;
+}
+
+.ribbon-inner {
+	text-align:center;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	position:relative;
+	padding:7px 0;
+	left:-5px;
+	top:11px;
+	width:120px;
+	background-color:#f6c23e;
+	font-size:15px;
+  	font-weight:900;
+	color:#000;
+}
+
+.ribbon-inner:before,.ribbon-inner:after {
+	content:"";
+	position:absolute;
+}
+
+.ribbon-inner:before {
+	left:0;
+}
+
+.ribbon-inner:after {
+	right:0;
+}
+
+@media(max-width:575px) {
+	.invoice .top-left,.invoice .top-right,.invoice .payment-details {
+		text-align:center;
+	}
+
+	.invoice .from,.invoice .to,.invoice .payment-details {
+		float:none;
+		width:100%;
+		text-align:center;
+		margin-bottom:25px;
+	}
+
+	.invoice p.lead,.invoice .from p.lead,.invoice .to p.lead,.invoice .payment-details p.lead {
+		font-size:22px;
+	}
+
+	.invoice .btn {
+		margin-top:10px;
+	}
+}
+
+.row{
+  margin-right:0;
+}
+caption{
+  caption-side:top;
+}
+.thank{
+	font-family: 'Dancing Script', cursive;
+	color:#36b9cc;
+}
+.fonts{
+	font-family: 'Slabo 27px', serif;
+}
+{% endblock css %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/quotations">Quotations List</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Quotation No.- {{quotes.pk}}</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+  <h2 class="h2 mb-0 text-gray-800" style="margin-left:40px;">Quotation No.- {{quotes.pk}}</h2>
+</div>
+
+<div class="container p-5">
+			<div id="printArea" class="bg">
+				<div class="card p-5 border border-secondary">
+					<div class="row">
+  						<div class="col-sm-12">
+	  						<div class="panel panel-default invoice" id="invoice">
+		  						<div class="panel-body">
+									<div class="invoice-ribbon">
+										<div class="ribbon-inner">NEW</div>
+									</div>
+		    						<div class="row">
+										<div class="col-sm-6 top-left">
+											<img src="{{quotes.shop.Business_Logo.url}}" style="height:150px;width:150px;" class="rounded-circle" alt="{{quotes.shop.Business_Name}}">
+											<p class="text-muted mb-0 mt-1 ml-3">
+												<a href="{{quotes.shop.Business_Website}}" class="text-dark"><span><i class="fas fa-globe mr-2"></i></span></a>
+												<a href="{{quotes.shop.Business_Facebook}}" class="text-dark"><span><i class="fab fa-facebook mr-2"></i></span></a>
+												<a href="{{quotes.shop.Business_Twitter}}" class="text-dark"><span><i class="fab fa-twitter-square mr-2"></i></span></a>
+												<a href="{{quotes.shop.Business_Instagram}}" class="text-dark"><span><i class="fab fa-instagram"></i></span></a>
+												<a href="mailto:{{quotes.shop.Business_Email}}" class="text-dark"><span><i class="far fa-envelope ml-2"></i></span></a>
+											</p>
+										</div>
+										<div class="col-sm-6 top-right">
+											<h3 class="marginright">QUOTATION NO.- {{quotes.pk}}</h3>
+											<span class="marginright">ISSUE DATE - {{quotes.date|date:"j F Y"}}</span>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-xs-4 col-md-4 from">
+											<p class="lead marginbottom">Quote By- <span style="font-family: 'Yusei Magic', sans-serif;">{{quotes.shop.Business_Name}}</span></p>
+											<p><span class="text-primary font-weight-bold">Address-</span> <span class="fonts">{{quotes.shop.Business_Address}}</span></p>
+											<p><span class="text-primary font-weight-bold">Phone-</span> <span class="fonts">{{quotes.shop.Business_Telephone}}</span></p>
+											<p><span class="text-primary font-weight-bold">Email-</span> <span class="fonts">{{quotes.shop.Business_Email}}</span></p>
+										</div>
+										<div class="col-xs-4 col-md-4 to">
+											<p class="lead marginbottom">Quote To- <span style="font-family: 'Yusei Magic', sans-serif;">{{quotes.customer.name}}</span></p>
+											<p><span class="text-primary font-weight-bold">Address-</span> <span class="fonts">{{quotes.customer.address}}</span></p>
+											<p><span class="text-primary font-weight-bold">Phone-</span> <span class="fonts">{{quotes.customer.phone}}</span></p>
+											<p><span class="text-primary font-weight-bold">Email-</span> <span class="fonts">{{quotes.customer.email}}</span></p>
+										</div>
+										<div class="col-xs-4 col-md-4 text-right payment-details">
+											<p class="lead marginbottom payment-info">Payment details</p>
+											<p><span class="text-primary font-weight-bold">Date-</span> <span class="fonts">{{quotes.date|date:"j F Y"}}</span></p>
+											<p><span class="text-primary font-weight-bold">GSTIN-</span> <span class="fonts">{{quotes.customer.gstin}}</span></p>
+											<p><span class="text-primary font-weight-bold">Total Amount-</span> <i class="fas fa-rupee-sign mr-1"></i><span class="fonts">{{quotes.get_total_price|floatformat:2}}</span></p>
+										</div>
+									</div>
+      								<div class="table-responsive mt-3">
+            							<table class="table table-striped table-borderless table-hover caption-top">
+											<caption>List of Purchases Items</caption>
+											<thead class="thead-dark">
+												<tr>
+												<th scope="col">#</th>
+												<th scope="col">Item Name</th>
+												<th scope="col">Item HSN Code</th>
+												<th scope="col">Item Quantity</th>
+												<th scope="col">Per item price</th>
+												<th scope="col">Subtotal Price</th>
+												<th scope="col">GST (in %)</th>
+												<th scope="col">GST Amount</th>
+												<th scope="col">Discount (in %)</th>
+												<th scope="col">Discount Amount</th>
+												<th scope="col">Total Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for item in items %}
+												<tr>
+													<th scope="row">{{forloop.counter}}</th>
+													<td>{{item.product.name}}</td>
+													<td>{{item.product.hsn}}</td>
+													<td>{{item.quantity|floatformat:0}}</td>
+													<td>{{item.perPrice}}</td>
+													<td>{{item.subTotalPrice|floatformat:2}}</td>
+													<td>{{item.gst}}</td>
+													<td>{{item.gstAmount|floatformat:2}}</td>
+													<td>{{item.discount}}</td>
+													<td>{{item.discountAmount|floatformat:2}}</td>
+													<td>{{item.totalPrice|floatformat:2}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+    									</table>
+      								</div>
+									<div class="row">
+										<div class="col-xs-6 col-md-6 margintop">
+											<img src="{% static 'tq.png' %}" height="200" width="200" style="display:block;pointer-events:none;user-select:none;" alt="Thank You">
+										</div>
+										<div class="col-xs-6 col-md-6 text-right pull-right invoice-total">
+                							<ul class="list-group list-group-flush">
+												<li class="list-group-item"><p><span class="text-primary font-weight-bold">Subtotal-</span> <span class="fonts">₹{{quotes.get_subtotal_price}}</span></p></li>
+												<li class="list-group-item"><p><span class="text-primary font-weight-bold">Discount ({{quotes.discount}}%)-</span> <span class="fonts">₹{{quotes.discount_amount}}</span></p></li>
+												<li class="list-group-item"><p><span class="text-primary font-weight-bold">GST ({{quotes.gst}}%)-</span> <span class="fonts">₹{{quotes.gst_amount}}</span></p></li>
+												<li class="list-group-item"><p><span class="text-primary font-weight-bold">Total-</span> <span class="fonts"><i class="fas fa-rupee-sign mr-1"></i>{{quotes.get_total_price|floatformat:2}}</span></p></li>
+											</ul>
+										</div>
+									</div>
+		  						</div>
+							</div>
+						</div>
+					</div>
+					<div class='d-flex justify-content-between align-items-center align-content-end'>
+						<div class="">
+							<p style="font-size:20px;font-family: 'Dancing Script', cursive;position: absolute;bottom: -22px;left: 12px;">Made With <i class="fas fa-heart text-danger"></i> at <img src="{% static 'Pazar Logo.png' %}" style="height:50px;width:50px;pointer-events:none;user-select:none;"></p>
+						</div>
+						<div class="">
+							<p style="font-weight:700;">Signature</p>
+							<p style="font-size: 25px;font-weight: bold;font-family: 'Sacramento', cursive;border: 1px solid black;padding: 5px;background: #f9f8f8;">{{quotes.user.get_full_name}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex align-items-center justify-content-center mt-3 mb-3">
+				<button class="btn btn-primary mr-2" onclick="printpage('printArea')" id="invoice-print"><i class="fa fa-print mr-2"></i>Print</button>
+				<a href="{% url 'quote-download' quotes.pk %}" download><button class="btn btn-warning mr-2"><i class="fas fa-download mr-2"></i>Download</button></a>
+				<a href="https://api.whatsapp.com/send?phone=91{{quotes.customer.phone}}&text=Hello%20{{quotes.customer.name}}!%20Quotation%20No.-%20{{quotes.pk}}%20for%20product%20{% for item in items %}{{item.product.name}}{% if not forloop.last %},{% endif %}%20{% endfor %}of%20amount%20{{quotes.get_total_price|floatformat:2}}%20generated%20on%20{{quotes.date|date:"j F Y"}}."><button class="btn btn-success mr-2"><i class="fab fa-whatsapp mr-2"></i>Share</button></a>
+				<a href="{% url 'quotation-list' %}" class="btn btn-dark">Go Back</a>
+			</div>
+</div>
+{% endblock body %}
+
+{% block script %}
+        function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }    
+{% endblock script %}

@@ -1,0 +1,724 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{listing.Business_Name}} |
+{% endblock title %}
+
+{% block meta %}
+<meta name="title" content="{{listing.title}}">
+<meta name="description" content="{{listing.description}}">
+<link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta name="keywords" content="{{listing.keywords}}">
+<meta property="og:title" content="{{listing.title}}">
+<meta property="og:type" content="company" />
+<meta property="og:description" content="{{listing.description}}">
+{% if listing.Business_Logo %}
+<meta property="og:image" content="{{listing.Business_Logo.url}}">
+{% endif %}
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+{% if listing.Business_Logo %}
+<meta name="twitter:image" content="{{listing.Business_Logo.url}}">
+{% endif %}
+{% if listing.Business_Logo %}
+<meta name="twitter:card" content="{{listing.Business_Logo.url}}">
+{% endif %}
+<meta name="twitter:image:alt" content="{{listing.title}}">
+{% if listing.Business_Logo %}
+<meta name="twitter:image:src" content="{{listing.Business_Logo.url}}">
+{% endif %}
+<meta itemprop="name" content="{{listing.title}}">
+<meta itemprop="description" content="{{listing.description}}">
+{% if listing.Business_Logo %}
+<meta itemprop="image" content="{{listing.Business_Logo.url}}">
+{% endif %}
+<meta itemscope itemtype="http://schema.org/Company">
+<meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+{% endblock meta %}
+
+{% block css %}
+img {
+  max-width: 100%; }
+
+.preview {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+  @media screen and (max-width: 996px) {
+    .preview {
+      margin-bottom: 20px; } }
+
+.preview-pic {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.preview-thumbnail.nav-tabs {
+  border: none;
+  margin-top: 15px; }
+  .preview-thumbnail.nav-tabs li {
+    width: 18%;
+    margin-right: 2.5%; }
+    .preview-thumbnail.nav-tabs li img {
+      max-width: 100%;
+      display: block; }
+    .preview-thumbnail.nav-tabs li a {
+      padding: 0;
+      margin: 0; }
+    .preview-thumbnail.nav-tabs li:last-of-type {
+      margin-right: 0; }
+
+.tab-content {
+  overflow: hidden; }
+  .tab-content img {
+    width: 100%;
+    -webkit-animation-name: opacity;
+            animation-name: opacity;
+    -webkit-animation-duration: .3s;
+            animation-duration: .3s; }
+
+.card {
+  margin-top: 50px;
+  background: #eee;
+  padding: 3em;
+  line-height: 1.5em; }
+
+@media screen and (min-width: 997px) {
+  .wrapper {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; } }
+
+.details {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column; }
+
+.colors {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1; }
+
+.product-title, .sizes, .colors {
+  text-transform: UPPERCASE;
+  font-weight: bold; }
+
+.checked, .price span {
+  color: #ff9f1a; }
+
+.product-title, .rating, .product-description, .price, .vote, .sizes {
+  margin-bottom: 15px; }
+
+.product-title {
+  margin-top: 0; }
+
+.size {
+  margin-right: 10px; }
+  .size:first-of-type {
+    margin-left: 40px; }
+
+.color {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  height: 2em;
+  width: 2em;
+  border-radius: 2px; }
+  .color:first-of-type {
+    margin-left: 20px; }
+
+.add-to-cart, .like {
+  background: #ff9f1a;
+  padding: 1.2em 1.5em;
+  border: none;
+  text-transform: UPPERCASE;
+  font-weight: bold;
+  color: #fff;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; }
+  .add-to-cart:hover, .like:hover {
+    background: #b36800;
+    color: #fff; }
+
+.not-available {
+  text-align: center;
+  line-height: 2em; }
+  .not-available:before {
+    font-family: fontawesome;
+    content: "\f00d";
+    color: #fff; }
+
+.orange {
+  background: #ff9f1a; }
+
+.green {
+  background: #85ad00; }
+
+.blue {
+  background: #0076ad; }
+
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(3);
+            transform: scale(3); }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+
+.move{
+    transition:0.3s;
+}
+.move:hover{
+    transform:scale(1.1);
+}
+
+.btn:focus, .btn:active, button:focus, button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#image-gallery .modal-footer{
+  display: block;
+}
+
+.thumb{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.img-thumbnail{
+  padding:0;
+  border:0;
+  width: 100%;
+  height:100%;
+  border-radius: 0.50rem;
+  -webkit-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.img-thumbnail:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transform:scale(1.1);
+}
+.tab-content{
+  overflow:visible;
+}
+
+div.rating {
+    width: 160px;
+    display: inline-block
+}
+
+input.star {
+    display: none
+}
+
+label.star {
+    float: right;
+    padding: 0 3px;
+    font-size: 23px;
+    color: #4A148C;
+    transition: all .2s
+}
+
+input.star:checked~label.star:before {
+    content: '\f005';
+    color: #FD4;
+    transition: all .25s
+}
+
+input.star-5:checked~label.star:before {
+    color: #FE7;
+    text-shadow: 0 0 20px #952
+}
+
+input.star-1:checked~label.star:before {
+    color: #F62
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3)
+}
+
+label.star:before {
+    content: '\f006';
+    font-family: FontAwesome
+}
+
+.yellow-fill{
+  color:#ffc107;
+}
+
+.product {
+  position:relative;
+  width: 250px;
+  height: 250px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+  border-radius: 5px;
+  overflow: hidden;
+  transition:0.5s;
+ }
+ .product:hover{
+   transform:scale(1.1);
+ }
+
+ .product .imgbox {
+     height: 100%;
+     box-sizing: border-box;
+ }
+
+ .product .imgbox img {
+     display: block;
+     width: 100%;
+ }
+
+ .specifies {
+     position: absolute;
+     width: 100%;
+     bottom: -160px;
+     background: #fff;
+     padding: 10px;
+     box-sizing: border-box;
+     transition: .5s
+ }
+
+ .product:hover .specifies {
+     bottom: 0
+ }
+
+ .specifies h2 {
+     margin: 0;
+     padding: 0;
+     font-size: 20px;
+     width: 100%
+ }
+
+ .specifies h2 span {
+     font-size: 15px;
+     color: #007fdd;
+     font-weight: normal;
+ }
+
+.specifies .price {
+  display:block;
+  font-weight: bold;
+  color: #000;
+  font-size: 30px;
+ }
+{% endblock css %}
+
+{% block body %}
+	<div class="container-fluid" style="margin-top:80px;">
+		<div class="card">
+			<div class="container-fluid">
+				<div class="wrapper row">
+					<div class="preview col-md-6">
+            <!--Carousel Start-->						
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <ol class="carousel-indicators">
+                  {% for li in listing.freelistingimage_set.all %}
+                    <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0 %}active{% endif %}"></li>
+                  {% endfor %}
+              </ol>
+              <div class="carousel-inner">
+                {% for li in listing.freelistingimage_set.all %}
+                  <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}">
+                    <img src="{{li.image.url}}" class="d-block w-100 rounded" style="height:320px;" alt="{{listing.Business_Name}}">
+                  </div>  
+                {% endfor %}
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </a>
+            </div>
+            <!--Carouse End-->
+            <ul class="preview-thumbnail nav nav-tabs">
+              {% for li in listing.freelistingimage_set.all %}
+                <li><a href="{{li.image.url}}" target="_blank"><img src="{{li.image.url}}" class="rounded-circle mb-2" style="height:70px;width:70px;"></a></li>
+              {% endfor %}
+            </ul>
+					</div>
+					<div class="details col-md-6">
+            <div class="row d-flex justify-content-between align-items-center">
+              <div class="col-7">
+                <h3 class="product-title mb-0">{{listing.Business_Name}}</h3>
+                <p>{{listing.Business_Category.get_html_badge}}</p>
+                <div class="rating">
+                  <div class="stars">
+                    <i class="{% if listing.averagereview < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                    <i class="{% if listing.averagereview < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                    <i class="{% if listing.averagereview < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                    <i class="{% if listing.averagereview < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                    <i class="{% if listing.averagereview < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                    <span><button class="btn-success text-light btn-sm" style="user-select:none;">{{listing.averagereview | stringformat:".2f"}}</button></span>                                        
+                  </div>
+                  <i class="fas fa-comments text-secondary mr-1"></i><span class="review-no text-warning">{{listing.countreview}}</span>&nbsp
+                  <i class="fas fa-eye text-secondary mr-1"></i><span class="review-no text-warning">{{listing.view}}</span>
+                </div>
+              </div>
+              <div class="col-5 d-flex justify-content-end">
+                <img src="{{listing.Business_Logo.url}}" style="height:150px;width:150px;" class="rounded-circle" alt="{{listing.Business_Name}}">
+              </div>
+            </div>
+						<p class="product-description">{{listing.Business_Description}}</p>
+						<h4 class="price fw-bold">Services: <span>{% for i in listing.Business_Subcategory.all %}{{i.name|upper}}{% if not forloop.last %}, {% endif %}{% endfor %}</span></h4>
+            <div>
+              <a href="tel:{{listing.Business_Telephone}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Call Us"><i class="fas fa-phone-alt fa-2x" style="color:blue;"></i></a>
+              <a href="mailto:{{listing.Business_Email}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Mail Us"><i class="fas fa-envelope-open-text fa-2x"></i></a>
+              <a href="https://api.whatsapp.com/send?phone=91{{listing.Business_WhatsApp}}&text=Hello%20{{listing.Listed_by.get_full_name}}%20!%20I %20want%20to%20talk%20to%20you.%20Please%20respond." class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="What's App Us"><i class="fab fa-whatsapp fa-2x" style="color: #4fce5d;"></i></a>
+            </div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="card" style="width: 18rem;padding:1em;">
+            <div class="card-body">
+              <h5 class="card-title h5 text-primary">Contact Information</h5>
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-phone-alt mr-3 text-info"></i>{{listing.Business_Telephone}}</p>
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fab fa-whatsapp mr-3 text-info"></i>{{listing.Business_WhatsApp}}</p>
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-map-marker-alt mr-3 text-info"></i>{% if listing.Address %}{{listing.Address}}{% else %}{{listing.Business_Address}}{% endif %}</p>  
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-envelope mr-3 text-info"></i>{{listing.Business_Email}}</p>
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-business-time mr-3 text-info"></i>{{listing.Business_Established_Date|date:'F Y'}}</p>
+              <h5 class="card-title h5 text-primary">Mode Of Payments</h5>
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;">{{listing.Mode_Of_Payments}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card" style="padding:1em;">
+            <div class="card-body">
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Gallery</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Reviews</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <a class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Products</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <div class="row">
+                    <div class="row">
+                      {% for li in listing.freelistingimage_set.all %}
+                        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+                          <a class="thumbnail" href="#" data-image-id="" data-bs-toggle="modal" data-title="{{listing.Business_Name}} Image       Preview" data-image="{{li.image.url}}" data-bs-target="#image-gallery"><img class="img-thumbnail" src="{{li.image.url}}" alt="{{listing.Business_Name}}"></a>
+                        </div>
+                        {% empty %}
+                          <h5>No Images</h5>
+                      {% endfor %}
+                    </div>
+                    <div class="modal fade" id="image-gallery" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title fw-bold" id="image-gallery-title"></h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <img id="image-gallery-image" class="img-responsive col-md-12 rounded shadow" src="">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><i class="fas fa-chevron-left"></i></button>
+                            <button type="button" id="show-next-image" class="btn btn-secondary float-right"><i class="fa fa-chevron-right"></i></button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                  {% for comment in comments %}
+                    <div class="card rounded bg-light" style="padding:1em;margin-top:20px;">
+                      <div class="d-flex bd-highlight align-items-center mb-1">
+                        <div class="p-1 bd-highlight">
+                          <a href="{{comment.commented_by.profile.get_absolute_url}}"><img alt="{{comment.commented_by.get_full_name}}" style="width:60px;height:60px;object-fit:cover;" src="{{comment.commented_by.profile.pic.url}}" class="mr-3 rounded-circle"></a>
+                        </div>
+                        <div class="p-1 bd-highlight">
+                          <h6 class="mb-1"><a class="text-dark fw-bold" href="{{comment.commented_by.profile.get_absolute_url}}"><i class="fas fa-user mr-1"></i>{{comment.commented_by.get_full_name}}</a></h6>
+                          <small class="text-secondary">{{comment.commented_at|date:"F j Y, g:i A"}}</small>
+                        </div>
+                        <div class="ms-auto p-1 bd-highlight">
+                          <i class="{% if comment.rate < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                          <i class="{% if comment.rate < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                          <i class="{% if comment.rate < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                          <i class="{% if comment.rate < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                          <i class="{% if comment.rate < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                        </div>
+                      </div>
+                      <div class="card-body" style="padding:0;">
+                        <p>{{comment.comment}}</p>
+                      </div>
+                    </div>
+                    {% empty %}
+                      <h5>No Review</h5>
+                  {% endfor %}
+                  {% if comments.has_other_pages %}
+                    <ul class="pagination mt-3">
+                      {% if comments.has_previous %}
+                        <li class="page-item">
+                        <a class="page-link" href="?page={{comments.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+                      {% endif %}
+                      {% for i in comments.paginator.page_range %}
+                        {% if comments.number == i %}
+                          <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if comments.has_next %}
+                        <li class="page-item">
+                        <a class="page-link" href="?page={{comments.next_page_number}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a></li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+                </div>
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                  <div class="d-flex d-sm-flex flex-wrap align-items-center">
+                    {% for product in products %}
+                    <div class="product mb-2 ms-2">
+                      <div class="imgbox">
+                        <a href="{% url 'product' product.pk %}"><img src="{{product.image.url}}" alt={{product.name}}></a>
+                      </div>
+                      <div class="specifies">
+                        <h2 class="mb-0">{{product.name}}<br><span style="font-family:calibri;">{{product.shop.Business_Category}}</span></h2>
+                        <div class="price">₹ {% if product.offer_price %}{{product.offer_price}}{% else %}{{product.price}}{% endif %}
+                          <p style="font-size:20px;font-weight:normal;"><span><small class="text-danger"><strike>₹{{product.price}}</strike></small></span></p>
+                        </div>
+                        <p class="mt-1 mb-1 text-dark" style="font-family:serif;">{{product.desc}}</p>
+                      </div>
+                    </div>
+                    {% empty %}
+                      <h5>No Products</h5>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card" style="width: 18rem;padding:1em;">
+            <div class="card-body">
+              <h5 class="card-title h5 text-primary">Services</h5>
+              <p class="text-dark mb-2" style="font-family: 'Slabo 27px', serif;">{% for i in listing.Business_Services.all %}{{i.name|capfirst}}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+              <h5 class="card-title h5 text-primary">Social Media</h5>
+              <div class="row">
+                <div class="col-3">
+                  {% if listing.Business_Website %}
+                    <a href="{{listing.Business_Website}}" class="" target="_blank"><img class="move" src="{% static 'Website icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                  {% if listing.Business_Facebook %}
+                    <a href="{{listing.Business_Facebook}}" class="" target="_blank"><img class="move" src="{% static 'FB icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}              
+                </div>
+                <div class="col-3">
+                  {% if listing.Business_Instagram %}
+                    <a href="{{listing.Business_Instagram}}" class="" target="_blank"><img class="move" src="{% static 'Instagram icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                  {% if listing.Business_Twitter %}
+                    <a href="{{listing.Business_Twitter}}" class="" target="_blank"><img class="move" src="{% static 'Twitter icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                </div>
+                <div class="col-3">
+                  {% if listing.Business_Linkedin %}
+                    <a href="{{listing.Business_Linkedin}}" class="" target="_blank"><img class="move" src="{% static 'Linkedin icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                  {% if listing.Business_Github %}
+                    <a href="{{listing.Business_Github}}" class="" target="_blank"><img class="move" src="{% static 'Github icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                </div>
+                <div class="col-3">
+                  {% if listing.Business_Pinterest %}
+                    <a href="{{listing.Business_Pinterest}}" class="" target="_blank"><img class="move" src="{% static 'Pinterest icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                  {% if listing.Business_Youtube %}
+                    <a href="{{listing.Business_Youtube}}" class="" target="_blank"><img class="move" src="{% static 'YouTube icon.png' %}" style="height:50px; width:50px;"></a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+    <!--Review Form-->
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-4 border p-3 rounded">
+          <form action="/listing/{{listing.id}}/{{listing.slug}}/addcomment" method="POST">
+            {% csrf_token %}
+            <h2 class="mb-2 fs-4 text-dark" style="font-family: 'Baloo Tamma 2', cursive;">Write Your Review</h2>
+            <!-- Message input -->
+            <div class="form-outline mb-4">
+              <label style="font-family: 'Baloo Tamma 2', cursive;" class="form-label text-info" for="form4Example3">Comment</label>
+              <textarea class="form-control" name="comment" id="form4Example3" rows="4"></textarea>
+            </div>
+            <!--Rate Input-->
+            <div class="form-group d-flex align-items-center">
+              <small class="text-uppercase fw-bold">Your Rating: </small>
+              <div class="rating">
+                <input type="radio" id="star-5" class="star star-5" name="rate" value="5" /><label class="star star-5" for="star-5"></label>
+                <input type="radio" id="star-4" class="star star-4" name="rate" value="4" /><label class="star star-4" for="star-4"></label>
+                <input type="radio" id="star-3" class="star star-3" name="rate" value="3" /><label class="star star-3" for="star-3"></label>
+                <input type="radio" id="star-2" class="star star-2" name="rate" value="2" /><label class="star star-2" for="star-2"></label>
+                <input type="radio" id="star-1" class="star star-1" name="rate" value="1" /><label class="star star-1" for="star-1"></label>
+              </div>
+            </div>
+            <!-- Submit button -->
+            {% if user.id is not None %}
+              <button type="submit" class="btn btn-success shadow mb-4">Send<i class="fas fa-paper-plane ml-3"></i></button>
+              {% else %}You must be logged in to post a review.
+            {% endif %}
+          </form>
+        </div>
+      </div>
+    </div>
+{% endblock body %}
+
+{% block js %}
+let modalId = $('#image-gallery');
+
+$(document)
+  .ready(function () {
+
+    loadGallery(true, 'a.thumbnail');
+
+    //This function disables buttons when needed
+    function disableButtons(counter_max, counter_current) {
+      $('#show-previous-image, #show-next-image')
+        .show();
+      if (counter_max === counter_current) {
+        $('#show-next-image')
+          .hide();
+      } else if (counter_current === 1) {
+        $('#show-previous-image')
+          .hide();
+      }
+    }
+
+    /**
+     *
+     * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
+     * @param setClickAttr  Sets the attribute for the click handler.
+     */
+
+    function loadGallery(setIDs, setClickAttr) {
+      let current_image,
+        selector,
+        counter = 0;
+
+      $('#show-next-image, #show-previous-image')
+        .click(function () {
+          if ($(this)
+            .attr('id') === 'show-previous-image') {
+            current_image--;
+          } else {
+            current_image++;
+          }
+
+          selector = $('[data-image-id="' + current_image + '"]');
+          updateGallery(selector);
+        });
+
+      function updateGallery(selector) {
+        let $sel = selector;
+        current_image = $sel.data('image-id');
+        $('#image-gallery-title')
+          .text($sel.data('title'));
+        $('#image-gallery-image')
+          .attr('src', $sel.data('image'));
+        disableButtons(counter, $sel.data('image-id'));
+      }
+
+      if (setIDs == true) {
+        $('[data-image-id]')
+          .each(function () {
+            counter++;
+            $(this)
+              .attr('data-image-id', counter);
+          });
+      }
+      $(setClickAttr)
+        .on('click', function () {
+          updateGallery($(this));
+        });
+    }
+  });
+
+// build key actions
+$(document)
+  .keydown(function (e) {
+    switch (e.which) {
+      case 37: // left
+        if ((modalId.data('bs.modal') || {})._isShown && $('#show-previous-image').is(":visible")) {
+          $('#show-previous-image')
+            .click();
+        }
+        break;
+
+      case 39: // right
+        if ((modalId.data('bs.modal') || {})._isShown && $('#show-next-image').is(":visible")) {
+          $('#show-next-image')
+            .click();
+        }
+        break;
+
+      default:
+        return; // exit this handler for other keys
+    }
+    e.preventDefault(); // prevent the default action (scroll / move caret)
+  });
+
+{% endblock js %}

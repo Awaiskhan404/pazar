@@ -1,0 +1,308 @@
+{% extends 'blog/blog base.html' %}
+{% load static %}
+
+{% block title %}All Blog Category |
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block categoryactive %}active
+{% endblock categoryactive %}
+
+{% block css %}
+.card-img {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.card-img-overlay{
+  width:0;
+}
+
+.card-title {
+  margin-bottom: 0.3rem;
+}
+
+.cat {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.fa-users {
+  margin-left: 1rem;
+}
+
+.card-footer {
+  font-size: 0.8rem;
+}
+
+.card{
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+  transition: box-shadow .25s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.card-title{
+  transition:ease 0.5s;
+}
+.card-title:hover{
+  color:#0dcaf0;
+}
+.blog-body{
+  font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.blog-stats{
+  font-family: 'Calibri', sans-serif !important;
+}
+#bgAnimate{
+  width: 100%;
+  height: 500px;
+  background: linear-gradient(-45deg, #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%, #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%);;
+  background-size: 400% 400%;
+  position: relative;
+  animation: bgAnimate 7.5s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes bgAnimate{
+  0%{
+    background-position: 0 50%;
+  }
+  50%{
+    background-position: 100% 50%;
+  }
+  100%{
+    background-position: 0 50%;
+  }
+}
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: rotate 25s linear infinite;
+    bottom: -150px;
+    
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+
+
+
+@keyframes rotate {
+
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100%{
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+
+}
+.content h2:nth-child(1){
+    color:transparent;
+    -webkit-text-stroke:2px #03a9f4;
+}
+.content h2:nth-child(2){
+    color:#03a9f4;
+    animation: textanimated 4s ease-in-out infinite;
+}
+@keyframes textanimated{
+    0%, 100%{
+        clip-path:polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+    }
+    50%{
+        clip-path:polygon(0 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+    }
+}
+{% endblock css %}
+
+{% block content %}
+<section id="bgAnimate">
+  <div class="d-flex justify-content-center text-light content">
+    <h2 style="position:absolute;top:200px;font-family: 'Poppins', sans-serif;font-size:8em;">Blogs</h2>
+    <h2 style="position:absolute;top:200px;font-family: 'Poppins', sans-serif;font-size:8em;">Blogs</h2>
+  </div>
+  <ul class="circles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</section>
+<div class="container mt-3">
+  <div class="row mb-2">
+    <div class="col-md-10">
+      <h2 class="fs-1 text-dark" style="font-family:sans;">All Blogs</h2>
+      <div class="row product-row mx-auto mb-2">
+          {% for blog in blog %}
+            <div id="{{ blog.id }}" class="col-md-4 mb-4">
+              <div class="card" data-aos="zoom-in">
+                <img class="card-img card-img-top" src="{{blog.thumbnail.url}}" alt="{{blog.title}}">
+                <div class="card-img-overlay">
+                  <a href="#" class="btn btn-light btn-sm" style="font-family: 'Yusei Magic', sans-serif;">{{blog.category}}</a>
+                </div>
+                <div class="card-body">
+                  <a href="{% url 'blog-post' blog.slug %}" class="text-dark" style="text-decoration:none;"><h4 class="card-title">{{blog.title}}</h4></a>
+                  <small class="text-muted cat">
+                    <i class="far fa-clock text-info" style="margin-right:4px;"></i>{{blog.timestamp|date:"M j"}}&nbsp &nbsp
+                    <i class="far fa-comment text-info"></i> {{blog.blogcomment_set.count}} comments &nbsp &nbsp
+                    <i class="far fa-eye text-info"></i> {{blog.views}}
+                  </small>
+                  <p class="card-text blog-body">{{blog.content|safe |truncatewords:10}}</p>
+                  <a href="{% url 'blog-post' blog.slug %}" class="btn btn-dark blog-stats">Read article</a>
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="font-family:calibri;">No Article to Read.</p>
+          {% endfor %}
+        </div>
+        {% if blog.has_other_pages %}
+                    <ul class="pagination mt-3">
+                      {% if blog.has_previous %}
+                        <li class="page-item">
+                        <a class="page-link" href="?page={{blog.previous_page_number}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+                      {% endif %}
+                      {% for i in blog.paginator.page_range %}
+                        {% if blog.number == i %}
+                          <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% else %}
+                          <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if blog.has_next %}
+                        <li class="page-item">
+                        <a class="page-link" href="?page={{blog.next_page_number}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        </li>
+                      {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&raquo;</a></li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+    </div>
+    <div class="col-md-2">
+        <h4 style="font-family:cursive;">All Category</h4>
+        <ul class="list-group mb-2">
+          {% for category in category %}
+            <li class="list-group-item"><a href="{% url 'blog_category' category.slug %}" style="font-family: 'Yusei Magic', sans-serif;text-decoration:none;">{{category.name}}</a></li>
+          {% endfor %}
+        </ul>
+        <h4 style="font-family:cursive;">Common Tags</h4>
+        <ul class="list-group mb-2 mt-2">
+          {% for mt in common_tags %}
+            <li class="list-group-item"><a href="{% url 'tagged' tag.slug %}" class="btn btn-success btn-sm">{{mt}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

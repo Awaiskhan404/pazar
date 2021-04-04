@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index, follow">
+    <meta name="pinterest-rich-pin" content="false">
+    <meta property="fb:app_id" content="858995061590537" />
+    <meta name="twitter:site" content="@pazar_india">
+    <meta name="twitter:creator" content="@pazar_india">
+    {% block meta %}
+    {% endblock meta %}
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- For Favicon -->
+    {% load static %}
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}" sizes="32x32" />
+    <link rel="icon" sizes="192x192" href="{% static 'Pazar Favicon.ico' %}" />
+
+    <!-- Tailwind CSS For Footer -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+    <!-- jQuery & Font Awesome -->
+    <script src="https://kit.fontawesome.com/6170a67588.js" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--Chosen jQuery Plugin-->
+    <link rel="stylesheet" href="/static/CSS/chosen.min.css">
+
+    <!--Google Fonts-->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@700&family=Roboto:wght@300&family=Slabo+27px&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Rokkitt" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Akaya+Telivigala&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+
+    <!--Slim-select-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.2/slimselect.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.2/slimselect.min.css" rel="stylesheet"></link>
+
+    <!--Django Taggit-->
+    <link rel="stylesheet" href="/static/css/tagsinput.css" />
+
+    <script src="{% static 'jquery.mapael.min.js' %}"></script>
+    <script src="{% static 'jquery.mousewheel.js' %}"></script>
+    <script src="{% static 'raphael.min.js' %}"></script>
+    <script src="{% static 'usa_states.min.js' %}"></script>
+    <script src="{% static 'world_countries_mercator.min.js' %}"></script>
+    <script src="{% static 'world_countries_miller.min.js' %}"></script>
+    <script src="{% static 'world_countries.min.js' %}"></script>
+
+    
+    <!--Mapbox-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--Facebook Page Plugin-->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0&appId=218916806025452&autoLogAppEvents=1" nonce="kEu7oYbK"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>{% block title %}
+    {% endblock title %}Pazar - Aapke Sapno Ka Bazaar</title>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+    ::-webkit-scrollbar-track{
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar{
+			width: 6px;
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar-thumb{
+			background-color: #C0C0C0;
+		}
+
+    ::selection {
+            background-color:#a6fff8;
+            color:black;
+    }
+    .loading{
+      margin:0;
+      padding:0;
+      height:100vh;
+      width:100%;
+      position:fixed;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:radial-gradient(#7cd6ff, #0081e8);
+      z-index: 99999;
+    }
+    .loader{
+      position: relative;
+      height: 180px;
+      width: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+      transform: perspective(500px) rotateX(45deg);
+    }
+    .loader span{
+      position: absolute;
+      display: block;
+      border: 15px solid #fff;
+      box-sizing: border-box;
+      border-radius: 50%;
+      box-shadow: 0 10px 0 #e0e0e0, inset 0 10px 0 #e0e0e0;
+      animation: animate 4.5s ease-in-out infinite;
+    }
+    .loader span:nth-child(1){
+      animation-delay: 0s;
+    }
+    .loader span:nth-child(2){
+      animation-delay: 1.5s;
+    }
+    .loader span:nth-child(3){
+      animation-delay: 3s;
+    }
+    @keyframes animate {
+      0%{
+        transform: translateZ(-100px);
+        height: 100%;
+        width: 100%;
+      }
+      25%{
+        transform: translateZ(100px);
+        height: 100%;
+        width: 100%;
+      }
+      50%{
+        transform: translateZ(100px);
+        height: 35%;
+        width: 35%;
+      }
+      75%{
+        transform: translateZ(-100px);
+        height: 35%;
+        width: 35%;
+      }
+      100%{
+        transform: translateZ(-100px);
+        height: 100%;
+        width: 100%;
+      }
+      }
+
+      .dropdown-menu-arrow {
+        top: -25px;
+        left: 50%;
+        width: 0;
+        height: 0;
+        position: relative;
+}
+      .dropdown-menu-arrow:before,
+      .dropdown-menu-arrow:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-width: 7px 8px;
+        border-style: solid;
+        border-color: transparent;
+        z-index: 1001;
+}
+      .dropdown-menu-arrow:after {
+        bottom: -18px;
+        right: -8px;
+        border-bottom-color: #fff;
+}
+      .dropdown-menu-arrow:before {
+        bottom: -17px;
+        right: -8px;
+        border-bottom-color: rgba(0,0,0,.15);
+}
+
+/* Profile Menu Arrow */
+      .profile-menu-arrow {
+        top: -25px;
+        left: 94%;
+        width: 0;
+        height: 0;
+        position: relative;
+}
+      .profile-menu-arrow:before,
+      .profile-menu-arrow:after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-width: 7px 8px;
+        border-style: solid;
+        border-color: transparent;
+        z-index: 1001;
+}
+      .profile-menu-arrow:after {
+        bottom: -18px;
+        right: -8px;
+        border-bottom-color: #fff;
+}
+      .profile-menu-arrow:before {
+        bottom: -17px;
+        right: -8px;
+        border-bottom-color: rgba(0,0,0,.15);
+}
+.footerLink h2{
+  font-family: 'Baloo 2', cursive;
+}
+.footerLink nav li{
+  font-family: 'Rokkitt', serif;
+}
+footer{
+  font-family:calibri;
+}
+body{
+  overflow-x:hidden;
+}
+{% block css %}
+{% endblock css %}
+
+</style>
+
+</head>
+<body onload="myFunction()">
+  <div class="loading" id="loader">
+  <div class="loader">
+  <span></span>
+  <span></span>
+  <span></span>
+  </div>
+  </div>
+    {% load static %}
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+  <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+    <img src="{% static 'Pazar Logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+  </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-family: 'Baloo Tamma 2', cursive;">
+        <li class="nav-item">
+          <a class="nav-link {% block homeactive %}
+          {% endblock homeactive %}" aria-current="page" href="/home"><i class="fa fa-home"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% block aboutactive %}{% endblock aboutactive %}" href="/about">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog">Blog</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% block category %}
+          {% endblock category %}" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+           <span class="dropdown-menu-arrow"></span>
+            <a class="dropdown-item" href="/category/12/automobiles">Automobiles</a>
+                <a class="dropdown-item" href="/category/10/b2b">B2B</a>
+                <a class="dropdown-item" href="/category/18/business-services">Business Services</a>
+                <a class="dropdown-item" href="/category/6/daily-needs">Daily Needs</a>
+                <a class="dropdown-item" href="/category/16/on-demand-get-services">Demand & Get Services</a>
+                <a class="dropdown-item" href="/category/7/doctors">Doctors</a>
+                <a class="dropdown-item" href="/category/17/emergency-services">Emergeny Services</a>
+                <a class="dropdown-item" href="/category/13/event-organisers">Event Organisers</a>
+                <a class="dropdown-item" href="/category/11/insurance">Insurance</a>
+                <a class="dropdown-item" href="/category/9/loans">Loans</a>
+                <a class="dropdown-item" href="/category/14/personal-care">Personal Care</a>
+                <a class="dropdown-item" href="/category/8/repairs">Repairs</a>
+                <a class="dropdown-item" href="/category/5/restaurants">Restaurants</a>
+                <a class="dropdown-item" href="/category/15/travel">Travel</a>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/categories">Explore More...</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link {% block contactactive %}{% endblock contactactive %}" href="/contact">Contact Us</a>
+        </li>
+      </ul>
+      <a href="{% url 'items' %}" data-toggle="tooltip" title="Sell Your Old Products With Us!" style="margin-right:10px;" class="btn btn-sm btn-outline-info mb-2 mb-sm-0 mb-md-0"><i class="fas fa-plus mr-1"></i>Sell</a>
+      <a href="{% url 'posts' %}" data-toggle="tooltip" title="Write Your Thoughts Here!" style="margin-right:10px;" class="btn btn-sm btn-outline-primary mb-2 mb-sm-0 mb-md-0">Post</a>
+      {% if user.is_authenticated and user.is_shop_owner %}
+          <a href="{% url 'Advertise With Us' %}" data-toggle="tooltip" title="Advertise Your Business With Us!" style="margin-right:10px;font-family: 'Baloo Tamma 2', cursive;" class="text-primary">Advertise With Us</a>
+          <a href="{% url 'Free Listing' %}" style="margin-right:10px;font-family: 'Baloo Tamma 2', cursive;" class="text-info" data-toggle="tooltip" title="List Your Business For Free Here!">Free Listing</a>         
+      {% endif %}
+      {% if user.is_authenticated and user.is_user %}
+        <a href="{% url 'Consumer_interests' %}" data-toggle="tooltip" title="Add Your Interests!" style="margin-right:10px;font-family: 'Baloo Tamma 2', cursive;" class="text-success">Interests</a>
+        <a href="{% url 'add-skill' %}" data-toggle="tooltip" title="Add Your Skills Here!" style="margin-right:10px;font-family: 'Baloo Tamma 2', cursive;" class="text-dark">Skills</a>
+      {% endif %}
+      <form class="d-flex" method='get' action="{% url 'Search' %}">
+        <input class="form-control me-2" type="search" placeholder="Search" name="query" id='query' aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      {% if request.user.is_authenticated %}
+      <span class="ml-2" style="user-select:none;font-family: 'Baloo Tamma 2', cursive;">Hi, <strong>{{user.username | capfirst }}</strong></span>
+      <div class="dropdown" style="font-family: 'Baloo Tamma 2', cursive;">
+      {% if user.profile.pic %}
+      <img class="img-fluid rounded-circle ml-2 border-0" style="height:25px;width:25px;cursor:pointer;" src="/media/{{user.profile.pic}}" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      {% else %}
+      <img class="img-fluid rounded-circle ml-2 border-0" style="height:25px;width:25px;cursor:pointer;" src="{% static 'Default Profile Pic.png' %}">
+      {% endif %}
+  <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdownMenuButton">
+    <span class="profile-menu-arrow"></span>
+    {% if request.user.is_shop_owner %}
+    <li><a class="dropdown-item" href="{% url 'Dashboard' %}"><i class="fa fa-tachometer" style="margin-right:6px;"></i>Dashboard</a></li>
+    {% endif %}
+    {% if request.user.is_shop_owner %}
+    <li><a class="dropdown-item" href="/profile/{{user.profile.id}}/{{user.profile.slug}}"><i class="fas fa-user" style="margin-right:6px;"></i>Profile</a></li>
+    {% else %}
+    <li><a class="dropdown-item" href="{% url 'profile-detail' user.profile.id user.profile.slug %}"><i class="fas fa-user" style="margin-right:6px;"></i>Profile</a></li>
+    {% endif %}
+    <li><a class="dropdown-item" href="{% url 'edit-profile' %}"><i class="fas fa-user-edit" style="margin-right:6px;"></i>Edit Profile</a></li>
+    <li><a class="dropdown-item" href="{% url 'password_change' %}"><i class="fa fa-key" style="margin-right:6px;"></i>Change Password</a></li>
+    <div class="dropdown-divider"></div>
+    <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out" style="margin-right:6px;"></i>Logout</a></li>
+  </ul>
+</div>
+{% else %}
+                <a href="/account/login"><button type="button" class="btn btn-primary btn-sm mt-2 mt-sm-0 mt-md-0" style="margin-left:6px;"><i class="fa fa-sign-in" style="margin-right:4px;"></i>Login</button></a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show my-0 mt-5" role="alert">
+  <b>{{message}}</b>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+
+  {% block body %}
+  {% endblock body %}
+
+<footer class="text-gray-700 body-font">
+  <div class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-no-wrap flex-wrap flex-col">
+    <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+      <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900" href="/"><img src="{% static 'Pazar Logo.png' %}" alt="Pazar-Aapke Sapno Ka Bazaar" height="100px" width="100px">
+      </a>
+      <p class="mt-2 text-sm text-gray-500">PazarIndia - An Online Business Directory & Management Site</p>
+    </div>
+    <div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center footerLink">
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium text-gray-900 fw-bold tracking-widest text-sm mb-3">Top Categories</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="#">Events</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="#">Doctors</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="#">Daily Needs</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="#">Personal Care</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="#">Business Services</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium text-gray-900 fw-bold tracking-widest text-sm mb-3">Others</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'faq' %}">FAQs</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="/blog">Blogs</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="/about">About Us</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'testimonials' %}">Testimonials</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'plans-pricing' %}">Plans & Pricing</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium text-gray-900 fw-bold tracking-widest text-sm mb-3">Important Links</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'disclaimer' %}">Disclaimer</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'complaints' %}">Complaints</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'privacy-policy' %}">Privacy Policy</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'refund-policy' %}">Refund Policy</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'terms-conditions' %}">Terms & Conditions</a>
+          </li>
+        </nav>
+      </div>
+      <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+        <h2 class="title-font font-medium text-gray-900 fw-bold tracking-widest text-sm mb-3">Support</h2>
+        <nav class="list-none mb-10">
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'help' %}">Help</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'careers' %}">Careers</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'feedback' %}">Feedback</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="/contact">Contact Us</a>
+          </li>
+          <li>
+            <a class="text-gray-600 hover:text-gray-800" href="{% url 'customer-care' %}">Customer Care</a>
+          </li>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray-200">
+    <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
+      <p class="text-gray-500 text-sm text-center sm:text-left">© <script>document.write(new Date().getFullYear())</script> Copyright —
+        <a href="/" rel="noopener noreferrer" class="text-gray-600 ml-1" target="_blank">@ pazarindia.in</a>
+      </p>
+      <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
+        <a class="text-gray-500" href="https://www.facebook.com/mypazarindia/" target="_blank">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500" href="https://www.twitter.com/pazar_india" target="_blank">
+          <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500" href="https://www.instagram.com/__.pazar/" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
+          </svg>
+        </a>
+        <a class="ml-3 text-gray-500" href="https://www.linkedin.com/company/pazar-india/" target="_blank">
+          <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
+            <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+            <circle cx="4" cy="4" r="2" stroke="none"></circle>
+          </svg>
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>
+    <script>
+      var preloader = document.getElementById('loader');
+      function myFunction(){
+        preloader.style.display='none';
+      };
+
+              $(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 2000)
+
+$(document).ready(function(){
+    $(".dropdown").hover(            
+        function() {
+            $('.dropdown-menu, .dropdown-menu-lg-end', this).not('.in .dropdown-menu, .dropdown-menu-lg-end').stop(true,true).slideDown("400");
+            $(this).toggleClass('open');        
+        },
+        function() {
+            $('.dropdown-menu, .dropdown-menu-lg-end', this).not('.in .dropdown-menu, .dropdown-menu-lg-end').stop(true,true).slideUp("400");
+            $(this).toggleClass('open');       
+        }
+    );
+});
+        {% block js %}
+        {% endblock js %}
+    </script>
+    <script src="/static/js/chosen.jquery.min.js"></script>
+    <!-- Optional JavaScript; choose one of the two! -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/static/js/tagsinput.js"></script>
+
+    {% comment %} <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> {% endcomment %}
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

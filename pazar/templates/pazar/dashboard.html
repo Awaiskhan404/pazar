@@ -1,0 +1,282 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Dashboard |
+{% endblock title %}
+
+{% load static %}
+
+{% block css %}
+#autoWrite{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-align:center;
+    font-weight: bolder;
+    font-style: italic;
+}
+.shops{
+    transition: all .4s ease-in-out;
+    box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
+}
+.shops:hover{
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #fb0054 0%, #f55b2a 100%);
+    color:white;
+    transform:scale(1.1);
+}
+.customers{
+    transition: all .4s ease-in-out;
+    box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
+}
+.customers:hover{
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #fc6a0e 0%, #fdb642 100%);
+    color:white;
+    transform:scale(1.1);
+}
+.products{
+    transition: all .4s ease-in-out;
+    box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
+}
+.products:hover{
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #3615e7 0%, #44a2f6 100%);
+    color:white;
+    transform:scale(1.1);
+}
+.blogs{
+    transition: all .4s ease-in-out;
+    box-shadow: 0 0 25px 0 rgba(20, 27, 202, .17)
+}
+.blogs:hover{
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #27b88d 0%, #22dd73 100%);
+    color:white;
+    transform:scale(1.1);
+}
+{% endblock css %}
+
+{% block dashboardactive %}active
+{% endblock dashboardactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<h6 class="text-dark font-weight-bold" id="autoWrites"><marquee>Welcome To Pazar Business Management System</marquee></h6>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-xl-3 col-sm-6 col-12">
+      <div class="card shops mb-5">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-store fa-4x text-warning font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3 class="font-weight-bold">{{user.free_listing_set.all.count}}</h3>
+                <span>Shops 
+                  <span class="dropdown">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Yusei Magic', sans-serif;">
+                      <a class="dropdown-item" href="{% url 'shop-list' %}"><i class="fas fa-th-large mr-2"></i>Listed Shops</a>
+                      <a class="dropdown-item" href="{% url 'Free Listing' %}"><i class="fas fa-plus-circle mr-2"></i>Add Shop</a>
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+      <div class="card products mb-5">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-briefcase fa-4x text-danger font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3 class="font-weight-bold">{{user.product_set.all.count}}</h3>
+                <span>Products
+                  <span class="dropdown">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Yusei Magic', sans-serif;">
+                      <a class="dropdown-item" href="{% url 'product-list' %}"><i class="fas fa-th-large mr-2"></i>Listed Products</a>
+                      <a class="dropdown-item" href="{% url 'product-add' %}"><i class="fas fa-plus-circle mr-2"></i>Add Product</a>
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+      <div class="card shadow customers mb-5">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-users fa-4x text-success font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3 class="font-weight-bold">{{user.customer_set.all.count}}</h3>
+                <span>Customers
+                  <span class="dropdown">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Yusei Magic', sans-serif;">
+                      <a class="dropdown-item" href="{% url 'customer-list' %}"><i class="fas fa-th-large mr-2"></i>Listed Customers</a>
+                      <a class="dropdown-item" href="{% url 'customer-add' %}"><i class="fas fa-plus-circle mr-2"></i>Add Customer</a>
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+      <div class="card shadow blogs mb-5">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-newspaper fa-4x text-info font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3 class="font-weight-bold">{{user.blog_set.all.count}}</h3>
+                <span>Blogs
+                  <span class="dropdown">
+                    <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="font-family: 'Yusei Magic', sans-serif;">
+                      <a class="dropdown-item" href="{% url 'blog-list' %}"><i class="fas fa-th-large mr-2"></i>Posted Articles</a>
+                      <a class="dropdown-item" href="{% url 'writeForUs' %}"><i class="fas fa-plus-circle mr-2"></i>Write Article</a>
+                    </div>
+                  </span> 
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="position: relative; height:45vh;" class="container mt-2">
+  <canvas id="bar-graph"></canvas>
+</div>
+<div class="container mt-5">
+  <div class="row mt-5">
+    <div class="col-md-6">
+      <a href="{% url 'select-supplier' %}" class="btn btn-lg btn-block btn-outline-info mb-2 shadow-sm">New Purchase Bill</a>
+    </div>
+    <div class="col-md-6">
+      <a href="{% url 'select-customer' %}" class="btn btn-lg btn-block btn-outline-info shadow-sm">New Sale Bill</a>
+    </div>
+  </div>
+  <div class="content-section mt-4 mb-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div style="font-style: bold; font-size: 1.3em; border-bottom: 2px solid #007fdd;" class="text-danger">Most Recent Purchases
+        </div><br>
+          {% for item in purchases %}
+            {% if not forloop.first %}
+              <br><div style="border-bottom: 0.5px solid #20c9a6"></div><br>
+            {% endif %}
+            <div class="row">               
+              <div class="col-md-9"> 
+                <p><span class="text-primary font-weight-bold">Bill No-</span> <span class="text-dark" style="font-family: 'Slabo 27px', serif;font-size:1.2rem;">{{ item.pk }}</span></p> 
+                <p><span class="text-primary font-weight-bold">Purchased From-</span> <span class="text-dark" style="font-family: 'Slabo 27px', serif;font-size:1.2rem;">{{ item.supplier.name }}</span></p>
+                <small>{{ item.time|date:"M j Y" }}</small>
+              </div>
+              <div class="col-md-3">
+                <p><span class="text-primary font-weight-bold">Total Price-</span> <span class="text-dark" style="    font-family: 'Slabo 27px', serif;font-size:1.2rem;">{{ item.get_total_price|floatformat:2 }}</span></p>
+                <a href="{% url 'purchase-bill' item.pk %}" class="btn btn-sm btn-warning" style="color:#000;"><i class="fas fa-eye"></i></a> 
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+      <div class="col-md-6">
+        <div style="font-style: bold; font-size: 1.3em; border-bottom: 2px solid #007fdd;" class="text-danger">Most Recent Sales
+        </div><br>
+        {% for item in sales %}
+        {% if not forloop.first %}
+          <br><div style="border-bottom: 0.5px solid #20c9a6;"></div><br>
+        {% endif %}
+        <div class="row">               
+          <div class="col-md-9"> 
+            <p><span class="text-primary font-weight-bold">Bill No-</span> <span class="text-dark" style="font-size:1.2rem;font-family: 'Slabo 27px', serif;">{{ item.pk }}</span></p>
+            <p><span class="text-primary font-weight-bold">Saled To-</span> <span class="text-dark" style="font-size:1.2rem;font-family: 'Slabo 27px', serif;">{{ item.customer.name }}</span></p>
+            <small>{{ item.time|date:"M j Y" }}</small>
+          </div>
+          <div class="col-md-3">
+            <p><span class="text-primary font-weight-bold">Total Price-</span> <span class="text-dark" style="font-size:1.2rem;font-family: 'Slabo 27px', serif;">{{ item.get_total_price|floatformat:2 }}</span></p>  
+            <a href="{% url 'sale-bill' item.pk %}" class="btn btn-sm btn-warning" style="color:#000;"><i class="fas fa-eye"></i></a> 
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+
+{% block script %}
+const text = "Welcome To Pazar Business Management System";
+const autoWrite = document.getElementById('autoWrite');
+let i=0;
+function writeText(){
+  autoWrite.innerText = text.slice(0, i);
+  i++;
+  if (i > text.length){
+    i=0;
+  };
+};
+setInterval(writeText, 100);
+
+
+Chart.defaults.global.defaultFontColor = '#000';
+
+        //configuration for the bar graph
+        var barConfig = {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    backgroundColor: '#20c9a6',
+                    label: 'Stock in Inventory',
+                    data: {{ data|safe }},
+                }],
+                labels: {{ labels|safe }}
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            },
+        };
+
+
+        //runs all charts on loading the webpage
+        window.onload = function() {
+            var ctx = document.getElementById('bar-graph').getContext('2d');
+            window.BarStock = new Chart(ctx, barConfig);
+        };
+{% endblock script %}

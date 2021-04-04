@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Items To Sell |
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block css %}
+.sell-head{
+    height:500px;
+    width:100%;
+}
+.carousel-indicators {
+    bottom: -30px;
+}
+.cards{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.item-card img{
+  height:150px;
+  width:100%;
+}
+
+.item{
+  padding-left:5px;
+  padding-right:5px;
+}
+.item-card{
+  transition:0.5s;
+  cursor:pointer;
+}
+.item-card-title{  
+  font-size:15px;
+  transition:1s;
+  cursor:pointer;
+}
+.item-card-title i{  
+  font-size:15px;
+  transition:1s;
+  cursor:pointer;
+  color:#ffa710
+}
+.card-title i:hover{
+  transform: scale(1.25) rotate(100deg); 
+  color:#18d4ca;
+  
+}
+.cards:hover{
+  transform: scale(1.05);
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+}
+
+.cards::before, .cards::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale3d(0, 0, 1);
+  transition: transform .3s ease-out 0s;
+  background: rgba(255, 255, 255, 0.1);
+  content: '';
+  pointer-events: none;
+}
+.cards::before {
+  transform-origin: left top;
+}
+.cards::after {
+  transform-origin: right bottom;
+}
+.cards:hover::before, .cards:hover::after, .cards:focus::before, .cards:focus::after {
+  transform: scale3d(1, 1, 1);
+}
+.card-img-overlay {
+    top: 35px;
+    left: 5px;
+    width:0;
+}
+.cards-img-overlay {
+    position:absolute;
+    top:0;
+    left:0;
+    width:0;
+    padding:1rem;
+    font-family:calibri;
+}
+#demo img {
+    width:100%;
+    height: 150px;
+}
+.carousel-control-prev {
+    width:5%;
+}
+{% endblock css %}
+
+{% block body %}
+<img src="{% static 'sell.png' %}" class="img-fluid sell-head" alt="Sale Banner">
+<h2 class="text-center text-uppercase fw-bold text-primary mt-2 fs-2" style='font-family:calibri;'>Recent Items</h2>
+<div class="container my-5">
+    <div id="demo" class="carousel slide my-3" data-bs-ride="carousel">
+        <ul class="carousel-indicators">
+            <li data-bs-target="#demo" data-bs-slide-to="0" class="active bg-secondary"></li>
+            {% for i in range %}
+                <li data-bs-target="#demo" data-bs-slide-to="{{i}}" class="bg-secondary"></li>
+            {% endfor %}
+        </ul>
+        <!--Slideshow starts here -->
+        <div class="container carousel-inner no-padding">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-xl-3 col-xs-6 col-sm-6 col-md-6 col-6 mb-4">
+                        <div class="card mr-3">
+                            <img src='{{olx.0.image.url}}' class="card-img-top" alt="Photo of item">
+                            <div class="cards-img-overlay">
+                                <h5><span class="badge bg-danger">New</span></h5>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fs-5 text-dark">{{olx.0.name}}</h5>
+                                <p class="card-text" style="font-family:calibri;">{{olx.0.description|truncatechars:100}}</p>
+                                <a href="{% url 'item-detail' olx.0.pk olx.0.slug %}" class="btn btn-warning mt-3"><i class="fas fa-eye d-none d-sm-none d-sm-inline-block d-md-inline-block mr-1"></i>View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% for i in olx|slice:"1:"%}
+                    <div class="col-xl-3 col-xs-6 col-sm-6 col-md-6 col-6 mb-4">
+                        <div class="card mr-3">
+                            <img src='{{i.image.url}}' class="card-img-top" alt="Photo of item">
+                            <div class="cards-img-overlay">
+                                <h5><span class="badge bg-danger">New</span></h5>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title fs-5 text-dark">{{i.name}}</h5>
+                                <p class="card-text" style="font-family:calibri;">{{i.description|truncatechars:100}}</p>
+                                <a href="{% url 'item-detail' i.pk i.slug %}" class="btn btn-warning mt-3"><i class="fas fa-eye d-none d-sm-none d-sm-inline-block d-md-inline-block mr-1"></i>View</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+                    </div>
+                    </div>
+                    <div class="carousel-item">
+                    <div class="row">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- left and right controls for the slide -->
+            <a class="carousel-control-prev" href="#demo" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon rounded bg-secondary" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#demo" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon rounded bg-secondary" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-light mt-3 p-3">
+    <a href="{% url 'all-category-item' %}"><li class="btn btn-info btn-sm mr-2 ml-3">All Category</li></a>
+    {% for category in categories %}
+        <a href="{% url 'category-item' category.slug %}"><li class="btn btn-outline-dark btn-sm mr-2">{{category.name}}</li></a>
+    {% endfor %}
+  </ol>
+</nav>
+<div class="container mt-2">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="btn btn-primary" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">My Items</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+            {% if request.user.is_authenticated %}
+                <div class="row">
+                    {% for item in userItems %}
+                        <div class="col-md-3 col-sm-6 item">
+                            <div class="cards item-card card-block p-3 mr-3 mb-3">
+                                <h4 class="card-title text-right"><span class="badge">{{item.category.get_html_badge}}</span></h4>
+                                <img src="{{item.image.url}}" alt="Photo of item">
+                                <div class="card-img-overlay">
+                                    <h5><span class="badge bg-info">New</span></h5>
+                                </div>
+                                <h5 class="item-card-title mt-3 mb-3"><b>{{item.name}}</b>&nbsp;&nbsp;  • Price - <i class="fas fa-rupee-sign mr-1"></i><b>{{item.price}}</b></h5>
+                                <p class="cards-text" style="font-family:calibri;">{{item.description|truncatechars:100}}</p>
+                                <div class="d-inline-flex">
+                                <a href="{% url 'item-detail' item.pk item.slug %}"><button class="btn btn-warning btn-sm mt-3 mr-3"><i class="fas fa-eye text-dark mr-1"></i>View</button></a>
+                                {% ifequal request.user item.user %}
+                                    <a href="{% url 'edit-item' item.pk %}"><button class="btn btn-success btn-sm mt-3 mr-3"><i class="fas fa-edit mr-1"></i>Edit</button></a>
+                                    <a href="{% url 'delete-item' item.pk %}"><button class="btn btn-danger btn-sm mt-3"><i class="fas fa-trash mr-1"></i>Delete</button></a>
+                                {% endifequal %}
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                    <p class="font-family:calibri;">You haven't added any items for sell yet.</p>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h3>Login First!</h3>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="container mt-2">
+    <h2 class="text-dark fs-1 mb-2" style="font-family:monospace;">All Items<a href="{% url 'add-item' %}" class="btn btn-dark btn-sm ml-3"><i class="fas fa-plus"></i></a></h2>
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-3 col-sm-6 item">
+                <div class="cards item-card card-block p-3 mr-3 mb-3">
+                    <h4 class="card-title text-right"><span class="badge">{{item.category.get_html_badge}}</span></h4>
+                    <img src="{{item.image.url}}" alt="Photo of item">
+                    <div class="card-img-overlay">
+                        <h5><span class="badge bg-info">New</span></h5>
+                    </div>
+                    <h5 class="item-card-title mt-3 mb-3"><b>{{item.name}}</b>&nbsp;&nbsp;  • Price - <i class="fas fa-rupee-sign mr-1"></i><b>{{item.price}}</b></h5>
+                    <p class="cards-text" style="font-family:calibri;">{{item.description|truncatechars:100}}</p>
+                    <div class="d-inline-flex">
+                    <a href="{% url 'item-detail' item.pk item.slug %}"><button class="btn btn-warning btn-sm mt-3 mr-3"><i class="fas fa-eye text-dark mr-1"></i>View</button></a>
+                    {% ifequal request.user item.user %}
+                        <a href="{% url 'edit-item' item.pk %}"><button class="btn btn-success btn-sm mt-3 mr-3"><i class="fas fa-edit mr-1"></i>Edit</button></a>
+                        <a href="{% url 'delete-item' item.pk %}"><button class="btn btn-danger btn-sm mt-3"><i class="fas fa-trash mr-1"></i>Delete</button></a>
+                    {% endifequal %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="font-family:calibri;">No Items for sell.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}
+

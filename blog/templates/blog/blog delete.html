@@ -1,0 +1,22 @@
+{% extends 'blog/blog base.html' %}
+
+{% block title %}Delete Blog |
+{% endblock title %}
+
+{% block css %}
+em{
+    font-family:Calibri;
+}
+{% endblock css %}
+
+{% block content %}
+<div class="container mt-5 p-5">
+    <h2 class="title">Delete Blog</h2>
+    <form method="POST" style="font-family:cursive;">
+        {% csrf_token %} 
+        <em>Are you sure you want to delete <b>"{{ object }}"</b> ?</em><br>
+        <input type="submit" value="Confirm" class="btn btn-danger shadow-sm btn-block mt-3">
+        <a href="/myBlogs" class="btn btn-warning btn-block shadow-sm mt-3 ms-2"><i class="fa fa-arrow-circle-left me-2"></i>No, take me back!</a>
+    </form> 
+</div>
+{% endblock content %}

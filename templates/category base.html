@@ -1,0 +1,8 @@
+{% load static %}
+<ul class="list-group">
+    <li class="list-group-item list-group-item-action active bg-info border-0"><a style="text-decoration:none;color:white;font-family: 'Baloo Tamma 2', cursive;" href="/categories"><img src="{% static 'All Category Icon.png' %}" alt="Category Icon" style="display:inline-block;" class="img-fluid mr-3">All Category</a></li>
+    
+    {% for category in category %}
+    <li class="list-group-item list-group-item-action"><a style="text-decoration:none; color:black;font-family: 'Baloo Tamma 2', cursive;" href="{% url 'category-detail' category.id category.slug %}">{% if category.icon %}<img class="img-fluid mr-3" src="{{category.icon.url}}" style="height:25px;width:25px;object-fit:scale-down;display:inline-block;" alt="{{category.name}}">{% endif %}{{ category.name }}</a></li>
+    {% endfor %}
+</ul>

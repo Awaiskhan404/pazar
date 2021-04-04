@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Advertise With Us |
+{% endblock title %}
+
+{% block css %}
+.advertise-head{
+    height:400px;
+    width:100%;
+}
+.row{
+    margin-right:0;
+}
+.card-title{
+    font-size:1.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+.card-body{
+    padding:1.1rem;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+{% endblock css %}
+
+
+{% block body %}
+{% comment %} <img src="https://source.unsplash.com/1600x900/?coding" class="img-fluid advertise-head" alt="Advertise With Us"> {% endcomment %}
+<video style="width:100%;height:400px;" class="mt-0 mt-md-5 mt-sm-0" autoplay>
+  <source src="{% static 'video1.mp4' %}" type="video/mp4">
+</video>
+<h2 class="text-center text-uppercase fw-bold fs-3 text-primary mt-4" style="font-family:serif;">Want To Advertise Your Business ?</h2>
+<div class="container mt-2">
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <div class="card mt-2 shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title text-dark mb-2">Add Your Business</h4>
+                <form method="POST" id="advertiseForm" enctype='multipart/form-data' style="padding:1rem;font-family:calibri;" data-subcategory-url="{% url 'ajax_load_subcategory' %}">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                <button type="submit" class="btn btn-primary btn-block btn-lg shadow">Add Your Business</button>
+                </form>
+                {% load mapbox_location_field_tags %}
+                {% location_field_includes %}
+                {% include_jquery %}
+                {{form.media}}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}
+
+{% block js %}
+    $('#id_Business_Category').change(function(){
+        var url = $('#advertiseForm').attr('data-subcategory-url');
+        var categoryId = $(this).val();
+        $.ajax({
+            url: url,
+            data: {
+                'Business_Category': categoryId
+            },
+            success:function(data){
+                $('#my-select').html(data);
+            }
+        });
+    });
+
+    new SlimSelect({
+        select: '#my-select',
+        closeOnSelect: false,
+        searchText: 'Sorry nothing to see here',
+        placeholder:'Choose Business Subcategory'
+})
+
+    new SlimSelect({
+        select: '#service-select',
+        closeOnSelect: false,
+        searchText: 'Sorry nothing to see here',
+        placeholder:'Choose Business Services'
+})
+
+new SlimSelect({
+    select: '.chosen-select',
+    allowDeselect: true,
+    deselectLabel: '<span style="color:blue;">✖</span>'
+})
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ1bjYzNjQiLCJhIjoiY2tqNzFvbzg1NmYybDJ4cWpueGNwNmRneCJ9.ViyuoINx3lLERUsD9Hswlw';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11'
+});
+{% endblock js %}

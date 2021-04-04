@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}{{categories.name}} |
+{% endblock title %}
+
+{% block meta %}
+<meta name="title" content="{{categories.title}}">
+<meta name="description" content="{{categories.SEO_Description}}">
+<link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta name="keywords" content="{{categories.keywords}}">
+<meta property="og:title" content="{{categories.title}}">
+<meta property="og:type" content="company" />
+<meta property="og:description" content="{{categories.SEO_Description}}">
+{% if categories.image %}
+<meta property="og:image" content="{{categories.image.url}}">
+{% endif %}
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+{% if categories.image %}
+<meta name="twitter:image" content="{{categories.image.url}}">
+{% endif %}
+{% if categories.image %}
+<meta name="twitter:card" content="{{categories.image.url}}">
+{% endif %}
+<meta name="twitter:image:alt" content="{{categories.title}}">
+{% if categories.image %}
+<meta name="twitter:image:src" content="{{categories.image.url}}">
+{% endif %}
+<meta itemprop="name" content="{{categories.title}}">
+<meta itemprop="description" content="{{categories.SEO_Description}}">
+{% if categories.image %}
+<meta itemprop="image" content="{{categories.image.url}}">
+{% endif %}
+<meta itemscope itemtype="http://schema.org/Company">
+<meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+{% endblock meta %}
+
+{% block css %}
+.subcategory-head{
+    height:500px;
+    width:100%;
+}
+{% endblock css %}
+
+{% block body %}
+{% if categories.cover %}
+<img src="{{categories.cover.url}}" class="img-fluid subcategory-head" alt="{{categories.name}}">
+{% endif %}
+<div class="container-fluid mt-5 p-3">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <nav class="navbar navbar-expand-lg navbar-light" style="padding:0;">
+                <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    {% include 'category base.html' %}
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-10">
+                <div class="row product-row mx-auto mb-2">
+                    {% for subcategory in categories.subcategory_set.all %}
+                    <div id="{{ subcategory.id }}" class="col-md-4 mb-4">
+                        <div class="card product-card mb-2 shadow-sm border-0">
+                        {% if subcategory.image %}
+                            <img class="card-img-top" src="{{ subcategory.image.url }}" alt="{{subcategory.name}}" style="height:300px;">
+                        {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title h5" style="font-family: 'Baloo Tamma 2', cursive;">{{subcategory.name}}</h5>
+                                <p class="card-text" style="font-family: 'Roboto', sans-serif;">{{subcategory.description|truncatechars:190}}</p>
+                                <a href="{% url 'subcategory-detail' subcategory.id subcategory.slug %}"><button type="button" class="btn btn-info"><i class="fas fa-arrow-right"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p style="font-family:calibri;">No Subcategories yet.</p>
+                    {% endfor %}
+                </div>
+                </div>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}{{item.name}} |
+{% endblock title %}
+
+{% block meta %}
+<meta name="title" content="{{item.title}}">
+<meta name="description" content="{{item.SEO_Description}}">
+<link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta name="keywords" content="{{item.keywords}}">
+<meta property="og:title" content="{{item.title}}">
+<meta property="og:type" content="company" />
+<meta property="og:description" content="{{item.SEO_Description}}">
+{% if item.image %}
+<meta property="og:image" content="{{item.image.url}}">
+{% endif %}
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+{% if item.image %}
+<meta name="twitter:image" content="{{item.image.url}}">
+{% endif %}
+{% if item.image %}
+<meta name="twitter:card" content="{{item.image.url}}">
+{% endif %}
+<meta name="twitter:image:alt" content="{{item.title}}">
+{% if item.image %}
+<meta name="twitter:image:src" content="{{item.image.url}}">
+{% endif %}
+<meta itemprop="name" content="{{item.title}}">
+<meta itemprop="description" content="{{item.SEO_Description}}">
+{% if item.image %}
+<meta itemprop="image" content="{{item.image.url}}">
+{% endif %}
+<meta itemscope itemtype="http://schema.org/Company">
+<meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+{% endblock meta %}
+
+{% block css %}
+/* ------------------------------- */
+/* Media Section
+---------------------------------- */
+.media {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.d-flex {
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+.media .mr-3{
+  margin-right: 1rem !important;
+}
+.media img{
+  width: 48px !important;
+  height: 48px !important;
+  padding: 2px;
+  border: 2px solid #f4f4f4;
+} 
+.media-body {
+  -ms-flex: 1;
+  flex: 1;
+  padding: .4rem !important;
+}
+.media-body p{
+  font-family: 'Rokkitt', serif;	
+  font-weight: 900 !important;
+  font-size: 16px;
+  color: #88898a;
+}
+.media-body small span{
+  font-family: 'Rokkitt', serif;	
+  font-size: 12px;
+  color: #aaa;
+  margin-right: 10px;
+}
+{% endblock css %}
+
+{% block body %}
+<section>
+<div class="container py-5 mt-5">
+    <div class="card">
+        <div class="row ">
+            <div class="col-md-4">
+                <img src="{{item.image.url}}" class="w-100">
+            </div>
+            <div class="col-md-8 p-3">
+                <div class="card-block p-3">
+                    <h3 class="card-heading fs-2 mb-0" style="font-family: 'Lexend Mega', sans-serif;">{{item.name}}</h3>
+                    <small>{{item.category.get_html_badge}}</small>
+                    <p class="card-text lh-base fs-5" style="font-family:calibri;">{{item.description}}</p>
+                    <p class="card-text mt-2"><i class="fas fa-rupee-sign fa-2x mr-2"></i><span class="fw-bold fs-4">{{item.price}}<span></p>
+                    <p class="fs-5">Quantity: <b>{{item.quantity}} </b> Piece</p>
+                    <p class="card-text mt-2 fw-bold text-secondary">Seller Contacts</p>
+                    <p class="mt-2">
+                    <a href="tel:{{item.user.profile.phone_no}}"><button class="btn btn-light btn-sm mr-3" data-toggle="tooltip" title="Call Us"><i class="fas fa-phone-square-alt fa-2x text-info"></i></button></a>
+                    <a href="mailto:{{item.user.email}}"><button class="btn btn-light btn-sm mr-3" data-toggle="tooltip" title="Mail Us"><i class="far fa-envelope-open fa-2x text-warning"></i></button></a>
+                    <a href="https://api.whatsapp.com/send?phone=91{{item.user.profile.whatsapp}}"><button class="btn btn-light btn-sm" data-toggle="tooltip" title="What's App Us"><i class="fab fa-whatsapp-square fa-2x text-success"></i></button></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <div class="media m-0">
+            <div class="d-flex mr-3">
+              <a href="{% url 'profile-detail' item.user.profile.pk item.user.profile.slug %}"><img class="img-fluid rounded-circle" src="{{item.user.profile.pic.url}}" alt="Item User"></a>
+            </div>
+            <div class="media-body">
+              <p class="m-0 mb-0 text-dark fw-bold">{{item.user.get_full_name}}</p>
+              <small><span><i class="far fa-clock mr-1"></i>Member Since {{item.user.profile.created_at|date:'F j Y'}}</span></small>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title fs-5">Seller Details</h5>
+          <h5 class="card-title fw-bold" style="font-family:calibri;">Phone</h5>
+          <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-mobile me-2"></i>{{item.user.profile.phone_no}}</p>
+          <h5 class="card-title fw-bold" style="font-family:calibri;">Address</h5>
+          <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-map-marker-alt me-2"></i>{{item.user.profile.address}}</p>
+          <h5 class="card-title fw-bold" style="font-family:calibri;">E-Mail</h5>
+          <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="far fa-envelope me-2"></i>{{item.user.email}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+{% endblock js %}

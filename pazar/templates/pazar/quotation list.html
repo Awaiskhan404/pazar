@@ -1,0 +1,86 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Quotations List | 
+{% endblock title %}
+
+{% block quotationsactive %}active
+{% endblock quotationsactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Quotations List</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Quotations List <a class="btn btn-dark btn-sm mx-1" href="{% url 'select-quote-customer' %}"><i class="fas fa-plus-circle"></i></a></h2>
+</div>
+<div class="container mt-2">
+    <div class="col-md-12 col-sm-12">
+        <div class="table-responsive-md table-responsive-sm table-responsive-lg">
+            <table class="table table-striped table-hover shadow-sm">
+                <caption>Quotations List</caption>
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">Quote No</th>
+                    <th scope="col">Shop</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Items</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                {% if quotations %}
+                <tbody>
+                    {% for quote in quotations %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{quote.shop.Business_Name}}</td>
+                        <td><a href="{% url 'customer' quote.customer.name %}">{{quote.customer.name}}</a><br><small>Ph No : {{quote.customer.phone}}</small></td>
+                        <td>{% for item in quote.get_items_list %}{{item.product.name}}<br>{% endfor %}</td>
+                        <td>{% for item in quote.get_items_list %}{{item.quantity}}<br>{% endfor %}</td>
+                        <td>{{quote.get_total_price|floatformat:2}}</td>
+                        <td>{{quote.date|date:"j F Y"}}</td>
+                        <td class="d-inline-flex">
+                            <a class="btn-sm btn-warning mx-1" href="{% url 'quotation-bill' quote.pk %}"><i class="far fa-eye"></i></a>
+                            <a class="btn-sm btn-danger mx-1" href="{% url 'delete-quote' quote.pk %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="align-middle">
+                {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+                {% endif %}
+            </div>
+            {% else %}
+            <tbody></tbody>
+            </table>
+            <div style="color: #007fdd; font-style: bold; font-size: 1.3rem; text-align: center;">WOW, SUCH EMPTY! You haven't added yet.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

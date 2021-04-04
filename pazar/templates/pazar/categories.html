@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}All Categories |
+{% endblock title %}
+
+{% block categoryactive %}active
+{% endblock categoryactive %}
+
+{% block meta %}
+<meta name="title" content="">
+<meta name="description" content="">
+<link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta name="keywords" content="{% for cat in category %}{{cat.keywords}}{% endfor %}">
+<meta property="og:title" content="">
+<meta property="og:type" content="company" />
+<meta property="og:description" content="">
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+<meta itemprop="name" content="">
+<meta itemprop="description" content="">
+<meta itemscope itemtype="http://schema.org/Company">
+<meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+{% endblock meta %}
+
+{% block css %}
+.category-head{
+    height:500px;
+    width:100%;
+    object-fit:contain;
+}
+{% endblock css %}
+
+{% block body %}
+<img src="{% static 'all category.jpeg' %}" class="img-fluid category-head" alt="All Category">
+<h2 class="text-center text-uppercase fw-bold text-primary mt-2 fs-3">All Categories</h2>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <nav class="navbar navbar-expand-lg navbar-light" style="padding:0;">
+                <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-action active bg-info border-0"><a style="text-decoration:none;color:white;font-family: 'Baloo Tamma 2', cursive;" href="/categories"><img src="{% static 'All Category Icon.png' %}" alt="Category Icon" style="display:inline-block;" class="img-fluid mr-3">All Category</a></li>
+                        {% for category in category %}
+                        <li class="list-group-item list-group-item-action"><a style="text-decoration:none; color:black;font-family: 'Baloo Tamma 2', cursive;" href="category/{{category.id}}/{{category.slug}}">{% if category.icon %}<img class="img-fluid mr-3" src="{{category.icon.url}}" style="height:25px;width:25px;object-fit:scale-down;display:inline-block;" alt="{{category.name}}">{% endif %}{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-10">
+            <div class="row product-row mx-auto mb-2">
+                    {% for category in category %}
+                    <div id="{{ category.id }}" class="col-md-4 mb-4">
+                        <div class="card product-card mb-2 shadow-sm border-0">
+                        {% if category.image %}
+                            <img class="card-img-top" src="{{ category.image.url }}" alt="{{category.name}}" style="height:300px;">
+                        {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title h5" style="font-family: 'Baloo Tamma 2', cursive;">{{category.name}}</h5>
+                                <p class="card-text" style="font-family: 'Roboto', sans-serif;">{{category.description|truncatechars:190}}</p>
+                                {{category.get_html_badge}}
+                                <a href="{% url 'category-detail' category.id category.slug %}"><button type="button" class="btn btn-info" style="float:right;"><i class="fas fa-arrow-right"></i></button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="font-family:calibri;">No any category yet.</p>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

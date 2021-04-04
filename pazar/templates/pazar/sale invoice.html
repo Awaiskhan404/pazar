@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}" sizes="32x32" />
+    <link rel="icon" sizes="192x192" href="{% static 'Pazar Favicon.ico' %}" />
+    <title>Sale Bill-{{bill.pk}} | Pazar - Aapke Sapno Ka Bazaar</title>
+    <style type="text/css">
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -.75rem;
+    margin-left: -.75rem;
+}
+.col-md-4 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;}
+
+.bg{
+    color: #000;
+}
+
+/*Invoice*/
+.invoice .top-left {
+	color:#3ba0ff;
+}
+
+.invoice .top-right {
+	text-align:right;
+	padding-right:20px;
+}
+
+.invoice .payment-info {
+	font-weight:500;
+}
+.invoice .invoice-total {
+	margin-right:-10px;
+	font-size:14px;
+    float:right;
+}
+
+.invoice .last-row {
+	border-bottom:1px solid #ddd;
+}
+
+.invoice-ribbon {
+	width:85px;
+	height:88px;
+	overflow:hidden;
+	position:absolute;
+	top:-44px;
+	right:-43px;
+}
+
+.ribbon-inner {
+	text-align:center;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	position:relative;
+	padding:7px 0;
+	left:-5px;
+	top:11px;
+	width:120px;
+	background-color:#f6c23e;
+	font-size:15px;
+  	font-weight:900;
+	color:#000;
+}
+
+.ribbon-inner:before,.ribbon-inner:after {
+	content:"";
+	position:absolute;
+}
+
+.ribbon-inner:before {
+	left:0;
+}
+
+.ribbon-inner:after {
+	right:0;
+}
+
+.row{
+  margin-right:0;
+}
+caption{
+  caption-side:top;
+}
+.thank{
+	font-family: 'Dancing Script', cursive;
+	color:#36b9cc;
+}
+.fonts{
+	font-family: 'Slabo 27px', serif;
+}
+.text-primary{
+    color:#007fdd;
+}
+.font-weight-bold{
+    font-weight:500;
+}
+    </style>
+</head>
+<body>
+    <div id="printArea" class="bg">
+        <div class="card p-5 border border-secondary">
+            <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default invoice" id="invoice">
+                          <div class="panel-body">
+                            <div class="invoice-ribbon">
+                                <div class="ribbon-inner">NEW</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6 top-right">
+                                    <h3 class="marginright">INVOICE NO.- {{bill.pk}}</h3>
+                                    <span class="marginright">ISSUE DATE - {{bill.time|date:"j F Y"}}</span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-4 col-md-4 from">
+                                    <p class="lead marginbottom payment-info">From- <span style="font-family: 'Yusei Magic', sans-serif;">{{bill.user.get_full_name}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Address-</span> <span class="fonts">{{bill.shop.Business_Address}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Phone-</span> <span class="fonts">{{bill.shop.Business_Telephone}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Email-</span> <span class="fonts">{{bill.shop.Business_Email}}</span></p>
+                                </div>
+                                <div class="col-xs-4 col-md-4 to">
+                                    <p class="lead marginbottom payment-info">To- <span style="font-family: 'Yusei Magic', sans-serif;">{{bill.customer.name}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Address-</span> <span class="fonts">{{bill.customer.address}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Phone-</span> <span class="fonts">{{bill.customer.phone}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Email-</span> <span class="fonts">{{bill.customer.email}}</span></p>
+                                </div>
+                                <div class="col-xs-4 col-md-4 text-right payment-details">
+                                    <p class="lead marginbottom payment-info">Payment details</p>
+                                    <p><span class="text-primary font-weight-bold">Date-</span> <span class="fonts">{{bill.time|date:"j F Y"}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">GSTIN-</span> <span class="fonts">{{bill.customer.gstin}}</span></p>
+                                    <p><span class="text-primary font-weight-bold">Total Amount-</span> <i class="fas fa-rupee-sign mr-1"></i><span class="fonts">{{bill.get_total_price|floatformat:2}}</span></p>
+                                </div>
+                            </div>
+                              <div class="table-responsive mt-3">
+                                <table class="table table-striped table-borderless table-hover caption-top">
+                                    <caption class="font-weight-bold">List of Purchases Items</caption>
+                                    <thead class="thead-dark">
+                                        <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Item HSN Code</th>
+                                        <th scope="col">Item Quantity</th>
+                                        <th scope="col">Per item price</th>
+                                        <th scope="col">Subtotal Price</th>
+                                        <th scope="col">GST (in %)</th>
+                                        <th scope="col">GST Amount</th>
+                                        <th scope="col">Discount (in %)</th>
+                                        <th scope="col">Discount Amount</th>
+                                        <th scope="col">Total Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in items %}
+                                        <tr>
+                                            <th scope="row">{{forloop.counter}}</th>
+                                            <td>{{item.stock.name}}</td>
+                                            <td>{{item.stock.hsn}}</td>
+                                            <td>{{item.quantity|floatformat:0}}</td>
+                                            <td>{{item.perPrice}}</td>
+                                            <td>{{item.subTotalPrice|floatformat:2}}</td>
+                                            <td>{{item.gst}}</td>
+                                            <td>{{item.gstAmount|floatformat:2}}</td>
+                                            <td>{{item.discount}}</td>
+                                            <td>{{item.discountAmount|floatformat:2}}</td>
+                                            <td>{{item.totalPrice|floatformat:2}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                              </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-md-6 text-right pull-right invoice-total">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item"><p><span class="text-primary font-weight-bold">Subtotal-</span> <span class="fonts">{{bill.get_subtotal_price}}</span></p></li>
+                                        <li class="list-group-item"><p><span class="text-primary font-weight-bold">Discount ({{bill.discount}}%)-</span> <span class="fonts">{{bill.discount_amount}}</span></p></li>
+                                        <li class="list-group-item"><p><span class="text-primary font-weight-bold">GST ({{bill.gst}}%)-</span> <span class="fonts">{{bill.gst_amount}}</span></p></li>
+                                        <li class="list-group-item"><p><span class="text-primary font-weight-bold">Total-</span> <span class="fonts font-weight-bold"><i class="fas fa-rupee-sign mr-1"></i>{{bill.get_total_price|floatformat:2}}</span></p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+            function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }   
+</script>
+</body>
+</html>

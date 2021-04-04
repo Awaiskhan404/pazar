@@ -1,0 +1,543 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home |
+{% endblock title %}
+
+{% block meta %}
+<meta name="title" content="Pazar - Aapke Sapno Ka Bazaar">
+<meta name="description" content="PazarIndia - An Online Business Directory & Management Site">
+<link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta name="keywords" content="PazarIndia - An Online Business Directory & Management Site">
+<meta property="og:title" content="Home | Pazar - Aapke Sapno Ka Bazaar">
+<meta property="og:type" content="company" />
+<meta property="og:description" content="PazarIndia - An Online Business Directory & Management Site">
+<meta property="og:image" content="{% static 'Pazar Logo.png' %}">
+<meta property="og:image:width" content="500" />
+<meta property="og:image:height" content="500" />
+<meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+<meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+<meta name="twitter:title" content="Home | Pazar - Aapke Sapno Ka Bazaar">
+<meta name="twitter:description" content="PazarIndia - An Online Business Directory & Management Site">
+<meta name="twitter:image" content="{% static 'Pazar Logo.png' %}">
+<meta name="twitter:card" content="{% static 'Pazar Logo.png' %}">
+<meta name="twitter:image:alt" content="Pazar - Aapke Sapno Ka Bazaar">
+<meta name="twitter:image:src" content="{% static 'Pazar Logo.png' %}">
+<meta itemprop="name" content="Home | Pazar - Aapke Sapno Ka Bazaar">
+<meta itemprop="description" content="PazarIndia - An Online Business Directory & Management Site">
+<meta itemprop="image" content="{% static 'Pazar Logo.png' %}">
+<meta itemscope itemtype="http://schema.org/Company">
+<meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+{% endblock meta %}
+
+{% block homeactive %}active
+{% endblock homeactive %}
+
+{% block css %}
+.card{
+    margin:4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    transition:0.5s ease;
+}
+
+.card img{
+  max-height:200px;
+}
+
+.carousel-item img{
+  height:500px;
+}
+
+.card:hover{
+     transform: scale(1.05);
+     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.card-text{
+  font-family:calibri;
+}
+
+.add-to-cart{
+  background: #ff9f1a;
+  padding: 0.7em 1.2em;
+  border: none;
+  font-weight: bold;
+  color: #000;
+  -webkit-transition: background .3s ease;
+          transition: background .3s ease; 
+}
+
+.add-to-cart:hover{
+    background: #b36800;
+    color: #fff; 
+}
+
+div.rating {
+    width: 160px;
+}
+
+input.star {
+    display: none
+}
+
+label.star {
+    float: right;
+    padding: 0 3px;
+    font-size: 23px;
+    color: #4A148C;
+    transition: all .2s
+}
+
+input.star:checked~label.star:before {
+    content: '\f005';
+    color: #FD4;
+    transition: all .25s
+}
+
+input.star-5:checked~label.star:before {
+    color: #FE7;
+    text-shadow: 0 0 20px #952
+}
+
+input.star-1:checked~label.star:before {
+    color: #F62
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3)
+}
+
+label.star:before {
+    content: '\f006';
+    font-family: FontAwesome
+}
+
+.yellow-fill{
+  color:#ffc107;
+}
+.card img{
+  max-height:250px;
+}
+.card-img-overlay{
+  width:0px;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container-fluid p-0">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
+    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
+    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+    <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'home.png' %}" class="d-block w-100" alt="Home">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'home1.png' %}" class="d-block w-100" alt="Home">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'blog2.jpeg' %}" class="d-block w-100" alt="Home" style="margin-top:35px;">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'home2.jpeg' %}" class="d-block w-100" alt="Home">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </a>
+</div>
+</div>
+{% if user.is_authenticated and user.is_shop_owner %}
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">What Are You Looking For?</h2>
+<div class="container">
+<div class="album py-5 bg-light rounded">
+  <div class="container">
+      <div class="row">
+        {% for cat in categories %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow p-3">
+            {% if cat.image %}
+             <img src="{{cat.image.url}}" class="d-block w-100" alt="">
+             {% endif %}
+            <div class="card-body">
+            <h3 class="card-title fw-bold">{{cat.name}}</h3>
+              <p class="card-text">{{cat.description|truncatechars:190}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'category-detail' cat.id cat.slug %}" style='font-family:calibri;'><button type="button" class="btn btn-sm btn-primary mt-2">View</button></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p style="font-family:calibri;">No categories yet.</p>
+        {% endfor %}
+      </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="/categories"><button type="button" class="btn btn-primary btn-sm btn-block">See all<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if user.is_authenticated and user.is_user %}
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">Interested Categories</h2>
+<div class="container">
+  <div class="album py-5 bg-light rounded">
+    <div class="container">
+    <div class="row">
+      {% for cat in interests %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow p-3">
+            {% if cat.image %}
+            <img src="{{cat.image.url}}" class="d-block w-100" alt="{{cat.name}}">
+            {% endif %}
+            <div class="card-body">
+              <h3 class="card-title fw-bold">{{cat.name}}</h3>
+              <p class="card-text">{{cat.description|truncatechars:190}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a href="{% url 'category-detail' cat.id cat.slug %}" style='font-family:calibri;'><button type="button" class="btn btn-sm btn-primary mt-2">View</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p style="font-family:calibri;">No interested categories.</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="{% url 'interested_categories' %}"><button type="button" class="btn btn-sm btn-primary btn-block">See all<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if user.is_authenticated and user.is_shop_owner %}
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">Recent Listings</h2>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12 col-md-12">
+    {% for listing in advertisement %}
+            <div class="card mb-4 border-0 shadow" style="max-width: 1200px;">
+                <div class="row g-0">
+                    <div class="col-md-4 p-2">
+                        <img src="{{listing.Business_Logo.url}}" alt="{{listing.Business_Name}}" class="img-fluid shadow-sm rounded img-responsive" style="height:100%;width:100%;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-7">
+                                    <a href="{{listing.Added_by.profile.get_absolute_url}}"><span class="text-muted"><img src="{{listing.Added_by.profile.pic.url}}" style="height:30px;width:30px;display:inline-block;" class="rounded-circle"><small style="font-size:1.1rem;font-family: 'Redressed', cursive;" class="ml-2 text-info">{{listing.Added_by.get_full_name}}</small></span></a>
+                                    <h5 class="card-title h4 text-dark mb-0" style="font-family: 'Cormorant', serif;">{{listing.Business_Name}}{% if listing.verified == 1 %}<img src="{% static 'correct.png' %}" style="height:20px;width:20px;display:inline-block;margin-left:5px;vertical-align:middle;user-select:none;pointer-events:none;">{% endif %}</h5>
+                                    <div class="rating">
+                                        <div class="stars">
+                                            <i class="{% if listing.averagereview < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <span><button class="btn-success text-light btn-sm" style="user-select:none;">{{listing.averagereview | stringformat:".2f"}}</button></span>
+                                        </div>                                        
+                                    </div>
+                                    <small class="text-secondary"><i class="far fa-clock mr-2"></i>{{listing.Added_at|timesince}} ago</small>&nbsp
+                                    <small class="text-secondary"><i class="far fa-eye mr-1"></i>{{listing.view}}</small>                                    
+                                </div>
+                                <div class="col-5 d-flex justify-content-end">
+                                    <a href="tel:{{listing.Business_Telephone}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Call Us"><i class="fas fa-phone-alt fa-2x" style="color:blue;"></i></a>
+                                    <a href="mailto:{{listing.Business_Email}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Mail Us"><i class="fas fa-envelope-open-text fa-2x"></i></a>
+                                    <a href="https://api.whatsapp.com/send?phone=91{{listing.Business_WhatsApp}}&text=Hello%20{{listing.Listed_by.get_full_name}}%20!%20I %20want%20to%20talk%20to%20you.%20Please%20respond." class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="What's App Us"><i class="fab fa-whatsapp fa-2x" style="color: #4fce5d;"></i></a>
+                                </div>
+                            </div>
+                            <p>{{listing.Business_Category.get_html_badge}}</p>
+                            <p class="text-secondary mt-2 mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-hashtag mr-3 text-info"></i>
+                            {% for i in listing.Business_Subcategory.all %}
+                            {{i.name}}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                            </p>                            
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-phone-square-alt mr-3 text-info"></i>{{listing.Business_Telephone}}</p>
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-location-arrow mr-3 text-info"></i>{% if listing.Address %}{{listing.Address}}{% else %}{{listing.Business_Address}}{% endif %}</p>                            
+                            <p class="card-text mb-2" style="font-family: 'Roboto', sans-serif;">{{listing.Business_Description|truncatewords:25}}</p>
+                            <a class="btn add-to-cart" type="button" href="{% url 'listing-detail' listing.id listing.slug %}">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+      {% for listing in listing %}
+            <div class="card mb-3 border-0 shadow" style="max-width: 1500px;">
+                <div class="row g-0">
+                    <div class="col-md-4 p-2">
+                        <img src="{{listing.Business_Logo.url}}" alt="{{listing.Business_Name}}" class="img-fluid shadow-sm rounded img-responsive" style="height:100%;width:100%;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-7">
+                                    <a href="{{listing.Listed_by.profile.get_absolute_url}}"><span class="text-muted"><img src="{{listing.Listed_by.profile.pic.url}}" style="height:30px;width:30px;display:inline-block;" class="rounded-circle"><small style="font-size:1.1rem;font-family: 'Redressed', cursive;" class="ml-2 text-info">{{listing.Listed_by.get_full_name}}</small></span></a>
+                                    <h5 class="card-title h4 text-dark mb-0" style="font-family: 'Cormorant', serif;">{{listing.Business_Name}}</h5>
+                                    <div class="rating">
+                                        <div class="stars">
+                                            <i class="{% if listing.averagereview < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <span><button class="btn-success text-light btn-sm" style="user-select:none;">{{listing.averagereview | stringformat:".2f"}}</button></span>
+                                        </div>                                        
+                                    </div>
+                                    <small class="text-secondary"><i class="far fa-clock mr-2"></i>{{listing.Listed_at|timesince}} ago</small>&nbsp
+                                    <small class="text-secondary"><i class="far fa-eye mr-1"></i>{{listing.view}}</small>                                    
+                                </div>
+                                <div class="col-5 d-flex justify-content-end">
+                                    <a href="tel:{{listing.Business_Telephone}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Call Us"><i class="fas fa-phone-alt fa-2x" style="color:blue;"></i></a>
+                                    <a href="mailto:{{listing.Business_Email}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Mail Us"><i class="fas fa-envelope-open-text fa-2x"></i></a>
+                                    <a href="https://wa.me/{{listing.Business_WhatsApp}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="What's App Us"><i class="fab fa-whatsapp fa-2x" style="color: #4fce5d;"></i></a>
+                                </div>
+                            </div>
+                            <p>{{listing.Business_Category.get_html_badge}}</p>
+                            <p class="text-secondary mt-2 mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-hashtag mr-3 text-info"></i>
+                            {% for i in listing.Business_Subcategory.all %}
+                            {{i.name}}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                            </p>                            
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-phone-square-alt mr-3 text-info"></i>{{listing.Business_Telephone}}</p>
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-location-arrow mr-3 text-info"></i>{{listing.Business_Address}}</p>                            
+                            <p class="card-text mb-2" style="font-family: 'Roboto', sans-serif;">{{listing.Business_Description|truncatewords:25}}</p>
+                            <a class="btn add-to-cart" type="button" href="{% url 'listing-detail' listing.id listing.slug %}">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+  </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="{% url 'listings' %}"><button type="button" class="btn btn-primary btn-sm btn-block mt-3 mb-5">See All<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+</div>
+{% endif %}
+{% if user.is_authenticated and user.is_user %}
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">Interested Listings</h2>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12 col-md-12">
+
+    {% for listing in advertise %}
+            <div class="card mb-4 border-0 shadow" style="max-width: 1200px;">
+                <div class="row g-0">
+                    <div class="col-md-4 p-2">
+                        <img src="{{listing.Business_Logo.url}}" alt="{{listing.Business_Name}}" class="img-fluid shadow-sm rounded img-responsive" style="height:100%;width:100%;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-7">
+                                    <a href="{{listing.Added_by.profile.get_absolute_url}}"><span class="text-muted"><img src="{{listing.Added_by.profile.pic.url}}" style="height:30px;width:30px;display:inline-block;" class="rounded-circle"><small style="font-size:1.1rem;font-family: 'Redressed', cursive;" class="ml-2 text-info">{{listing.Added_by.get_full_name}}</small></span></a>
+                                    <h5 class="card-title h4 text-dark mb-0" style="font-family: 'Cormorant', serif;">{{listing.Business_Name}}{% if listing.verified == 1 %}<img src="{% static 'correct.png' %}" style="height:20px;width:20px;display:inline-block;margin-left:5px;vertical-align:middle;user-select:none;pointer-events:none;">{% endif %}</h5>
+                                    <div class="rating">
+                                        <div class="stars">
+                                            <i class="{% if listing.averagereview < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <span><button class="btn-success text-light btn-sm" style="user-select:none;">{{listing.averagereview | stringformat:".2f"}}</button></span>
+                                        </div>                                        
+                                    </div>
+                                    <small class="text-secondary"><i class="far fa-clock mr-2"></i>{{listing.Added_at|timesince}} ago</small>&nbsp
+                                    <small class="text-secondary"><i class="far fa-eye mr-1"></i>{{listing.view}}</small>                                    
+                                </div>
+                                <div class="col-5 d-flex justify-content-end">
+                                    <a href="tel:{{listing.Business_Telephone}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Call Us"><i class="fas fa-phone-alt fa-2x" style="color:blue;"></i></a>
+                                    <a href="mailto:{{listing.Business_Email}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Mail Us"><i class="fas fa-envelope-open-text fa-2x"></i></a>
+                                    <a href="https://api.whatsapp.com/send?phone=91{{listing.Business_WhatsApp}}&text=Hello%20{{listing.Listed_by.get_full_name}}%20!%20I %20want%20to%20talk%20to%20you.%20Please%20respond." class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="What's App Us"><i class="fab fa-whatsapp fa-2x" style="color: #4fce5d;"></i></a>
+                                </div>
+                            </div>
+                            <p>{{listing.Business_Category.get_html_badge}}</p>
+                            <p class="text-secondary mt-2 mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-hashtag mr-3 text-info"></i>
+                            {% for i in listing.Business_Subcategory.all %}
+                            {{i.name}}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                            </p>                            
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-phone-square-alt mr-3 text-info"></i>{{listing.Business_Telephone}}</p>
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-location-arrow mr-3 text-info"></i>{% if listing.Address %}{{listing.Address}}{% else %}{{listing.Business_Address}}{% endif %}</p>                            
+                            <p class="card-text mb-2" style="font-family: 'Roboto', sans-serif;">{{listing.Business_Description|truncatewords:25}}</p>
+                            <a class="btn add-to-cart" type="button" href="{% url 'listing-detail' listing.id listing.slug %}">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+      {% for listing in listings %}
+            <div class="card mb-3 border-0 shadow" style="max-width: 1500px;">
+                <div class="row g-0">
+                    <div class="col-md-4 p-2">
+                        <img src="{{listing.Business_Logo.url}}" alt="{{listing.Business_Name}}" class="img-fluid shadow-sm rounded img-responsive" style="height:100%;width:100%;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="col-7">
+                                    <a href="{{listing.Listed_by.profile.get_absolute_url}}"><span class="text-muted"><img src="{{listing.Listed_by.profile.pic.url}}" style="height:30px;width:30px;display:inline-block;" class="rounded-circle"><small style="font-size:1.1rem;font-family: 'Redressed', cursive;" class="ml-2 text-info">{{listing.Listed_by.get_full_name}}</small></span></a>
+                                    <h5 class="card-title h4 text-dark mb-0" style="font-family: 'Cormorant', serif;">{{listing.Business_Name}}</h5>
+                                    <div class="rating">
+                                        <div class="stars">
+                                            <i class="{% if listing.averagereview < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <i class="{% if listing.averagereview < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                            <span><button class="btn-success text-light btn-sm" style="user-select:none;">{{listing.averagereview | stringformat:".2f"}}</button></span>
+                                        </div>                                        
+                                    </div>
+                                    <small class="text-secondary"><i class="far fa-clock mr-2"></i>{{listing.Listed_at|timesince}} ago</small>&nbsp
+                                    <small class="text-secondary"><i class="far fa-eye mr-1"></i>{{listing.view}}</small>                                    
+                                </div>
+                                <div class="col-5 d-flex justify-content-end">
+                                    <a href="tel:{{listing.Business_Telephone}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Call Us"><i class="fas fa-phone-alt fa-2x" style="color:blue;"></i></a>
+                                    <a href="mailto:{{listing.Business_Email}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="Mail Us"><i class="fas fa-envelope-open-text fa-2x"></i></a>
+                                    <a href="https://wa.me/{{listing.Business_WhatsApp}}" class="btn btn-light ml-3" data-toggle="tooltip" data-bs-placement="bottom" title="What's App Us"><i class="fab fa-whatsapp fa-2x" style="color: #4fce5d;"></i></a>
+                                </div>
+                            </div>
+                            <p>{{listing.Business_Category.get_html_badge}}</p>
+                            <p class="text-secondary mt-2 mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-hashtag mr-3 text-info"></i>
+                            {% for i in listing.Business_Subcategory.all %}
+                            {{i.name}}{% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                            </p>                            
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-phone-square-alt mr-3 text-info"></i>{{listing.Business_Telephone}}</p>
+                            <p class="text-secondary mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-location-arrow mr-3 text-info"></i>{{listing.Business_Address}}</p>                            
+                            <p class="card-text mb-2" style="font-family: 'Roboto', sans-serif;">{{listing.Business_Description|truncatewords:25}}</p>
+                            <a class="btn add-to-cart" type="button" href="{% url 'listing-detail' listing.id listing.slug %}">View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+  </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="{% url 'interested_listings' %}"><button type="button" class="btn btn-sm btn-primary btn-block mt-3 mb-5">See All<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+</div>
+{% endif %}
+{% if user.is_authenticated and user.is_shop_owner %}
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">Recent Products</h2>
+<div class="container mt-3">
+      <div class="d-flex flex-wrap">
+        {% for product in products %}
+            <div class="card mb-3 mr-3" style="width: 18rem;">
+                <a href="{% url 'product' product.pk %}"><img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top"></a>
+                <div class="card-img-overlay">
+                        <button class="btn btn-light btn-sm"><h6 class="card-title mb-0 m-0" style="font-family: 'Syne Mono', monospace;">{{product.brand}}</h6></button>
+                    </div>
+                <div class="card-body">
+                    <span class="badge bg-secondary text-light">{{product.category}}</span>
+                    <h3 class="card-title text-primary fs-5">{{product.name}}</h3>
+                    <p class="card-text">{{product.desc}}</p>
+                    <p class="card-text"><span class="text-dark fw-bold">Warranty- </span> {{product.warranty}}</p>
+                    <hr>
+                    <h6 class="mb-0">
+                        <span class="badge bg-danger text-light rounded-pill">&#8377; {% if product.offer_price %} {{product.offer_price}} {% else %} {{product.price}} {% endif %}</span>
+                        <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                    </h6>
+                </div>
+            </div>
+            {% empty %}
+            <p style="font-family:calibri;">No products yet.</p>
+        {% endfor %}
+    </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="{% url 'products' %}"><button type="button" class="btn btn-sm btn-primary btn-block mt-3 mb-5">See All<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+</div>
+{% endif %}
+{% if user.is_authenticated and user.is_user %}
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">Interested Products</h2>
+<div class="container mt-3">
+      <div class="d-flex flex-wrap">
+            {% for listing in advertise %}
+        {% for product in listing.product_set.all %}
+            <div class="card mb-3 mr-3" style="width: 18rem;">
+                <a href="{% url 'product' product.pk %}"><img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top"></a>
+                <div class="card-img-overlay">
+                        <button class="btn btn-light btn-sm"><h6 class="card-title mb-0 m-0" style="font-family: 'Syne Mono', monospace;">{{product.brand}}</h6></button>
+                    </div>
+                <div class="card-body">
+                    <span class="badge bg-secondary text-light">{{product.category}}</span>
+                    <h3 class="card-title text-primary fs-5">{{product.name}}</h3>
+                    <p class="card-text">{{product.desc}}</p>
+                    <p class="card-text"><span class="text-dark fw-bold">Warranty- </span> {{product.warranty}}</p>
+                    <hr>
+                    <h6 class="mb-0">
+                        <span class="badge bg-danger text-light rounded-pill">&#8377; {% if product.offer_price %} {{product.offer_price}} {% else %} {{product.price}} {% endif %}</span>
+                        <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                    </h6>
+                </div>
+            </div>
+        {% endfor %}
+      {% endfor %}
+      {% for listing in listings %}
+        {% for product in listing.product_set.all %}
+            <div class="card mb-3 mr-3" style="width: 18rem;">
+                <a href="{% url 'product' product.pk %}"><img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top"></a>
+                <div class="card-img-overlay">
+                        <button class="btn btn-light btn-sm"><h6 class="card-title mb-0 m-0" style="font-family: 'Syne Mono', monospace;">{{product.brand}}</h6></button>
+                    </div>
+                <div class="card-body">
+                    <span class="badge bg-secondary text-light">{{product.category}}</span>
+                    <h3 class="card-title text-primary fs-5">{{product.name}}</h3>
+                    <p class="card-text">{{product.desc}}</p>
+                    <p class="card-text"><span class="text-dark fw-bold">Warranty- </span> {{product.warranty}}</p>
+                    <hr>
+                    <h6 class="mb-0">
+                        <span class="badge bg-danger text-light rounded-pill">&#8377; {% if product.offer_price %} {{product.offer_price}} {% else %} {{product.price}} {% endif %}</span>
+                        <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                    </h6>
+                </div>
+            </div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="{% url 'interested_products' %}"><button type="button" class="btn btn-sm btn-primary btn-block mt-3 mb-5">See All<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+</div>
+{% endif %}
+<div class="container mt-3">
+  <h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">Recent Blogs</h2>
+  <div class="row">
+    {% for blog in blogs %}
+      <div class="col-md-4 col-12">
+        <div class="card shadow rounded p-3" style="width: 18rem;">
+          <img src="{{blog.thumbnail.url}}" class="card-img-top" alt="{{blog.title}}">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{blog.title}}</h5>
+            <p class="card-text">{{blog.content|truncatechars:100|safe}}</p>
+            <a href="{% url 'blog-post' blog.slug %}" class="btn btn-primary">Read post</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+    <p style="font-family:calibri;">No blogs yet.</p>
+    {% endfor %}
+  </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <a href="{% url 'all_category' %}"><button type="button" class="btn btn-sm btn-primary btn-block mt-3 mb-1">See All<i class="fas fa-arrow-right ml-2"></i></button></a>
+      </div>
+</div>
+{% endblock body %}

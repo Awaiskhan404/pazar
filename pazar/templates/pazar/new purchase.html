@@ -1,0 +1,310 @@
+{% extends 'dashboard base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Purchase |
+{% endblock title %}
+
+{% block purchasesactive %}active
+{% endblock purchasesactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/purchases">Purchases List</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add new purchases</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block css %}
+#dialogoverlay{
+	display: none;
+	opacity: .8;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	background: #000;
+	width: 100%;
+	z-index: 10;
+}
+#dialogbox{
+	display: none;
+	position: fixed;
+	background:  #ff3c16 ;
+    border-radius: 7px;
+	width: 550px;
+	z-index: 10;
+}
+#dialogbox > div { 
+    background:#000; 
+    margin: 4px; 
+    border-radius: 7px;
+}
+#dialogbox > div > #dialogboxhead{ 
+    background: #000; 
+    font-size: 1.8rem; 
+    padding: 10px; 
+    color: #ff3c16 ;
+    font-weight: bold; 
+    border-radius: 7px;
+}
+#dialogbox > div > #dialogboxbody{ 
+    background:#000; 
+    font-size: 1.5rem; 
+    padding: 20px; 
+    color:#fff; 
+}
+#dialogbox > div > #dialogboxfoot{ 
+    background: #000; 
+    padding: 10px; 
+    color:#fff;
+    border-radius: 7px;
+}
+.col-md-12{
+    padding:0;
+}
+.panel-heading{
+    font-weight:bold;
+    color:#000;
+}
+{% endblock css %}
+
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <h1 class="h3 mb-0 text-gray-800">Add Purchase</h1>
+        </div>
+        <!-- Main Content Here -->
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Add your purchase</h1>
+                  </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading panel-heading-text">Supplier Details
+                            </div>
+                            <div class="panel-body">                    
+                                <div class="form-group">
+                                    <label for="id_name" class="panel-body-text">Supplier Name:</label>
+                                    <input type="text" class="form-control textinput" id="id_name" value="{{ supplier.name }}" disabled>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="id_phone" class="panel-body-text">Phone No:</label>
+                                        <input type="text" class="form-control textinput" id="id_phone" value="{{ supplier.phone }}" disabled>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="id_gstin" class="panel-body-text">GSTIN No:</label>
+                                        <input type="gstin" class="form-control textinput" id="id_gstin" value="{{ supplier.gstin }}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <form method="post" class="panel panel-default">
+            
+            {% csrf_token %}
+            {{ formset.management_form }}
+
+            <div class="panel-heading panel-heading-text">Product Details</div>
+            
+                <div id="stockitem"> 
+                    <div class="panel-body">
+                    {% for form in formset %}
+                        <div class="row form-row">
+                            <div class="form-group col-md-12">
+                                {{ form.stock.errors }}
+                                <label class="panel-body-text">Stock<span class="asteriskField">*</span></label>
+                                {{ form.stock }}
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label class="panel-body-text">Price per item<span class="asteriskField">*</span></label>
+                                    {{ form.perPrice }}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    {{ form.quantity.errors }}
+                                    <label class="panel-body-text">Quantity<span class="asteriskField">*</span></label>
+                                    {{ form.quantity }}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class="panel-body-text">Total Price</label>
+                                    <input type="text" class="textinput form-control totalprice" value="1" disabled required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    {{form.gst.errors}}
+                                    <label class="panel-body-text">GST (in %)</label>
+                                    {{form.gst}}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    {{form.discount.errors}}
+                                    <label class="panel-body-text">Discount (in %)</label>
+                                    {{form.discount}}
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <label class="panel-body-text">Remove</label>
+                                    <button class="btn-sm btn btn-danger remove-form-row"><i class="fas fa-minus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                        <div style="text-align: right;">                    
+                            <a href="#" class="btn btn-sm btn-light add-form-row"><i class="fas fa-plus mr-2"></i>Add More</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            <br>
+            <div class="align-middle">
+                <button type="submit" class="btn btn-success"><i class="fas fa-plus mr-2"></i>Add To Purchases</button>
+                <a href="{% url 'select-supplier' %}" class="btn btn-warning"><i class="fas fa-arrow-alt-circle-left mr-2"></i>Go Back</a>
+                <a href="{% url 'purchase-list' %}" class="btn btn-outline-secondary"><i class="fas fa-times mr-2"></i>Cancel</a>
+            </div>          
+        </form>
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block script %}
+//used to render a custom alert box
+function custom_alert(){
+    this.render = function(dialog){  
+        var winW = window.innerWidth;
+        var winH = window.innerHeight;
+        var dialogoverlay = document.getElementById('dialogoverlay');
+        var dialogbox = document.getElementById('dialogbox');
+        dialogoverlay.style.display = "block";
+        dialogoverlay.style.height = winH+"px";
+        dialogbox.style.left = (winW/2) - (550 * .5)+"px";
+        dialogbox.style.top = "100px";
+        dialogbox.style.display = "block";
+        
+        document.getElementById('dialogboxhead').innerHTML = "Error";
+        document.getElementById('dialogboxbody').innerHTML = dialog;
+        document.getElementById('dialogboxfoot').innerHTML = '<button onclick="custom_alert.ok()" class="ghost-red">Okay</button>';
+    }
+    this.ok = function(){
+        document.getElementById('dialogbox').style.display = "none";
+        document.getElementById('dialogoverlay').style.display = "none";
+    }
+}
+
+        //creates custom alert object
+        var custom_alert = new custom_alert();
+
+        function updateElementIndex(el, prefix, ndx) {
+            var id_regex = new RegExp('(' + prefix + '-\\d+)');
+            var replacement = prefix + '-' + ndx;
+            if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+            if (el.id) el.id = el.id.replace(id_regex, replacement);
+            if (el.name) el.name = el.name.replace(id_regex, replacement);
+        }
+
+        //stores the total no of item forms
+        var total = 1;
+
+        function cloneMore(selector, prefix) {
+            var newElement = $(selector).clone(true);
+            //var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+            newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+                var name = $(this).attr('name')
+                if(name) {
+                    name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+                    var id = 'id_' + name;
+                    $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+                }
+            });
+            newElement.find('label').each(function() {
+                var forValue = $(this).attr('for');
+                if (forValue) {
+                forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+                $(this).attr({'for': forValue});
+                }
+            });
+            total++;
+            $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+            $(selector).after(newElement);
+            return false;
+        }
+        function deleteForm(prefix, btn) {
+            //var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+            if (total > 1){
+                btn.closest('.form-row').remove();
+                var forms = $('.form-row');
+                $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+                for (var i=0, formCount=forms.length; i < formCount; i++) {
+                    $(forms.get(i)).find(':input').each(function() {
+                        updateElementIndex(this, prefix, i);
+                    });
+                }
+                total--;
+            } else {
+                custom_alert.render("Field cannot be deleted");
+            }
+            return false;
+        }
+
+        $(document).on('click', '.add-form-row', function(e){
+            e.preventDefault();
+            cloneMore('.form-row:last', 'form');
+            return false;
+        });
+        
+        $(document).on('click', '.remove-form-row', function(e){
+            e.preventDefault();
+            deleteForm('form', $(this));
+            return false;
+        });
+
+        //updates the total price by multiplying 'price per item' and 'quantity' 
+        $(document).on('change', '.setprice', function(e){
+            e.preventDefault();
+            //gets the values
+            var element = $(this);
+            var quantity = element.parents('.form-row').find('.quantity').val();
+            var perprice = element.parents('.form-row').find('.price').val();
+            //calculates the total
+            var tprice = quantity * perprice;
+            //sets it to field
+            element.parents('.form-row').find('.totalprice').val(tprice);
+            return false;
+        });
+{% endblock script %}
+
+                    {% comment %} <form method="POST" style="padding:1rem;">
+                    {% csrf_token %}
+                    {{formset.management_form}}
+                    <div class="panel-heading panel-heading-text">Product Details</div>
+                    <div class="row form-row">
+                        <div class="form-group col-md-12">
+                            {{formset|crispy}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="panel-body-text">Total Price:</label>
+                        <input type="text" class="textinput form-control totalprice" value="1" disabled required>
+                    </div>
+                    <button class="btn btn-sm btn-danger remove-form-row">-</button>
+                    <div style="text-align: right;">                    
+                        <a href="#" class="mb-3 btn-sm btn btn-light add-form-row"><i class="fas fa-plus mr-2"></i>Add more</a>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus mr-2"></i>Add to Purchases</button>
+                    <a href="{% url 'select-supplier' %}" class="btn btn-warning"><i class="fas fa-arrow-circle-left mr-2"></i>Go Back</a>
+                    <a href="{% url 'purchase-list' %}" class="btn btn-outline-dark">Cancel</a>
+                    </form> {% endcomment %}

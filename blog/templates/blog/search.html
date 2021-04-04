@@ -1,0 +1,49 @@
+{% extends 'blog/blog base.html' %}
+
+{% block title %}Search Results |
+{% endblock title %}
+
+{% block css %}
+.row{
+    --bs-gutter-x:0;
+}
+.text-muted{
+    font-family: 'Calibri', sans-serif !important;
+}
+.card-text{
+    font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+{% endblock css %}
+
+{% block content %}
+<div class="container my-5 p-5">
+    <h2>Search results for <b>{{query}}</b> : </h2>
+    {% if allPosts|length < 1 %}
+   <p><i class="fs-5">No search results</i></p>
+    <i>Your search query:</i> <b>{{query}}</b> did not match any documents.<br>
+    <b>Suggestions:</b>
+    <ul style="font-family: 'Calibri', sans-serif;">
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try more general keywords.</li>
+        <li> Try fewer keywords.</li>
+        <li> Try different keywords.</li>
+    </ul>
+    {% endif %}
+    {% for post in allPosts  %}
+    <div class="row border rounded flex-md-row mb-4 shadow-sm h-md-250 my-4">
+        <div class="col p-3 d-flex flex-column">
+            <strong class="d-inline-block mb-2 text-primary" style="font-family: 'Montserrat', sans-serif;">{{post.category}}</strong>
+            <h3 class="mb-0">{{post.title}}</h3>
+            <div class="mb-1 text-muted">{{post.timestamp|date:"M j, Y"}}</div>
+            <div class="card-text mt-1 mb-1">{{post.content|safe|truncatechars:300}}</div>
+            <div class="my-2">
+            	<a href="{% url 'blog-post' post.slug %}" role="button" class="btn btn-info btn-sm" style="font-family:cursive;">Continue reading...</a>
+            </div>          
+        </div>
+        <div class="col-auto d-none d-lg-block">
+            <img src="{{post.thumbnail.url}}" class="bd-placeholder-img" height="250" width="250">
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

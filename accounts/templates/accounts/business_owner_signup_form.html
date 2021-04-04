@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Signup as Business Owner | Pazar-Aapke Sapno Ka Bazaar</title>
+	<link rel="stylesheet" type="text/css" href="/static/CSS/business_owner_signup_style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+
+	<!-- For Favicon -->
+    {% load static %}
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}" sizes="32x32" />
+    <link rel="icon" sizes="192x192" href="{% static 'Pazar Favicon.ico' %}" />
+
+	<!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/6170a67588.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+		::-webkit-scrollbar-track{
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar{
+			width: 6px;
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar-thumb{
+			background-color: #C0C0C0;
+		}
+
+		#messages{
+			color: #FF0000;
+			font-family:monospace;
+			font-size:18px;
+			list-style-type:none;
+		}
+		.errorlist{
+			list-style-type:none;
+			margin-bottom:0;
+			padding-left:0;
+		}
+		.loading{
+			margin: 0;
+			padding: 0;
+			height: 100vh;
+			width: 100%;
+			position: fixed;
+			z-index: 99999;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #03a9f4;
+		}
+		.loader{
+			position: relative;
+			height: 120px;
+			width: 120px;
+		}
+		.loader span{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			transform: rotate(calc(18deg * var(--i)));
+		}
+		.loader span::before{
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 15px;
+			width: 15px;
+			background: #fff;
+			border-radius: 50%;
+			transform: scale(0);
+			animation: animate 2s linear infinite;
+			animation-delay: calc(0.1s * var(--i));
+		}
+		@keyframes animate {
+			0%{
+				transform: scale(0);
+			}
+			10%{
+				transform: scale(1.2);
+			}
+			80%,100%{
+				transform: scale(0);
+			}
+		}
+		.rocket{
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+			animation: rotate 2s linear infinite;
+			animation-delay: -1s;
+		}
+		@keyframes rotate {
+			0%{
+				transform: rotate(10edg);
+			}
+			100%{
+				transform: rotate(370deg);
+			}
+		}
+		.rocket::before{
+			content: "\f135";
+			font-family: fontAwesome;
+			position: absolute;
+			top: 80px;
+			left: 85px;
+			color: #fff;
+			font-size: 60px;
+			transform: rotate(180deg);
+		}
+    </style>
+</head>
+<body onload="myFunction()">
+	<div class="loading" id="loader">
+	<div class="loader">
+		<span style="--i:1;"></span>
+		<span style="--i:2;"></span>
+		<span style="--i:3;"></span>
+		<span style="--i:4;"></span>
+		<span style="--i:5;"></span>
+		<span style="--i:6;"></span>
+		<span style="--i:7;"></span>
+		<span style="--i:8;"></span>
+		<span style="--i:9;"></span>
+		<span style="--i:10;"></span>
+		<span style="--i:11;"></span>
+		<span style="--i:12;"></span>
+		<span style="--i:13;"></span>
+		<span style="--i:14;"></span>
+		<span style="--i:15;"></span>
+		<span style="--i:16;"></span>
+		<span style="--i:17;"></span>
+		<span style="--i:18;"></span>
+		<span style="--i:19;"></span>
+		<span style="--i:20;"></span>
+		<div class="rocket"></div>
+	</div>
+	</div>
+	<img class="wave" src="/static/Img/wave.png">
+	<div class="containers">
+		<div class="img">
+			<img src="/static/Img/bg.svg">
+		</div>
+		<div class="login-content">
+			<form action="" method="POST" class="needs-validation mb-3">
+            	{% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}">
+				<img src="/static/Img/avatar.svg">
+				<h2 class="title">Welcome {{user_type}}</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Username</h5>
+           		   		<input type="text" class="input" name="username" required>
+           		   </div>
+           		</div>
+				{% if form.username.errors %}
+				<div id="messages">{{form.username.errors}}</div>
+				{% endif %}
+                <div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fa fa-user-circle"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>First Name</h5>
+           		   		<input type="text" class="input" name="first_name" required>
+           		   </div>
+           		</div>
+				{% if form.first_name.errors %}
+				<div id="messages">{{form.first_name.errors}}</div>
+				{% endif %}
+                <div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fa fa-user-circle"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Last Name</h5>
+           		   		<input type="text" class="input" name="last_name" required>
+           		   </div>
+           		</div>
+				{% if form.last_name.errors %}
+				<div id="messages">{{form.last_name.errors}}</div>
+				{% endif %}
+                <div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fa fa-envelope"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>E-mail</h5>
+           		   		<input type="email" class="input" name="email"required>
+           			</div>
+           		</div>
+				{% if form.email.errors %}
+				<div id="messages">{{form.email.errors}}</div>
+				{% endif %}
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-lock"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" class="input" name="password1" required>
+            	   </div>
+            	</div>
+				{% if form.password1.errors %}
+				<div id="messages">{{form.password1.errors}}</div>
+				{% endif %}
+                <div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fa fa-key"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password Confirmation</h5>
+           		    	<input type="password" class="input" name="password2" required>
+            	   </div>
+            	</div>
+					{% if form.password2.errors %}
+					<div id="messages">{{form.password2.errors}}</div>
+					{% endif %}
+				    <div class="form-group">
+						<div class="form-check">
+						<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+						<label class="form-check-label" for="invalidCheck" style="font-family:calibri;margin-left:-80px;">Agree to terms and conditions</label>
+						<div class="invalid-feedback" style="font-family:calibri;margin-left:-80px;">You must agree before submitting.</div>
+						</div>
+                    </div>
+            	<input type="submit" class="button" value="Login">
+				<a href="/" class="px-5 text-dark" style="text-decoration:none;font-family:calibri;"><i class="fas fa-long-arrow-alt-left"></i> back to <i class="fas fa-home text-primary"></i></a>
+            </form>
+        </div>
+	</div>
+	<script>
+		var preloader = document.getElementById('loader');
+		function myFunction(){
+			preloader.style.display='none';
+		}
+	</script>
+    <script>
+    const inputs = document.querySelectorAll(".input");
+function addcl(){
+	let parent = this.parentNode.parentNode;
+	parent.classList.add("focus");
+}
+
+function remcl(){
+	let parent = this.parentNode.parentNode;
+	if(this.value == ""){
+		parent.classList.remove("focus");
+	}
+}
+inputs.forEach(input => {
+	input.addEventListener("focus", addcl);
+	input.addEventListener("blur", remcl);
+});
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+    </script>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Employee - {{employee.name}}'s Profile |
+{% endblock title %}
+
+{% block css %}
+.profile_container h2 {
+	font-family: "Poppins";
+	font-size: 36px;
+
+	margin-bottom: 15px;
+}
+
+.profile_container h3 {
+	font-size: 24px;
+	font-weight: 500;
+	color: rgba(34, 34, 34, 0.5);
+
+	margin-bottom: 25px;
+	margin-top: 0px;
+}
+
+.profile_container h3,
+span,
+p {
+	font-family: "Avenir";
+}
+
+.profile_container,
+.info,
+.back {
+	margin: 60px 100px 0px;
+	max-width: 900px;
+	display: flex;
+	overflow-x: hidden;
+}
+
+.back {
+	display: flex;
+	align-items: center;
+	color: rgba(34, 34, 34, 0.5);
+}
+
+.back i {
+	margin-right: 15px;
+}
+
+.profile_img-LG {
+	height: 400px;
+	width: 300px;
+	border-radius: 40px;
+
+	object-fit: cover;
+	object-position: 50% 50%;
+
+	background-position: 40% 50%;
+}
+
+.flag_wrapper {
+	width: 50px;
+	height: 50px;
+	background-color: #f2f2f2;
+	border-radius: 100%;
+	position: relative;
+	top: -70px;
+	left: 230px;
+}
+
+.flag {
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto auto;
+}
+
+.description {
+	margin-bottom: 30px;
+	margin-top: 0px;
+}
+
+.profile_img_section {
+	margin-right: 10px;
+}
+
+.profile_desc_section {
+	display: flex;
+	flex-direction: column;
+
+	margin-left: 16px;
+}
+
+.interests_item {
+	display: inline-block;
+	padding: 5px 15px;
+	margin-right: 7.5px;
+	margin-bottom: 10px;
+	line-height: 35px;
+	background-color: #e6e6e6;
+	border-radius: 5px;
+
+	color: rgba(34, 34, 34, 0.5);
+}
+
+.info {
+	margin-top: -20px;
+	margin-left: 100px;
+}
+
+.link_img_wrapper {
+	width: 40px;
+	height: 40px;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+	position: relative;
+}
+.link_img {
+    height: 16px;
+    width: 13px;
+    position: absolute;
+    right: 0;
+    left: 3px;
+    top: -10px;
+    bottom: -5px;
+    margin: auto auto;
+}
+.info ul {
+	padding: 0px;
+}
+
+.info li {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 5px;
+}
+
+.info li p {
+	margin-left: 30px;
+	color: rgba(34, 34, 34, 0.5);
+    font-size:1.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+	.profile_container,
+	.info,
+	.back {
+		margin: 60px 33px 0px;
+	}
+
+	.profile_container {
+		flex-direction: column;
+	}
+
+	.profile_img_section {
+		margin: 0 auto;
+	}
+
+	.profile_img-LG {
+		width: 300px;
+		height: 300px;
+		border-radius: 100%;
+	}
+
+	.flag_wrapper {
+	}
+
+	.profile_desc_section {
+		margin-left: 0px;
+		margin-bottom: 10px;
+		margin-top: -40px;
+	}
+
+	.info {
+		margin-top: 10px;
+		margin-left: 33px;
+	}
+}
+
+#main {
+  margin: 50px 0;
+}
+
+#main #faq .card {
+  margin-bottom: 30px;
+  border: 0;
+}
+
+#main #faq .card .card-header {
+  border: 0;
+  -webkit-box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+          box-shadow: 0 0 20px 0 rgba(213, 213, 213, 0.5);
+  border-radius: 2px;
+  padding: 0;
+}
+
+#main #faq .card .card-header .btn-header-link {
+  color: #fff;
+  display: block;
+  text-align: left;
+  background: #FFE472;
+  color: #222;
+  padding: 20px;
+}
+
+#main #faq .card .card-header .btn-header-link:after {
+  content: "\f107";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  float: right;
+}
+
+#main #faq .card .card-header .btn-header-link.collapsed {
+  background: #A541BB;
+  color: #fff;
+}
+
+#main #faq .card .card-header .btn-header-link.collapsed:after {
+  content: "\f106";
+}
+
+#main #faq .card .collapsing {
+  background: #FFE472;
+  line-height: 30px;
+}
+
+#main #faq .card .collapse {
+  border: 0;
+}
+
+#main #faq .card .collapse.show {
+  background: #FFE472;
+  line-height: 30px;
+  color: #222;
+}
+
+{% endblock css %}
+
+{% block employeeactive %}active
+{% endblock employeeactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/employee">Employee</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{employee.name}}</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">{{employee.name}}'s Profile</h2>
+</div>
+<section class="profile_container">
+	<div class="profile_img_section">
+		<img class="profile_img-LG" src="{{employee.photo.url}}" alt="Employee Picture">
+	</div>
+	<div class="profile_desc_section">
+	    <h2 class="mt-5 text-dark">{{employee.name}}</h2>
+			<h3>{{employee.role}}</h3>
+		<p class="description lead" style="font-family:calibri;">{{employee.description}}</p>
+        <p class="h3">Salary - <b class="text-dark h2"><i class="fas fa-rupee-sign mr-2"></i>{{employee.salary}}</b></p>
+		<div class="interests">
+		    <a href="tel:{{employee.phone}}"><span class="interests_item text-dark"><i class="fas fa-phone-square-alt text-primary mr-2"></i>{{employee.phone}}</span></a>
+			<a href="mailto:{{employee.email}}"><span class="interests_item text-dark"><i class="fas fa-envelope text-primary mr-2"></i>{{employee.email}}</span></a>
+			<a href="#"><span class="interests_item text-dark"><i class="fab fa-amazon-pay mr-2 text-primary"></i>{{employee.upi}}</span></a>
+		</div>
+	</div>
+</section>
+<div class="info mt-5">
+	<ul>
+	    <li>
+			<div class="link_img_wrapper">
+                <span class="link_img"><i class="fas fa-map-pin text-danger"></i></span>
+			</div>
+			<p>{{employee.address}}</p>
+		</li>
+		<li>
+			<div class="link_img_wrapper">
+                {% if employee.gender == 'Male' %}
+				<span class="link_img"><i class="fas fa-male text-primary"></i></span>
+                {% else %}
+                <span class="link_img"><i class="fas fa-female text-info"></i></span>
+                {% endif %}
+			</div>
+            <p>{{employee.gender}}</p>
+		</li>
+		<li>
+		    <div class="link_img_wrapper">
+                {% if employee.status == 'Married' %}
+				<span class="link_img"><i class="fas fa-heart text-danger"></i></span>
+                {% else %}
+                <span class="link_img"><i class="far fa-heart text-danger"></i></span>
+                {% endif %}
+			</div>
+			<p>{{employee.status}}</p>
+		</li>
+		<li>
+		    <div class="link_img_wrapper">
+				<span class="link_img"><i class="fas fa-birthday-cake text-info"></i></i></span>
+			</div>
+			<p>{{employee.birthday|date:"j F"}}</p>
+		</li>
+	</ul>
+</div>
+<div id="main">
+    <div class="container">
+        <div class="accordion" id="faq">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header" id="faqhead1">
+                            <a href="#" class="btn btn-header-link h2 collapsed" data-toggle="collapse" data-target="#faq1"
+                            aria-expanded="true" aria-controls="faq1">Personal Details</a>
+                        </div>
+
+                        <div id="faq1" class="collapse show" aria-labelledby="faqhead1" data-parent="#faq">
+                            <div class="card-body">
+                                        <h5 class="card-title font-weight-bold" style="font-family:calibri;">Age</h5>
+                                        <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="far fa-calendar-alt mr-2"></i>{{employee.age}}</p>
+                                        <h5 class="card-title font-weight-bold" style="font-family:calibri;">Aadhaar No.</h5>
+                                        <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-address-card mr-2"></i>{{employee.aadhaar}}</p>
+                                        <h5 class="card-title font-weight-bold" style="font-family:calibri;">PAN No.</h5>
+                                        <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-id-card mr-2"></i>{{employee.pan}}</p>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header" id="faqhead2">
+                            <a href="#" class="btn btn-header-link collapsed h2" data-toggle="collapse" data-target="#faq2"
+                            aria-expanded="true" aria-controls="faq2">Bank Details</a>
+                        </div>
+
+                        <div id="faq2" class="collapse" aria-labelledby="faqhead2" data-parent="#faq">
+                            <div class="card-body">
+                                        <h5 class="card-title font-weight-bold" style="font-family:calibri;">Bank Name</h5>
+                                        <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-university mr-2"></i>{{employee.bankName}}</p>
+                                        <h5 class="card-title font-weight-bold" style="font-family:calibri;">Account No.</h5>
+                                        <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-sort-numeric-up-alt mr-2"></i>{{employee.bank}}</p>
+                                        <h5 class="card-title font-weight-bold" style="font-family:calibri;">IFSC Code</h5>
+                                        <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-code-branch mr-2"></i>{{employee.ifsc}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

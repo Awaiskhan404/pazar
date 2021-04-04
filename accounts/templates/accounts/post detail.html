@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block title %}Post-{{post.id}} |
+{% endblock title %}
+
+{% block css %}
+.time {
+    font-size: 9px !important
+}
+
+.socials i {
+    margin-right: 14px;
+    font-size: 17px;
+    color: #d2c8c8;
+    cursor: pointer
+}
+
+.feed-image img {
+    width: 100%;
+    height: auto
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5 mb-5 p-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <div class="feed p-2">
+                <div class="bg-white border rounded mt-2">
+                    <div>
+                        <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
+                            <div class="d-flex flex-row align-items-center feed-text px-2"><a href="{% url 'profile-detail' post.uploaded_by.profile.id post.uploaded_by.profile.slug %}"><img class="rounded-circle img-fluid img-responsive" src="{{post.uploaded_by.profile.pic.url}}" style="height:50px;width:50px;"></a>
+                                <div class="d-flex flex-column flex-wrap ml-2"><span class="fw-bold">{{post.uploaded_by.get_full_name}}</span><span class="text-black-50 time"><i class="far fa-clock"></i> {{post.cr_date|naturaltime}}</span></div>
+                            </div>
+                            {% ifequal request.user post.uploaded_by %}
+                            <div class="dropdown dropstart">
+                                <div class="feed-icon px-2"><i class="fa fa-ellipsis-v text-black-50" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static"></i></div>
+                                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="{% url 'post-edit' post.id %}">Edit Post</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'post-delete' post.id %}">Delete Post</a></li>
+                                </ul>
+                            </div>
+                            {% endifequal %}
+                        </div>
+                    </div>
+                    <div class="feed-image p-2 px-3"><img class="img-fluid img-responsive rounded" src="{{post.pic.url}}"></div>
+                    <p class="mx-5 text-dark fs-6" style="font-family:calibri;">{{post.msg}}</p>
+                    <P></p>
+                    <p class="text-dark mx-5 mb-1">{% for tag in post.tags.all %}
+                    <small><a href="{% url 'tag' tag.slug %}" class="text-primary">#{{tag}}</a></small>
+                    {% endfor %}</p>
+                    <div class="d-flex justify-content-between socials px-3 py-3">
+                        <div class="d-inline-flex">
+                            <a href="{% url 'profile-detail' request.user.profile.id request.user.profile.slug %}"><img class="img-fluid img-responsive rounded-circle d-block mr-3 ml-5" src="{{request.user.profile.pic.url}}" style="height:50px;width:50px;"></a>
+                            <form action="" method="POST" class="d-block d-inline-flex">
+                            {% csrf_token %}
+                                <input type="hidden" name="pk" value={{post.id}}>
+                                {{form|crispy}}
+                                <button type="submit" class="ml-3 btn btn-sm btn-light"><i class="ml-3 far fa-paper-plane text-dark fa-2x"></i></button>
+                            </form>
+                        </div>
+                        <div class="d-flex flex-wrap align-items-center">
+                            {% if post.liked %}
+                            <a href="{% url 'unlike' post.id %}"><i class="fa fa-thumbs-down text-danger"></i></a>
+                            {% else %}
+                            <a href="{% url 'like' post.id %}"><i class="fa fa-thumbs-up text-primary"></i></a>
+                            {% endif %}                     
+                            <i class="fa fa-comments-o"><span class="text-dark ml-1">{{post.postcomment_set.all.count}}</span></i>
+                            {% if favourited is True %}
+                            <a href="{% url 'favourite' post.id %}"><i class="fas fa-bookmark text-success"></i></a>
+                            {% else %}
+                            <a href="{% url 'favourite' post.id %}"><i class="far fa-bookmark text-success"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white border mt-2">
+                    <div>
+                        <div class="d-flex flex-row justify-content-between align-items-center p-2 border-bottom">
+                            <div class="d-flex flex-row align-items-center feed-text px-2">
+                                <div class="d-flex flex-column flex-wrap ml-2"><span class="fw-bold">Recent Comments</span></div>
+                            </div>
+                            <div class="feed-icon px-2"></div>
+                        </div>
+                    </div>
+                    {% for comment in comments %}
+                    <div class="p-2 px-3">
+                        <div class="d-flex flex-row align-items-center feed-text px-2"><a href="{% url 'profile-detail' comment.commented_by.profile.id comment.commented_by.profile.slug %}"><img class="rounded-circle" src="{{comment.commented_by.profile.pic.url}}" width="45"></a>
+                        <div class="d-flex flex-column flex-wrap ml-2"><span class="fw-bold">{{comment.commented_by.get_full_name}}</span><span class="text-black-50 time"><i class="far fa-clock"></i> {{comment.cr_date|naturaltime}}</span></div>
+                        </div>
+                        <p class="ml-5 text-dark px-5 fs-6 mb-3" style="font-family:calibri;">{{comment.msg}}</p>
+                        {% if not forloop.last %}
+                        <hr>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <p style="font-family:calibri;">No Comments to show.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

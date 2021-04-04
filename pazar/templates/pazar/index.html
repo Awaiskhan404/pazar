@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+    <meta name="title" content="Pazar - Aapke Sapno Ka Bazaar">
+    <meta name="description" content="PazarIndia - An Online Business Directory & Management Site">
+    <meta name="keywords" content="PazarIndia - An Online Business Directory & Management Site">
+    <meta property="og:title" content="Pazar - Aapke Sapno Ka Bazaar">
+    <meta property="og:type" content="company" />
+    <meta property="og:description" content="PazarIndia - An Online Business Directory & Management Site">
+    <meta property="og:image" content="{% static 'Pazar Logo.png' %}">
+    <meta property="og:image:width" content="500" />
+    <meta property="og:image:height" content="500" />
+    <meta property="og:url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+    <meta property="og:site_name" content="Pazar - Aapke Sapno Ka Bazaar">
+    <meta name="twitter:title" content="Pazar - Aapke Sapno Ka Bazaar">
+    <meta name="twitter:description" content="PazarIndia - An Online Business Directory & Management Site.">
+    <meta name="twitter:image" content="{% static 'Pazar Logo.png' %}">
+    <meta name="twitter:card" content="{% static 'Pazar Logo.png' %}">
+    <meta name="twitter:image:alt" content="Pazar - Aapke Sapno Ka Bazaar">
+    <meta property="fb:app_id" content="858995061590537" />
+    <meta name="twitter:site" content="@pazar_india">
+    <meta name="twitter:creator" content="@pazar_india">
+    <meta name="twitter:image:src" content="{% static 'Pazar Logo.png' %}">
+    <meta itemprop="name" content="Pazar - Aapke Sapno Ka Bazaar">
+    <meta itemprop="description" content="PazarIndia - An Online Business Directory & Management Site">
+    <meta itemprop="image" content="{% static 'Pazar Logo.png' %}">
+    <meta itemscope itemtype="http://schema.org/Company">
+    <meta itemprop="url" content="{{request.scheme}}://{{request.META.HTTP_HOST}}{{request.path}}">
+    <meta name="pinterest-rich-pin" content="false">
+    <title>Pazar - Aapke Sapno Ka Bazaar</title>
+    
+    <!-- Compiled and minified CSS Of Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/6170a67588.js" crossorigin="anonymous"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- For Favicon -->
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}" sizes="32x32" />
+    <link rel="icon" sizes="192x192" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'CSS/index.css' %}">
+</head>
+<body onload="myFunction()">
+  <div class="loading" id="loader">
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div class="containers">
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'Pazar Logo.png' %}" alt="Pazar-Aapke Sapno Ka Bazaar" width="100" height="100">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/home"><i class="fa fa-home"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blog">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'all categories' %}">Categories</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'services' %}">Services</a>
+          </li>
+        </ul>
+        <form class="d-flex mx-2">
+        {% if request.user.is_authenticated %}
+          <a href="{% url 'logout' %}"><button type="button" class="btn btn-info btn-lg mx-2"><i class="fa fa-sign-out me-2"></i>Logout</button></a>
+        {% else %}
+          <a href="/account/login"><button type="button" class="btn btn-info btn-lg mx-2"><i class="fa fa-sign-in me-2"></i>Login</button></a>
+        {% endif %}
+          <a href="/account/signup"><button type="button" class="btn btn-info btn-lg mx-2"><i class="fa fa-user-plus me-2"></i>SignUp</button></a>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <a href="https://api.whatsapp.com/send?phone=918000004399&text=Hello%20Pazar%20team!%20I%20want%20to%20contact%20you.%20Please%20respond." class="float" target="_blank">
+    <i class="fa fa-whatsapp my-float"></i>
+  </a>
+  <div class="section1">
+    <div class="text1" data-aos="fade-in">
+      <h1>You have a Business, We are here to help grow your Business</h1>
+      <p>We help you navigate the ups and downs of managing a Business, 
+      with a great support. Add your Business with us and have a well managed Business Online for FREE.</p>
+      <a href="/account/signup" class="me-5"><button id="submit" class="me-5">Get Online</button></a>
+    </div>
+    <img src="{% static 'rocket.png' %}" alt="people working" data-aos="fade-left">
+  </div>
+  <div class="section2 mb-5">
+    <div class="sectiontitle mb-3">
+      <h2 data-aos="fade-in">Our Stats</h2>
+      <span class="headerLine"></span>
+    </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-6" data-aos="fade-right">
+        <div class="counter">
+          <div class="counter-icon">
+            <i class="fa fa-user"></i>
+          </div>
+          <span class="counter-value">{{profile}}</span>
+          <h3>User Profile</h3>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6" data-aos="zoom-out">
+        <div class="counter blue">
+          <div class="counter-icon">
+            <i class="fa fa-store"></i>
+          </div>
+          <span class="counter-value">{{listing}}</span>
+          <h3>Business Listings</h3>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6" data-aos="zoom-in">
+        <div class="counter pink">
+          <div class="counter-icon">
+            <i class="fa fa-users"></i>
+          </div>
+          <span class="counter-value">{{customers}}</span>
+          <h3>Customers</h3>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6" data-aos="fade-left">
+        <div class="counter purple">
+          <div class="counter-icon">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <span class="counter-value">{{invoices}}</span>
+          <h3>Invoices</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5 mb-5">
+    <div class="sectiontitle mb-3">
+      <h2 data-aos="flip-right">What after connecting with us?</h2>
+      <span class="headerLine"></span>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <div class="main-timeline">
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">1</span>
+              <div class="timeline-icon">
+                <i class="fas fa-user-plus" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-left">
+                <h3 class="title">Register Your Profile</h3>
+                <p class="description">
+                  Are you a Business Owner? Here's a chance of getting your Business Online and get managed them any time any where for FREE, getting more reach & engagement of your Business Profile.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">2</span>
+              <div class="timeline-icon">
+                <i class="fas fa-handshake" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-right">
+                <h3 class="title">Add Your Business</h3>
+                <p class="description">
+                List your Business with Pazar, and get searches for your Business anywhere. This will increase the reach of your Business profile in searches across multiple search engines.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">3</span>
+              <div class="timeline-icon">
+                <i class="fa fa-users" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-left">
+                <h3 class="title">Get Potential Leads & Customers</h3>
+                <p class="description">
+                  Get Potential Leads and Customers in your City and Local Areas. Get reach of your Business Profile for Products and Services to the needy ones. 
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">4</span>
+              <div class="timeline-icon">
+                <i class="fas fa-mug-hot" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-right">
+                <h3 class="title">Serve Your Customers</h3>
+                <p class="description">
+                  We organised Business Logic for serving your offered Services to the Customers. Be aimed to get more sells for your Services through Customers. 
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">5</span>
+              <div class="timeline-icon">
+                <i class="fa fa-briefcase" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-left">
+                <h3 class="title">Showcase Your Products Online</h3>
+                <p class="description">
+                  Show your Products with their selling and offered price throughout Internet and sell it. Get much more sell of your Products in Local areas and cities.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">6</span>
+              <div class="timeline-icon">
+                <i class="fas fa-file-invoice" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-right">
+                <h3 class="title">Invoices & Inventory</h3>
+                <p class="description">
+                  Pazar helps you manage your Stocks through graphs, manage your Supplier, generate Invoices easily for FREE & let you share directly to Customer What's App. 
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">7</span>
+              <div class="timeline-icon">
+                <i class="fas fa-user-friends" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-left">
+                <h3 class="title">Manage Your Employee</h3>
+                <p class="description">
+                  Hiring the right team is one of the key pillars of your Business,
+                  then having a well-managed payroll and employee management system in place that helps you manage the team efficiently is another.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">8</span>
+              <div class="timeline-icon">
+                <i class="fas fa-tools" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-right">
+                <h3 class="title">Get Much More Business Development Tools</h3>
+                <p class="description">
+                  It's a rumour that running a Business is not a CUP OF TEA. But, We make it easier. Helps SMEs to manage their Business online for FREE by own. 
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="timeline">
+            <a href="/services" class="timeline-content">
+              <span class="timeline-year">9</span>
+              <div class="timeline-icon">
+                <i class="fas fa-thumbs-up" data-aos="fade-up"></i>
+              </div>
+              <div class="content" data-aos="fade-left">
+                <h3 class="title">Now You Are Done With Us!</h3>
+                <p class="description">
+                  Here, Our AIM completes to help SMEs in managing their Business Online for FREE. We will be working continously on betterment of managing their Business Online for SMEs.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container story-section mt-3 mb-3">
+    <div class="sectiontitle mb-3">
+      <h2 data-aos="fade-up">Success Story</h2>
+      <span class="headerLine"></span>
+    </div>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></li>
+        <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <img src="{% static 'story1.jpeg' %}" alt="Arvind Modi" class="shop-owner-img">
+            </div>
+            <div class="col-md-6">
+              <div class="success-story-content-wrapper">
+                <div class="success-story-content" data-aos="fade-right">” Pazar made my Business digital by moving from pen and paper to online presence. Invoicing feature is easy to use. It helps me in getting more and more orders.  ”</div>
+                <div class="success-story-author-name fw-bold">Arvind Modi</div>
+                <div class="success-story-author-info" style="font-family:calibri;">Electronics Store, Patna</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <img src="{% static 'story5.jpeg' %}" alt="Mohan Bisht" class="shop-owner-img">
+            </div>
+            <div class="col-md-6">
+              <div class="success-story-content-wrapper">
+                <div class="success-story-content" data-aos="fade-right">” It's really wonderful. I STRONGLY recommend Pazar to EVERYONE interested in running a successful Online Business!
+                This is simply unbelievable! It really saves my time and effort. Pazar is exactly what our Business has been lacking. ”</div>
+                <div class="success-story-author-name fw-bold">Mohan Bisht</div>
+                <div class="success-story-author-info" style="font-family:calibri;">Branding and Communication, Patna</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <img src="{% static 'story2.jpeg' %}" alt="Suresh Singh" class="shop-owner-img img-fluid img-responsive">
+            </div>
+            <div class="col-md-6">
+              <div class="success-story-content-wrapper">
+                <div class="success-story-content" data-aos="fade-right">” Very easy to use. Pazar has got everything I need. Great job! I will definitely recommend every Business Owner. Invoicing feature helps me to get my UDHAAR back. ”</div>
+                <div class="success-story-author-name fw-bold">Suresh Singh</div>
+                <div class="success-story-author-info" style="font-family:calibri;">Grocery Store, Kumhrar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <img src="{% static 'story3.jpeg' %}" alt="Asha Lata" class="shop-owner-img">
+            </div>
+            <div class="col-md-6">
+              <div class="success-story-content-wrapper">
+                <div class="success-story-content" data-aos="fade-right">” I couldn't have asked for more than this. If you want your Business more managed in one place that works with effective implementation - Pazar got you covered. ”</div>
+                <div class="success-story-author-name fw-bold">Asha Lata</div>
+                <div class="success-story-author-info" style="font-family:calibri;">Boutique, Kankarbagh</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <img src="{% static 'story6.jpg' %}" alt="Jayanti Devi" class="shop-owner-img">
+            </div>
+            <div class="col-md-6">
+              <div class="success-story-content-wrapper">
+                <div class="success-story-content" data-aos="fade-right">” Nice Web App! Stock features helps me alot. I don't have to remember stocks quantity. It also helps me in keeping previous records. ”</div>
+                <div class="success-story-author-name fw-bold">Jayanti Devi</div>
+                <div class="success-story-author-info" style="font-family:calibri;">Fruit Seller, Bazaar Samiti</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row p-3">
+            <div class="col-md-6">
+              <img src="{% static 'story4.jpeg' %}" alt="Avni Singh" class="shop-owner-img">
+            </div>
+            <div class="col-md-6">
+              <div class="success-story-content-wrapper">
+                <div class="success-story-content" data-aos="fade-right">” Credit is essential for our business. Pazar has made it easy for me to give credits which has given a big boost to my business. Great Web App. ”</div>
+                <div class="success-story-author-name fw-bold">Avni Singh</div>
+                <div class="success-story-author-info" style="font-family:calibri;">Tailor, Bihar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+    </div>
+  </div>
+  <section class="faq-section">
+    <div class="container">
+      <div class="row">
+        <!-- ***** FAQ Start ***** -->
+        <div class="col-md-6 offset-md-3">
+          <div class="faq-title text-center pb-3">
+            <h2 data-aos="fade-down">FAQ</h2>
+          </div>
+        </div>
+        <div class="col-md-6 offset-md-3">
+          <div class="faq" id="accordion">
+          {% for faq in faqs %}
+            <div class="card" data-aos="fade-right">
+              <div class="card-header" id="faqHeading-{{forloop.counter}}">
+                <div class="mb-0">
+                  <h5 class="faq-title" data-bs-toggle="collapse" data-bs-target="#faqCollapse-{{forloop.counter}}" data-aria-expanded="true" data-aria-controls="faqCollapse-{{forloop.counter}}">
+                    <span class="badge">{{forloop.counter}}</span>{{faq.question}}
+                  </h5>
+                </div>
+              </div>
+              <div id="faqCollapse-{{forloop.counter}}" class="collapse" aria-labelledby="faqHeading-{{forloop.counter}}" data-parent="#accordion">
+                <div class="card-body">
+                  <p>{{faq.answer}} </p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="testimonial-section">
+    <div class="sectiontitle mb-3">
+      <h2 data-aos="slide-right">Testimonials</h2>
+      <span class="headerLine"></span>
+    </div>
+    <div class="testimonial-container">
+      <div class="progress-bar"></div>
+      <div class="fas fa-quote-left fa-quote"></div>
+      <div class="fas fa-quote-right fa-quote"></div>
+      <p class="testimonial">
+        Pazar made my Business digital by moving from pen and paper to online presence. Invoicing feature is easy to use. It helps me in getting more and more orders.
+      </p>
+      <div class="user">
+        <img
+          src="{% static 'story1.jpeg' %}"
+          alt="user"
+          class="user-image"
+        />
+        <div class="user-details">
+          <h4 class="username">Arvind Modi</h4>
+          <p class="role">Electronics Store, Patna</p>
+        </div>
+      </div>
+    </div>
+  </section>
+   <div id="cards_landscape_wrap-2">
+        <div class="container">
+              <div class="sectiontitle mb-3">
+      <h2 data-aos="slide-left">Recent Blog Posts</h2>
+      <span class="headerLine"></span>
+    </div>
+            <div class="row">
+                  {% for blog in blogs %}
+                  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" data-aos="fade-right">
+                    <a href="{% url 'blog-post' blog.slug %}">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="{{blog.thumbnail.url}}" alt="{{blog.title}}" />
+                                </div>
+                                <div class="text-container">
+                                    <h6>{{blog.title}}</h6>
+                                    <p>{{blog.content|truncatechars:160|safe}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                  </div>
+                  {% endfor %}
+            </div>
+        </div>
+    </div>
+  <footer>
+    <div class="left">
+      <a href="/"><img class="footer-logo" src="{% static 'Pazar Logo.png' %}" alt="Pazar Logo" style="width:130px;"></a>
+      <div class="contact">
+        <div><img src="{% static 'phone.svg' %}" alt="phone"><p>Phone: +91-800-000-4399</p></div>
+        <div><img src="{% static 'email.svg' %}" alt="email"><p>example@fylo.com</p></div>
+      </div>
+    </div>  
+    <ul class="info">
+      <a href="{% url 'about' %}" style="text-decoration:none;"><li>About Us</li></a>
+      <a href="{% url 'contact' %}" style="text-decoration:none;"><li>Contact Us</li></a>
+      <a href="{% url 'careers' %}" style="text-decoration:none;"><li>Careers</li></a>
+      <a href="{% url 'terms-conditions' %}" style="text-decoration:none;"><li>Terms</li></a>
+      <a href="{% url 'faq' %}" style="text-decoration:none;"><li>FAQ</li></a>
+      <a href="{% url 'privacy-policy' %}" style="text-decoration:none;"><li>Privacy</li></a>
+      <a href="/blog" style="text-decoration:none;"><li>Blog</li></a>
+      <a href="{% url 'testimonials' %}" style="text-decoration:none;"><li>Testimonials</li></a>
+    </ul>
+    <ul class="social">
+      <li><a href="https://www.facebook.com/mypazarindia/" style="color:#fff;"><i class="fab fa-facebook-f"></i></a></li>
+      <li><a href="https://www.twitter.com/pazar_india" style="color:#fff;"><i class="fab fa-twitter"></i></a></li>
+      <li><a href="https://www.instagram.com/__.pazar/" style="color:#fff;"><i class="fab fa-instagram"></i></a></li>
+      <li><a href="https://www.linkedin.com/company/pazar-india/" style="color:#fff;"><i class="fab fa-linkedin-in"></i></a></li>
+    </ul>
+    <div class="copyright d-flex align-items-center justify-content-center text-light fw-bold">
+      &copy; Copyright <script>document.write(new Date().getFullYear())</script>, <a href="/" style="color:#fff;text-decoration:none;">PazarIndia.in</a>
+    </div>
+  </footer>
+  <!-- The scroll to top feature -->  
+  <div class="scroll-top-wrapper ">
+    <span class="scroll-top-inner">
+      <i class="fa fa-2x fa-arrow-circle-up"></i>
+    </span>
+  </div>
+</div>
+  <script>
+        var preloader = document.getElementById('loader');
+        function myFunction(){
+          preloader.style.display='none';
+        }
+  </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script>
+    window.onload(
+      notifyMe()
+    )
+    function notifyMe() {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Thank You for subscribing pazarindia.com. You will notify of every updates.");
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Thank You for subscribing pazarindia.com. You will notify of every updates.");
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you 
+  // want to be respectful there is no need to bother them any more.
+}
+
+$(document).ready(function(){
+    $('.counter-value').each(function(){
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        },{
+            duration: 3500,
+            easing: 'swing',
+            step: function (now){
+                $(this).text(Math.ceil(now));
+            }
+        });
+    });
+});
+
+$(document).ready(function(){
+
+$(function(){
+ 
+    $(document).on( 'scroll', function(){
+ 
+    	if ($(window).scrollTop() > 100) {
+			$('.scroll-top-wrapper').addClass('show');
+		} else {
+			$('.scroll-top-wrapper').removeClass('show');
+		}
+	});
+ 
+	$('.scroll-top-wrapper').on('click', scrollToTop);
+});
+ 
+function scrollToTop() {
+	verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
+	element = $('body');
+	offset = element.offset();
+	offsetTop = offset.top;
+	$('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+}
+
+});
+
+const testimonialsContainer = document.querySelector(".testimonials-container");
+const testimonial = document.querySelector(".testimonial");
+const userImage = document.querySelector(".user-image");
+const username = document.querySelector(".username");
+const role = document.querySelector(".role");
+
+const testimonials = [
+  {
+    name: "Arvind Modi",
+    position: "Electronics Store, Patna",
+    photo:
+      "{% static 'story1.jpeg' %}",
+    text:
+      "Pazar made my Business digital by moving from pen and paper to online presence. Invoicing feature is easy to use. It helps me in getting more and more orders.",
+  },
+  {
+    name: "Mohan Bisht",
+    position: "Branding and Communication, Patna",
+    photo: "{% static 'story5.jpeg' %}",
+    text:
+      "It's really wonderful. I STRONGLY recommend Pazar to EVERYONE interested in running a successful Online Business! This is simply unbelievable! It really saves my time and effort. Pazar is exactly what our Business has been lacking.",
+  },
+  {
+    name: "Suresh Singh",
+    position: "Grocery Store, Kumhrar",
+    photo: "{% static 'story2.jpeg' %}",
+    text:
+      "Very easy to use. Pazar has got everything I need. Great job! I will definitely recommend every Business Owner. Invoicing feature helps me to get my UDHAAR back.",
+  },
+  {
+    name: "Asha Lata",
+    position: "Boutique, Kankarbagh",
+    photo: "{% static 'story3.jpeg' %}",
+    text:
+      "I couldn't have asked for more than this. If you want your Business more managed in one place that works with effective implementation - Pazar got you covered.",
+  },
+  {
+    name: "Jayanti Devi",
+    position: "Fruit Seller, Bazaar Samiti",
+    photo: "{% static 'story6.jpg' %}",
+    text:
+      "Nice Web App! Stock features helps me alot. I don't have to remember stocks quantity. It also helps me in keeping previous records.",
+  },
+  {
+    name: "Avni Singh",
+    position: "Tailor, Bihar",
+    photo:
+      "{% static 'story4.jpeg' %}",
+    text:
+      "Credit is essential for our business. Pazar has made it easy for me to give credits which has given a big boost to my business. Great Web App.",
+  },
+  {
+    name: "Veeti Seppanen",
+    position: "Director",
+    photo: "https://randomuser.me/api/portraits/men/97.jpg",
+    text:
+      "This guy is a young and talented IT professional, proactive and responsible, with a strong work ethic. He is very strong in PSD2HTML conversions and HTML/CSS technology. He is a quick learner, eager to learn new technologies. He is focused and has the good dynamics to achieve due dates and outstanding results.",
+  },
+];
+
+let index = 1;
+
+const updateTestimonial = () => {
+  const { name, position, photo, text } = testimonials[index];
+  testimonial.innerHTML = text;
+  userImage.src = photo;
+  username.innerHTML = name;
+  role.innerHTML = position;
+  index++;
+  if (index > testimonials.length - 1) index = 0;
+};
+
+setInterval(updateTestimonial, 10000);
+
+            AOS.init(
+            {
+                offset: 300,
+                duration: 1000,
+            }
+        );
+  </script>
+</body>
+</html>

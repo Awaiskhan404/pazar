@@ -1,0 +1,103 @@
+{% extends 'dashboard base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Shop |
+{% endblock title %}
+
+{% block shopsactive %}active
+{% endblock shopsactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/shops">Shops</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit shop</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block css %}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+{% endblock css %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Shop</h1>
+        </div>
+        <!-- Main Content Here -->
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Edit your shop</h1>
+                  </div>
+                <form method="POST" id="advertiseForm" enctype='multipart/form-data' style="padding:1rem;" data-subcategory-url="{% url 'ajax_load_subcategory' %}">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                <button type="submit" class="btn btn-primary btn-block btn-lg">Save Changes</button>
+                </form>
+                {% load mapbox_location_field_tags %}
+                {% location_field_includes %}
+                {% include_jquery %}
+                {{form.media}}
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block script %}
+    $('#id_Business_Category').change(function(){
+        var url = $('#advertiseForm').attr('data-subcategory-url');
+        var categoryId = $(this).val();
+        $.ajax({
+            url: url,
+            data: {
+                'Business_Category': categoryId
+            },
+            success:function(data){
+                $('#my-select').html(data);
+            }
+        });
+    });
+
+    new SlimSelect({
+        select: '#my-select',
+        closeOnSelect: false,
+        searchText: 'Sorry nothing to see here',
+        placeholder:'Choose Business Subcategory'
+})
+
+new SlimSelect({
+    select: '#service-select',
+    closeOnSelect: false,
+    searchText: 'Sorry no to see here',
+    placeholder:'Choose Business Services'
+})
+
+new SlimSelect({
+    select: '.chosen-select',
+    allowDeselect: true,
+    deselectLabel: '<span style="color:blue;">✖</span>'
+})
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ1bjYzNjQiLCJhIjoiY2tqNzFvbzg1NmYybDJ4cWpueGNwNmRneCJ9.ViyuoINx3lLERUsD9Hswlw';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11'
+});
+{% endblock script %}

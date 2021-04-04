@@ -1,0 +1,70 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Employee |
+{% endblock title %}
+
+{% block employeeactive %}active
+{% endblock employeeactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Employee</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Employee List <a class="btn btn-dark btn-sm mx-1" href="{% url 'add-employee' %}"><i class="fas fa-plus-circle"></i></a></h2>
+</div>
+<div class="container mt-2">
+    <div class="col-md-12 col-sm-12">
+        <div class="table-responsive-md table-responsive-sm table-responsive-lg">
+            <table class="table table-striped table-hover shadow-sm">
+                <caption>List of employee</caption>
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Shop</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in employee %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{emp.name}}</td>
+                        <td><img src="{{emp.photo.url}}" style="height:100px;width:100px;"></td>
+                        <td>{{emp.shop.Business_Name}}</td>
+                        <td>{{emp.phone}}</td>
+                        <td>{{emp.address}}</td>
+                        <td>{{emp.role}}</td>
+                        <td>{{emp.salary}}</td>
+                        <td class="d-inline-flex">
+                            <a class="btn-sm btn-warning mx-1" href="{% url 'employee-detail' emp.id %}"><i class="far fa-eye"></i></a>
+                            <a class="btn-sm btn-success mx-1" href="{% url 'edit-employee' emp.id %}"><i class="fas fa-edit"></i></a>
+                            <a class="btn-sm btn-danger mx-1" href="{% url 'delete-employee' emp.id %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <h5>You haven't added any employee yet. Please add one first.</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Take Employee Attendance<a class="btn btn-dark btn-sm mx-1" href="{% url 'take-attendance' %}"><i class="fas fa-plus-circle"></i></a></h2>
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;margin-right:40px;">Go To Attendance List<a class="btn btn-dark btn-sm mx-1" href="{% url 'attendance-list' %}"><i class="fas fa-long-arrow-alt-right"></i></a></h2>
+</div>
+{% endblock body %}

@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Free Listing |
+{% endblock title %}
+
+{% block css %}
+.listing-head{
+    height:400px;
+    width:100%;
+}
+.row{
+    margin-right:0;
+}
+.card-title{
+    font-size:1.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+.card-body{
+    padding:1.1rem;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+main {
+  display: block;
+  margin: 0 auto;
+  max-width: 40rem;
+  padding: 1rem;
+}
+ol.gradient-list {
+  counter-reset: gradient-counter;
+  list-style: none;
+  margin: 1.75rem 0;
+  padding-left: 1rem;
+}
+ol.gradient-list > li {
+    background: white;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0,0,0,0.05), 0 0.5rem 1.125rem rgba(75,0,0,0.05);
+    counter-increment: gradient-counter;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+    font-family: 'Quicksand', sans-serif;
+    transition:1s;
+    background:url('static/bg.svg')no-repeat center center/cover;
+}
+ol.gradient-list > li:hover {
+    transform:scale(1.1);
+    box-shadow: 0.5rem 0.5rem 0.5rem rgba(0,0,0,0.09), 0 0.5rem 1.125rem rgba(75,0,0,0.05);
+}
+.badges{
+    display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 14px;
+  float: left;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  text-align: center;
+  background: #0dcaf0;
+  color: #fff;
+  font-size: 12px;
+  margin-right: 20px;
+    padding: .35em .65em;
+    font-weight: 700;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+.sectiontitle {
+  background-position: center;
+  margin: 30px 0 0px;
+  text-align: center;
+  min-height: 20px;
+  font-family:cursive;
+}
+.headerLine {
+  width: 100px;
+  height: 2px;
+  display: inline-block;
+  background: #d43025;
+}
+{% endblock css %}
+
+{% block body %}
+{% comment %} <img src="https://source.unsplash.com/1600x900/?coding" class="img-fluid listing-head" alt="Free Listing"> {% endcomment %}
+<video autoplay style="width:100vw;height:400px;">
+  <source src="{% static 'video.mp4' %}" type="video/mp4">
+</video>
+<h2 class="text-center text-uppercase fw-bold fs-3 text-primary mt-4" style="font-family: 'Roboto', sans-serif;">Want To Enhance Your Business ?</h2>
+
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <div class="sectiontitle">
+                <h2 class="text-center fw-bold text-info mt-2" style="font-family:sans-serif;">List your Business with Pazar</h2>
+                <span class="headerLine"></span>
+                <h5 class="text-center mb-2 mt-1 fw-bold lead" style='font-family:calibri;'>What will be the benefits of being listed on Pazar?</h5>
+            </div>
+            <main>
+                <ol class="gradient-list">
+                    <li><span class="badges">1</span>Run an Online Shop</li>
+                    <li><span class="badges">2</span>Manage your Suppliers</li>
+                    <li><span class="badges">3</span>Communicate with your Customers and get their Feedback on your Business</li>
+                    <li><span class="badges">4</span>Offer Online Services to your Customers</li>
+                    <li><span class="badges">5</span>Allow Customers to make Reservations or Appointments Online</li>
+                    <li><span class="badges">6</span>Manage your Finances such as Employee Pay</li>
+                    <li><span class="badges">7</span>Make Invoices and maintain your Inventory</li>
+                    <li><span class="badges">8</span>With many more Business Tools, increase reach to the Clients</li>
+                </ol>
+            </main>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="sectiontitle">
+                <h2 class="text-center fw-bold text-info mt-2" style="font-family:sans-serif;">Get Connected With Us</h2>
+                <span class="headerLine"></span>
+                <h5 class="text-center mb-2 mt-1 fw-bold lead" style='font-family:calibri;'>List Your Business Here, And be Free!</h5>
+            </div>
+            <div class="card mt-5 shadow border-0 rounded">
+                <div class="card-body">
+                    <h4 class="card-title text-dark mb-2">List Your Business</h4>
+                    <form method="POST" id="listingForm" enctype='multipart/form-data' style="padding:1rem;font-family:calibri;" data-subcategory-url="{% url 'ajax_load_subcategory' %}">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                    <button type="submit" class="btn btn-primary btn-block btn-lg shadow">List Your Business</button>
+                    </form>
+                    {% load mapbox_location_field_tags %}
+                    {% location_field_includes %}
+                    {% include_jquery %}
+                    {{form.media}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+    $('#id_Business_Category').change(function(){
+        var url = $('#listingForm').attr('data-subcategory-url');
+        var categoryId = $(this).val();
+        $.ajax({
+            url: url,
+            data: {
+                'Business_Category': categoryId
+            },
+            success:function(data){
+                $('#my-select').html(data);
+            }
+        });
+    });
+
+    new SlimSelect({
+        select: '#my-select',
+        closeOnSelect: false,
+        searchText: 'Sorry nothing to see here',
+        placeholder:'Choose Business Subcategory'
+})
+
+new SlimSelect({
+    select: '#services-select',
+    closeOnSelect: false,
+    searchText: 'Sorry no to see here',
+    placeholder:'Choose Business Services'
+})
+
+new SlimSelect({
+    select: '.chosen-select',
+    allowDeselect: true,
+    deselectLabel: '<span style="color:blue;">✖</span>'
+})
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiYXJ1bjYzNjQiLCJhIjoiY2tqNzFvbzg1NmYybDJ4cWpueGNwNmRneCJ9.ViyuoINx3lLERUsD9Hswlw';
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/mapbox/streets-v11'
+});
+{% endblock js %}

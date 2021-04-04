@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}Pazar - Aapke Sapno Ka Bazaar</title>
+    <!-- For Favicon -->
+    {% load static %}
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}" sizes="32x32" />
+    <link rel="icon" sizes="192x192" href="{% static 'Pazar Favicon.ico' %}" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@700&family=Roboto:wght@300&family=Slabo+27px&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <!--Slim-select-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.2/slimselect.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slim-select/1.26.2/slimselect.min.css" rel="stylesheet"></link>
+
+        <!--Django Taggit-->
+    <link rel="stylesheet" href="/static/css/tagsinput.css" />
+
+    <!--Mapbox-->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="{% static 'jquery.mapael.min.js' %}"></script>
+    <script src="{% static 'jquery.mousewheel.js' %}"></script>
+    <script src="{% static 'raphael.min.js' %}"></script>
+    <script src="{% static 'usa_states.min.js' %}"></script>
+    <script src="{% static 'world_countries_mercator.min.js' %}"></script>
+    <script src="{% static 'world_countries_miller.min.js' %}"></script>
+    <script src="{% static 'world_countries.min.js' %}"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/6170a67588.js" crossorigin="anonymous"></script>
+
+    <!-- Custom Styles for this template -->
+    <link rel="stylesheet" href="{% static 'CSS/sb-admin-2.min.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dialogbox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+
+    <style>
+        ::selection {
+            background-color:#a6fff8;
+            color:black;
+    }
+        ::-webkit-scrollbar-track{
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar{
+			width: 6px;
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar-thumb{
+			background-color: #C0C0C0;
+		}
+    {% block css %}
+    {% endblock css %}
+    </style>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a href="/" class="sidebar-brand d-flex align-items-center justify-content-center">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <img src="{% static 'Dashboard Pazar Logo.png' %}" height="50px" width="50px">
+                </div>
+                <div class="sidebar-brand-text mx-3">
+                    Business <sup>Management</sup>
+                </div>
+            </a>
+            <hr class="sidebar-divider">
+            <p class="text-center text-white font-weight-bold">Welcome, {{user.first_name}} {{user.last_name}}</p>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item {% block dashboardactive %}
+            {% endblock dashboardactive %}">
+                <a class="nav-link" href="{% url 'Dashboard' %}">
+                  <i class="fas fa-fw fa-tachometer-alt"></i>
+                  <span>Dashboard</span></a>
+              </li>
+
+            <li class="nav-item {% block blogsactive %}
+            {% endblock blogsactive %}">
+                <a class="nav-link" href="{% url 'blog-list' %}">
+                  <i class="fas fa-newspaper"></i>
+                  <span>Blogs</span></a>
+            </li>
+
+              <li class="nav-item {% block skillsactive %}
+              {% endblock skillsactive %}">
+                <a class="nav-link" href="{% url 'skill-list' %}">
+                <i class="fas fa-trophy"></i>
+                <span>Skills</span></a>
+              </li>
+
+              <hr class="sidebar-divider my-0">
+
+              <li class="nav-item {% block shopsactive %}
+              {% endblock shopsactive %}">
+                <a class="nav-link" href="{% url 'shop-list' %}">
+                  <i class="fas fa-store"></i>
+                  <span>Shops</span></a>
+              </li>
+
+              <li class="nav-item {% block customersactive %}
+              {% endblock customersactive %}">
+                <a class="nav-link" href="{% url 'customer-list' %}">
+                  <i class="fas fa-users"></i>
+                  <span>Customers</span></a>
+              </li>
+
+
+              <li class="nav-item {% block productsactive %}
+              {% endblock productsactive %}">
+                <a class="nav-link" href="{% url 'product-list' %}">
+                <i class="fas fa-briefcase"></i>
+                <span>Products</span></a>
+              </li>
+
+              <li class="nav-item {% block employeeactive %}
+              {% endblock employeeactive %}">
+                <a class="nav-link" href="{% url 'employee' %}">
+                <i class="fas fa-users"></i>
+                <span>Employee</span></a>
+              </li>
+
+              <hr class="sidebar-divider my-0">
+
+              <li class="nav-item {% block stocksactive %}
+              {% endblock stocksactive %}">
+                <a class="nav-link" href="{% url 'inventory' %}">
+                <i class="fas fa-table"></i>
+                <span>Stocks</span></a>
+              </li>
+
+              <li class="nav-item {% block suppliersactive %}
+              {% endblock suppliersactive %}">
+                <a class="nav-link" href="{% url 'supplier-list' %}">
+                <i class="fas fa-handshake"></i>
+                <span>Suppliers</span></a>
+              </li>
+
+              <li class="nav-item {% block salesactive %}
+              {% endblock salesactive %}">
+                <a class="nav-link" href="{% url 'sale-list' %}">
+                <i class="fas fa-balance-scale"></i>
+                <span>Sales</span></a>
+              </li>
+
+              <li class="nav-item {% block purchasesactive %}
+              {% endblock purchasesactive %}">
+                <a class="nav-link" href="{% url 'purchase-list' %}">
+                <i class="fas fa-chart-line"></i>
+                <span>Purchases</span></a>
+              </li>
+
+              <li class="nav-item {% block quotationsactive %}
+              {% endblock quotationsactive %}">
+                <a class="nav-link" href="{% url 'quotation-list' %}">
+                <i class="fas fa-file-invoice"></i>
+                <span>Quotations</span></a>
+              </li>
+
+                    <!-- Divider -->
+      <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Profile -->
+      <li class="nav-item {% block profileactive %}
+      {% endblock profileactive %}">
+        <a class="nav-link" href="{% url 'profile' user.profile.id user.profile.slug %}">
+          <i class="fas fa-fw fa-user"></i>
+          <span>Profile</span></a>
+      </li>
+
+      <!-- Nav Item - Change Password -->
+      <li class="nav-item {% block changepasswordactive %}
+      {% endblock changepasswordactive %}">
+        <a class="nav-link" href="{% url 'change-password' %}">
+          <i class="fas fa-fw fa-key"></i>
+          <span>Change Password</span></a>
+      </li>
+
+      <!-- Nav Item - Logout -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">
+          <i class="fas fa-fw fa-sign-out-alt"></i>
+          <span>Logout</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+                  <!-- Main Content -->
+      <div id="content">
+        <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-info">
+  <a class="navbar-brand" href="{% url 'Dashboard' %}" style="font-family: 'Yusei Magic', sans-serif;">Dashboard</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto" style="font-family: 'Yusei Magic', sans-serif;">
+      <li class="nav-item active">
+        <a class="nav-link" href="/home"><i class="fas fa-home"></i> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/blog">Blog</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Stats
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'shop-list' %}">Shops</a>
+          <a class="dropdown-item" href="{% url 'customer-list' %}">Customers</a>
+          <a class="dropdown-item" href="{% url 'product-list' %}">Products</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="{{user.profile.pic.url}}" alt="{{user.get_full_name}}" class="rounded-circle" height="20" width="20">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'profile' user.profile.id user.profile.slug %}"><i class="fas fa-user mr-2"></i>My Profile</a>
+          <a class="dropdown-item" href="{% url 'edit-profile' %}"><i class="fas fa-user-edit mr-2"></i>Edit Profile</a>
+          <a class="dropdown-item" href="{% url 'change-password' %}"><i class="fas fa-cog mr-2"></i>Settings</a>
+          <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt mr-2"></i>Logout</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method='get' action="{% url 'search-result' %}">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" name='query' id='query' aria-label="Search">
+      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    {% comment %} <li class="breadcrumb-item active" aria-current="page">Data</li> {% endcomment %}
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+        {% include 'pazar/messages.html' %}
+
+        {% block body %}
+        {% endblock body %}
+        
+      </div>
+      </div>
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.min.js' %}"></script>
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+    <script src="/static/js/tagsinput.js"></script>
+    
+    <script>
+      setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 3000);
+    {% block script %}
+    {% endblock script %}
+  </script>
+    
+</body>
+</html>

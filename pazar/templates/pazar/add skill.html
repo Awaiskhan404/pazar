@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Skill |
+{% endblock title %}
+
+{% block css %}
+.row{
+    margin-right:0;
+}
+.card-title{
+    font-size:1.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+.card-body{
+    padding:1.1rem;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+.hover{
+  transition:0.6s;
+}
+.hover:hover{
+  transform:scale(1.1);
+}
+.card-img-overlay{
+  width:0px;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+            <div class="card mt-5 shadow border-0">
+                <div class="card-body">
+                    <h4 class="card-title text-dark mb-2" style="font-family:serif;">Add your Skill</h4>
+                    <form method="POST" style="padding:1rem;font-family:calibri;" enctype='multipart/form-data'>
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow">Add Skill</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5">
+  <h2 class="fs-3 mb-3">Showcase your Skills</h2>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for skill in skills %}
+      {% for i in skill.skillimages_set.all %}
+      <div class="col">
+        <div class="card border-0 bg-transparent hover">
+          <img src="{{i.images.url}}" class="card-img-top" alt="{{skill.name}}" style="object-fit:contain;height:200px;">
+          <div class="card-img-overlay">
+            <span class="badge bg-info">{{skill.name}}</span>
+          </div>
+          <div class="card-footer shadow-sm">
+            <div class="d-flex align-items-center justify-content-between">
+            <a href="{{skill.user.profile.get_absolute_url}}"><img src="{{skill.user.profile.pic.url}}" alt="{{skill.user.get_full_name}}" class="img-fluid img-responsive rounded-circle" style="height:50px;width:50px;"></a>
+            <div class="ml-3 flex-grow-1">
+              <h5 class="card-title mb-0 fs-6 fw-bold">{{skill.user.get_full_name}}</h5>
+              <small class="text-muted" style="font-family:calibri;">@ {{skill.user.username}}</small>
+            </div>
+            {% ifequal request.user skill.user %}
+            <div class="dropup float-end">
+              <button class="btn btn-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1" style="font-family:calibri;">
+                <li><a class="dropdown-item" href="{% url 'skill-edit' skill.pk %}"><i class="fas fa-edit mr-2"></i>Edit Skill</a></li>
+                <li><a class="dropdown-item" href="{% url 'skill-delete' skill.pk %}"><i class="fas fa-trash-alt mr-2"></i>Delete Skill</a></li>
+              </ul>
+            </div>
+            {% endifequal %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% empty %}
+      <p style="font-family:calibri;">No Skills to show.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}

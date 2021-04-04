@@ -1,0 +1,81 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Skills |
+{% endblock title %}
+
+{% block skillsactive %}active
+{% endblock skillsactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Skills</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block css %}
+.hover{
+  transition:0.6s;
+}
+.hover:hover{
+  transform:scale(1.1);
+}
+.card-img-overlay{
+  width:0px;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Skills <a class="btn btn-dark btn-sm mx-1" href="{% url 'add-skill' %}"><i class="fas fa-plus-circle"></i></a></h2>
+</div>
+<div class="container-fluid mt-2">
+    <div class="card bg-transparent col-md-6">
+        {% for skill in skills %}
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="progress-text mt-2">
+                        <div class="row">
+                            <div class="col-7">{{skill.name}}</div>
+                            <div class="col-5 text-right">{{skill.excellence}}%</div>
+                        </div>
+                    </div>
+                    <div class="custom-progress progress mt-2 mb-2">
+                        <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{skill.excellence}}%;background-color:{{skill.color}};" class="animated custom-bar slideInLeft progress-bar-animated progress-bar-striped"></div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-4">
+                    <p style="display:inline-block;"><a class="btn btn-success text-light btn-sm" href="{% url 'edit-skill' skill.id %}">Edit</a></p>
+                    <p style="display:inline-block;"><a class="btn btn-danger text-light btn-sm" href="{% url 'delete-skill' skill.id %}">Delete</a></p>
+                </div>
+            </div>
+        {% empty %}
+            <h5>You have not added any skill yet. Please add one first.</h5>
+        {% endfor %}
+    </div>
+</div>
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Your Skills Gallery</h2>
+</div>
+<div class="container-fluid mt-3 mb-3">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for skill in skills %}
+      {% for i in skill.skillimages_set.all %}
+      <div class="col">
+        <div class="card border-0 bg-transparent hover m-2" style="width:18rem;">
+          <img src="{{i.images.url}}" class="card-img-top" alt="{{skill.name}}" style="object-fit:contain;height:300px;">
+          <div class="card-img-overlay">
+            <span class="badge bg-info text-light">{{skill.name}}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% empty %}
+        <h5>You have not added any skill yet. Please add one first.</h5>
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}

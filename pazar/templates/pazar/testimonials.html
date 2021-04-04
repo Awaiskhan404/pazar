@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Testimonials |
+{% endblock title %}
+
+{% block css %}
+.testimonials-head{
+    height:500px;
+    width:100%;
+}
+.headerLine {
+  width: 100px;
+  height: 2px;
+  display: inline-block;
+  background: #d43025;
+}
+.sectiontitle {
+  background-position: center;
+  margin: 30px 0 0px;
+  text-align: center;
+  min-height: 20px;
+  font-family:cursive;
+}
+
+.item blockquote {
+    border-left: none;
+    margin: 0;
+}
+.item blockquote p{
+    font-family:calibri;
+}
+.item blockquote p:before {
+    content: "\f10d";
+    font-family: 'Fontawesome';
+    float: left;
+    margin-right: 10px;
+}
+#test-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 1rem;
+}
+  .test-sec {
+      margin-top:15px;
+      margin-left:10px;
+      width: 264px;
+      transition:0.5s;
+  }
+  .test-sec:hover{
+    transform:translateY(-10px);
+  }
+    .top-box {
+      background-color: #DFDBD5;
+      width: 263px;
+      height: 103px;
+      position: absolute;
+      z-index: 1;
+    }
+    
+    .test-sec img {
+      background-color: gray;
+      border-radius: 100%;
+      border: 3px soild #D4D4D4;
+      width: 133px;
+      height: 133px;
+      object-fit: cover;
+      position: relative;
+      display: block;
+      margin: auto;
+      top: 15px;
+      z-index: 5;
+    }
+    
+    .bottom-box {
+      box-shadow: 2px 3px 6px rgba(0,0,0,0.16);
+      transform: translateY(-50px);
+    }
+      .bottom-box blockquote {
+        margin: 20px auto 0;
+        padding: 5px 33px;
+      }
+       .bottom-box p {
+          font-size: 16px;
+          font-family:calibri;
+          color:gray;
+          line-height: 21px;
+          padding-top: 45px;
+        }
+
+      
+      .test-details {
+        text-align: center;
+        margin-top:-34px;
+      }
+        .test-details span {
+          font-size: 18px;
+          font-weight: 500;
+        }
+
+div.rating {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:6px 0 10px;
+}
+
+.yellow-fill{
+  color:#ffc107;
+}
+{% endblock css %}
+
+{% block body %}
+<img src="{% static 'feedback.jpeg' %}" class="img-fluid testimonials-head" alt="Testimonials">
+<div class="container">
+    <div class="sectiontitle">
+        <h2 class="text-center fw-bold text-primary fs-3 mt-2">What other say for us</h2>
+        <span class="headerLine"></span>
+        <h5 class="text-center mb-5 mt-1 fw-bold lead" style='font-family:calibri;'>Our team created best opportunities for your business.</h5>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-indicators" style="bottom:-60px;">
+                    {% for i in testimonial %}
+                    <a data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter0}}" class="{% if forloop.counter0 == 0 %}active{% endif %} px-2" aria-current="true" aria-label="Slide 1"><img class="img-responsive rounded-circle {% if forloop.counter0 == 0 %}active{% endif %}" style="height:50px;width:50px;cursor:pointer;" src="{{i.image.url}}" alt="{{i.name}}"></a>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner text-center">
+                {% for i in testimonial %}
+                    <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %} item">
+                        <blockquote>
+                            <div class="row d-flex align-items-center justify-content-center">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <p>{{i.desc}}</p>
+                                    <div class="rating">
+                                      <div class="stars">
+                                        <i class="{% if i.rate < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                        <i class="{% if i.rate < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                        <i class="{% if i.rate < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                        <i class="{% if i.rate < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+                                        <i class="{% if i.rate < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>                                
+                                      </div>
+                                    </div>
+                                    <small class="fw-bold">{{i.name}}</small>
+                                </div>
+                            </div>
+                        </blockquote>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-5 p-3">
+  <div class="sectiontitle">
+    <h2 class="fs-3 text-info text-center mt-5" style="font-family:Halvetica;"><span class="text-primary">Some</span> Of <span class="bg-warning text-light rounded p-1">Our Great</span> <span style="font-family:cursive;color:#000;">Reviews</span></h2>
+    <span class="headerLine"></span>
+  </div>
+</div>
+<main>
+  <div id="test-list">
+    {% for test in testimonials %}
+      <section class="test-sec">
+        <div class="top-box rounded"></div>
+        <img src="{{test.image.url}}" alt="Picture of {{test.name}}">
+        <div class="bottom-box rounded">
+          <blockquote>
+            <p>{{test.desc}}</p>
+          </blockquote>
+          <div class="rating">
+            <div class="stars">
+              <i class="{% if test.rate < 1 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+              <i class="{% if test.rate < 2 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+              <i class="{% if test.rate < 3 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+              <i class="{% if test.rate < 4 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>
+              <i class="{% if test.rate < 5 %}far fa-star {% else %}fas fa-star yellow-fill{% endif %}"></i>                                
+            </div>
+          </div>
+          <div class="test-details">
+            <p style="padding-top:25px;padding-bottom:5px;"><span class="text-dark fw-bold" style="font-family:cursive;">{{test.name}}</span><br><span><small><i>- {{test.role}}</i></small></span></p>
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+  </div>
+</main>
+{% endblock body %}

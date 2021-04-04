@@ -1,0 +1,46 @@
+{% extends 'dashboard base.html' %}
+{% load static %}
+
+{% block title %}{{advertise.Business_Name}} |
+{% endblock title %}
+
+{% block shopsactive %}active
+{% endblock shopsactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/shops">Shops</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{advertise.Business_Name}}</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">{{advertise.Business_Name}}</h2>
+</div>
+<div class="container mt-2">
+    <div class="card bg-transparent">
+        <div class="row">
+            <div class="col-md-4">
+                {% if advertise.Business_Logo %}
+                <img src="{{advertise.Business_Logo.url}}" alt="{{advertise.Business_Name}}" style="height:300px;width:350px;" class="p-1">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight:bold;">{{advertise.Business_Name}}{% if advertise.verified == 1 %}<img src="{% static 'correct.png' %}" style="height:20px;width:20px;display:inline-block;margin-left:5px;vertical-align:middle;user-select:none;pointer-events:none;">{% endif %}</h5>
+                    <p class="card-text">{{advertise.Business_Description}}</p>
+                    <p class="card-text"><strong>Category:</strong> {{advertise.Business_Category}}</p>
+                    <p class="card-text"><strong>Services:</strong> {% for i in advertise.Business_Subcategory.all %} {{i.name}}{% if not forloop.last %},{% endif %}{% endfor %}</p>
+                    <p class="card-text"><strong>Phone:</strong> {{advertise.Business_Telephone}}</p>
+                    <p class="card-text"><strong>Address:</strong> {% if advertise.Address %}{{advertise.Address}}{% else %}{{advertise.Business_Address}}{% endif %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

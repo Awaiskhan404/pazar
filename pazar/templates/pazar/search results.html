@@ -1,0 +1,137 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Search Results |
+{% endblock title %}
+
+{% block css %}
+.card-text{
+  font-family: 'Slabo 27px', serif;
+}
+hr{
+    margin:1rem;
+}
+{% endblock css %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+  <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Search Results for - <span class="text-primary font-weight-bold" style="font-family:calibri;">{{query}}</span> </h2>
+</div>
+<div class="container mt-3">
+    {% if shops|length < 1 and customers|length < 1 and products|length < 1 and employee|length < 1 %}
+   <p class="display-5 lead"><i>No search results</i></p>
+    <i>Your search query:</i> <b class="text-primary">{{query}}</b> did not match any documents.<br>
+    <b>Suggestions:</b>
+    <ul style="font-family: 'Calibri', sans-serif;">
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try more general keywords.</li>
+        <li> Try fewer keywords.</li>
+        <li> Try different keywords.</li>
+    </ul>
+    {% endif %}
+</div>
+<div class="container mt-2">
+  {% for listing in shops %}
+  <div class="card bg-transparent mb-3">
+    <div class="row">
+      <div class="col-md-4">
+        {% if listing.Business_Logo %}
+          <img src="{{listing.Business_Logo.url}}" alt="{{listing.Business_Name}}" style="height:300px;width:350px;" class="p-1">
+        {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title" style="font-weight:bold;">{{listing.Business_Name}}</h5>
+          <p class="card-text">{{listing.Business_Description}}</p>
+          <p class="card-text"><strong>Category:</strong> {{listing.Business_Category}}</p>
+          <p class="card-text"><strong>Services:</strong> {% for i in listing.Business_Subcategory.all %} {{i.name}}{% if not forloop.last %},{% endif %}{% endfor %}</p>
+          <p class="card-text"><strong>Phone:</strong> {{listing.Business_Telephone}}</p>
+          <p class="card-text"><strong>Address:</strong> {% if listing.Address %}{{listing.Address}}{% else %}{{listing.Business_Address}}{% endif %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-sm-6 col-12 col-md-6">
+      {% for customer in customers %}
+        <div class="card shadow">
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold text-info">{{customer.name}}</h5>
+            <div class="row">
+            <div class="col-md-6 mb-2">
+            <p class="card-text"><i class="fas fa-mobile-alt mr-2 text-success"></i><a href="tel:{{customer.phone}}" style="text-decoration:none;" class="text-muted">{{customer.phone}}</a></p>
+            <p class="card-text"><i class="fas fa-map-marker-alt mr-2 text-success"></i>{{customer.address}}</p>
+            </div>
+            <div class="col-md-6 mt-2">
+            <p class="card-text"><i class="far fa-envelope-open mr-2 text-success"></i><a href="mailto:{{customer.email}}" style="text-decoration:none;" class="text-muted">{{customer.email}}</a></p>
+            <p class="card-text"><i class="fas fa-code-branch mr-2 text-success"></i>{{customer.gstin}}</p>
+            </div>
+            </div>
+            <a href="{% url 'customer' customer.name %}"><button type="button" class="btn btn-warning shadow mt-2"><i class="far fa-arrow-alt-circle-right"></i></button></a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="d-flex flex-wrap">
+    {% for product in products %}
+            <div class="card mb-3 mr-3" style="width: 18rem;">
+                <img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="card-title text-primary">{{product.name}}</h3>
+                    <p class="card-text">{{product.desc}}</p>
+                    <hr>
+                    <h6 class="mb-0">
+                        <span class="badge bg-danger text-light rounded-pill">&#8377;{{product.offer_price}}</span>
+                        <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                    </h6>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{product.date|date:"F j, Y"}}</small>
+                    <a href="{% url 'delete-product' product.id %}" class="btn btn-danger float-right ml-2 btn-sm"><i class="fas fa-trash"></i></a>
+                    <a href="{% url 'edit-product' product.id %}" class="btn btn-success float-right btn-sm"><i class="fas fa-edit"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-sm-6 col-md-6 col-12">
+      {% for emp in employee %}
+        <div class="card mb-3" style="width: 18rem">
+          <img src="{{emp.photo.url}}" class="card-img-top" alt="{{emp.name}}"/>
+          <div class="card-body">
+            <span class="float-right"><a href="{% url 'employee-detail' emp.id %}" style="font-size:22px;" class="text-secondary"><i class="fas fa-long-arrow-alt-right"></i></a></span>
+            <h5 class="card-title font-weight-bold text-primary">{{emp.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-dark" style="font-family: 'Slabo 27px', serif;">{{emp.role}}</h6>
+            <p class="card-text" style="font-family:calibri;">{{emp.description|truncatechars:100}}</p>
+          </div>
+          <ul class="list-group list-group-flush" style="font-family: 'Slabo 27px', serif;">
+            <li class="list-group-item text-dark"><i class="fas fa-address-card mr-2 text-success"></i>{{emp.aadhaar}}</li>
+            <li class="list-group-item text-dark"><i class="fas fa-id-card mr-2 text-success"></i>{{emp.pan}}</li>
+            <li class="list-group-item text-dark"><i class="fas fa-sort-numeric-up-alt mr-2 text-success"></i>{{emp.bank}}</li>
+          </ul>
+          <div class="card-body d-flex justify-content-around">
+            <a href="tel:{{emp.phone}}" class="btn btn-warning mr-5"><i class="fas fa-phone-alt"></i></a>
+            <a href="mailto:{{emp.email}}" class="btn btn-dark"><i class="fas fa-envelope-open-text"></i></a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

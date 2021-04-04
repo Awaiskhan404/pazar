@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Skill | 
+{% endblock title %}
+
+{% block css %}
+.row{
+    margin-right:0;
+}
+.card-title{
+    font-size:1.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+.card-body{
+    padding:1.1rem;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+.label{
+    font-family: 'Baloo Tamma 2', cursive;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5">
+<div class="row justify-content-center">
+    <div class="col-12 col-md-4">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h4 class="card-title text-dark mb-2">Delete your skill</h4>
+                <form method="POST" style="font-family:calibiri;">
+                    {% csrf_token %} 
+                    <em class="label">Are you sure you want to delete <b>"{{ object }}"</b> ?</em><br>
+                    <input type="submit" value="Confirm" class="btn btn-danger shadow-sm btn-block mt-3">
+                    {% if request.user.is_shop_owner %}
+                    <a href="/skills" class="btn btn-warning btn-block shadow-sm mt-3"><i class="fa fa-arrow-circle-left mr-2"></i>No, take me back!</a>
+                    {% else %}
+                    <a href="{% url 'add-skill' %}" class="btn btn-warning btn-block shadow-sm mt-3"><i class="fa fa-arrow-circle-left mr-2"></i>No, take me back!</a>
+                    {% endif %}
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock body %}

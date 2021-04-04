@@ -1,0 +1,100 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Products |
+{% endblock title %}
+
+{% block css %}
+hr{
+    margin:1rem;
+}
+.card-img-overlay{
+    width:0px;
+}
+{% endblock css %}
+
+{% block productsactive %}active
+{% endblock productsactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Products</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+    <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Products <a class="btn btn-dark btn-sm mx-1" href="{% url 'product-add' %}"><i class="fas fa-plus-circle"></i></a></h2>
+</div>
+<div class="container mt-2">
+    <div class="d-flex flex-wrap">
+        {% for product in product %}
+            <div class="card mb-3 mr-3" style="width: 18rem;">
+                <img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top">
+                <div class="card-img-overlay">
+                    <button class="btn btn-light btn-sm"><h6 class="card-title mb-0 m-0" style="font-family: 'Syne Mono', monospace;">{{product.brand}}</h6></button>
+                </div>
+                <div class="card-body">
+                    <span class="badge bg-secondary text-light">{{product.category}}</span>
+                    <h3 class="card-title text-primary">{{product.name}}</h3>
+                    <p class="card-text">{{product.desc}}</p>
+                    <p class="card-text"><span class="text-dark font-weight-bold">Warranty- </span> {{product.warranty}}</p>
+                    <p class="card-text"><span class="text-dark font-weight-bold">Expiry Date- </span> {{product.exp_date|date:"j F, Y"}}</p>
+                    <hr>
+                    <h6 class="mb-0">
+                        <span class="badge bg-danger text-light rounded-pill">&#8377; {% if product.offer_price %} {{product.offer_price}} {% else %} {{product.price}} {% endif %}</span>
+                        <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                    </h6>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{product.date|date:"F j, Y"}}</small>
+                    <a href="{% url 'delete-product' product.id %}" class="btn btn-danger float-right ml-2 btn-sm"><i class="fas fa-trash"></i></a>
+                    <a href="{% url 'edit-product' product.id %}" class="btn btn-success float-right btn-sm ml-2"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'product' product.id %}" class="btn btn-warning float-right btn-sm"><i class="fas fa-eye"></i></a>
+                </div>
+            </div>
+            {% empty %}
+            <h5>You have not added any product yet, please add one first.</h5>
+        {% endfor %}
+    </div>
+    {% for shop in listing %}
+        <h3 class="text-dark">{{shop.Business_Name}}</h3>
+        <div class="d-flex flex-wrap">
+            {% for product in shop.product_set.all %}
+                <div class="card mb-3 mr-3" style="width: 18rem;">
+                    <img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top">
+                    <div class="card-img-overlay">
+                        <button class="btn btn-light btn-sm"><h6 class="card-title mb-0 m-0" style="font-family: 'Syne Mono', monospace;">{{product.brand}}</h6></button>
+                    </div>
+                    <div class="card-body">
+                        <span class="badge bg-secondary text-light">{{product.category}}</span>
+                        <h3 class="card-title text-primary">{{product.name}}</h3>
+                        <p class="card-text">{{product.desc}}</p>
+                        <p class="card-text"><span class="text-dark font-weight-bold">Warranty- </span> {{product.warranty}}</p>
+                        <p class="card-text"><span class="text-dark font-weight-bold">Expiry Date- </span> {{product.exp_date|date:"j F, Y"}}</p>
+                        <hr>
+                        <h6 class="mb-0">
+                            <span class="badge bg-danger text-light rounded-pill">&#8377; {% if product.offer_price %} {{product.offer_price}} {% else %} {{product.price}} {% endif %}</span>
+                            <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                        </h6>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{product.date|date:"F j, Y"}}</small>
+                        <a href="{% url 'delete-product' product.id %}" class="btn btn-danger float-right ml-2 btn-sm"><i class="fas fa-trash"></i></a>
+                        <a href="{% url 'edit-product' product.id %}" class="btn btn-success float-right btn-sm ml-2"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'product' product.id %}" class="btn btn-warning float-right btn-sm"><i class="fas fa-eye"></i></a>
+                    </div>
+                </div>
+                {% empty %}
+                <h5>You have not added any product yet, please add one first.</h5>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock body %}
+
+{% block script %}
+{% endblock script %}

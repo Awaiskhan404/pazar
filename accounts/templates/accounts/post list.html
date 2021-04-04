@@ -1,0 +1,658 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+
+{% block title %}Posts |
+{% endblock title %}
+
+{% block css %}
+.hero {
+  margin: 0px !important;
+}
+.cardbox {
+  border-radius: 3px;
+  margin-bottom: 20px;
+  padding: 0px !important;
+}
+
+/* ------------------------------- */
+/* Cardbox Heading
+---------------------------------- */
+.cardbox .cardbox-heading {
+  padding: 16px;
+  margin: 0;
+}
+.cardbox .btn-flat.btn-flat-icon {
+ border-radius: 50%;
+ font-size: 24px;
+ height: 32px;
+ width: 32px;
+ padding: 0;
+ overflow: hidden;
+ color: #fff !important;
+ background: #b5b6b6;
+ 
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+.cardbox .float-right .dropdown-menu{
+  position: relative;
+  left: 13px !important;  
+}
+.cardbox .float-right a:hover{
+  background: #f4f4f4 !important;	
+}
+.cardbox .float-right a.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 4px 0px 4px 10px;
+  clear: both;
+  font-weight: 400;
+  font-family: 'Abhaya Libre', serif;
+  font-size: 14px !important;
+  color: #848484;
+  text-align: inherit;
+  white-space: nowrap;
+  background: 0 0;
+  border: 0;
+}
+
+/* ------------------------------- */
+/* Media Section
+---------------------------------- */
+.media {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.d-flex {
+  display: -ms-flexbox !important;
+  display: flex !important;
+}
+.media .mr-3{
+  margin-right: 1rem !important;
+}
+.media img{
+  width: 48px !important;
+  height: 48px !important;
+  padding: 2px;
+  border: 2px solid #f4f4f4;
+} 
+.media-body {
+  -ms-flex: 1;
+  flex: 1;
+  padding: .4rem !important;
+}
+.media-body p{
+  font-family: 'Rokkitt', serif;	
+  font-weight: 900 !important;
+  font-size: 16px;
+  color: #88898a;
+}
+.media-body small span{
+  font-family: 'Rokkitt', serif;	
+  font-size: 12px;
+  color: #aaa;
+  margin-right: 10px;
+}
+
+
+/* ------------------------------- */
+/* Cardbox Item
+---------------------------------- */
+.cardbox .cardbox-item {
+    position: relative;
+    display: block;
+}
+.cardbox .cardbox-item img{
+    height: 500px;
+    width: 100%;
+    object-fit: fill;
+}
+
+.img-responsive{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}	
+.fw {
+    width: 100% !important;
+	height: auto;
+}
+
+
+/* ------------------------------- */
+/* Cardbox Base
+---------------------------------- */
+.cardbox-base{
+ border-bottom: 2px solid #f4f4f4;
+}	
+.cardbox-base ul{
+ margin: 10px 0px 10px 15px!important; 
+ padding: 10px !important;
+ font-size: 0px;	
+  display: inline-block;
+}
+.cardbox-base li {
+  list-style: none;
+  margin: 0px 0px 0px -8px !important;
+  padding: 0px 0px 0px 0px !important;
+  display: inline-block;
+}
+
+.cardbox-base li a{
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.cardbox-base li a i{
+ position: relative;
+ top: 4px; 
+ font-size: 16px;
+ color: #8d8d8d;
+ margin-right: 15px;
+}
+.cardbox-base li a button{
+ position: relative;
+ top: 4px; 
+ font-size: 16px;
+ color: #8d8d8d;
+ margin-right: 15px;
+}
+.cardbox-base li a span{
+ font-family: 'Rokkitt', serif;
+ font-size: 14px;
+ color: #8d8d8d;
+ margin-left: 20px;
+ position: relative;
+ top: 5px; 
+}
+.cardbox-base li a em{
+ font-family: 'Rokkitt', serif;
+ font-size: 14px;
+ color: #8d8d8d;
+ position: relative;
+ top: 3px; 
+}
+.cardbox-base li a img{
+  width: 25px;
+  height: 25px;
+  margin: 0px !important;
+  border: 2px solid #fff;
+}
+
+
+/* ------------------------------- */
+/* Cardbox Comments
+---------------------------------- */
+.cardbox-comments{
+  padding: 10px 40px 20px 40px !important;
+  font-size: 0px;	
+  text-align: center;
+  display: inline-block;
+}
+.cardbox-comments .comment-avatar img{
+  margin-top: 1px;
+  margin-right: 10px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+}
+.cardbox-comments .comment-body {
+  overflow: auto;
+}
+.search {
+ position: relative;
+ right: -60px;
+ top: -40px;
+ margin-bottom: -40px;
+ border: 2px solid #f4f4f4;	
+ width: 100%;
+ overflow: hidden;
+}
+.search input[type="text"] {
+ background-color: #fff;
+ line-height: 10px;
+ padding: 15px 60px 20px 10px;
+ border: none;
+ border-radius: 4px;
+ width: 250px;
+ font-family: 'Rokkitt', serif;
+ font-size: 14px;
+ color: #8d8d8d;
+ height: inherit;
+ font-weight: 700;
+}
+.search button {
+ position: absolute;
+ right: 0;
+ top: 0px;
+ border: none;
+ background-color: transparent;
+ color: #bbbbbb;
+ padding: 15px 25px;
+ cursor: pointer;
+ 
+ display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+.search button i {
+ font-size: 20px;
+ line-height: 30px;
+ display: block;
+}
+
+
+/* ------------------------------- */
+/* Author
+---------------------------------- */
+.author a{
+ font-family: 'Rokkitt', serif;
+ font-size: 16px;
+ color: #00C4CF;
+}
+.author p{
+ font-family: 'Rokkitt', serif;
+ font-size: 16px;
+ color: #8d8d8d;
+}
+
+
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5 py-5">
+  <div class="row">
+    <div class="col-md-3 col-12">
+      <div class="bg-light p-5 mb-5 rounded">
+        <h1 class="mb-2 fs-4">Post your thoughts now!</h1>
+        {% comment %} <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{post_form|crispy}}
+          <button type='submit' class="btn btn-primary mt-3">Post</button>
+        </form> {% endcomment %}
+          <a href="{% url 'add-post' %}"><button type='submit' class="btn btn-primary mt-3">Post</button></a>
+      </div>
+    </div>
+    <div class="col-12 col-md-9">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-images mr-2"></i>Posts</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-th-large mr-2"></i>Followed Posts</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-th mr-2"></i>My Posts</a>
+  </li>
+  <li class="nav-item" role="presentation">
+    <a class="nav-link" id="pills-post-tab" data-bs-toggle="pill" href="#pills-post" role="tab" aria-controls="pills-post" aria-selected="false"><i class="fas fa-bookmark mr-2"></i>Saved Posts</a>
+  </li>
+  <li class="nav-item ml-2">
+    <a class="nav-link float-end btn btn-light btn-sm text-info" href="{% url 'show-notifications' %}"><i class="fas fa-bell fa-2x">{% if count_notifications %}<sup><span class="text-danger">{{count_notifications}}</span></sup>{% endif %}</i></a>
+  </li>
+</ul>
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+    <section class="hero">
+        <div class="container">
+          <div class="row">
+            {% for post in qs %}		  
+              <div class="col-lg-6">			
+                <div class="cardbox shadow bg-white">		 
+                  <div class="cardbox-heading">
+                    <!-- START dropdown-->
+                    {% ifequal request.user post.uploaded_by %}
+                    <div class="dropdown float-right">
+                      <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <em class="fa fa-ellipsis-v"></em>
+                      </button>
+                      <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a class="dropdown-item" href="{% url 'post-edit' post.id %}">Edit Post</a>
+                        <a class="dropdown-item" href="{% url 'post-delete' post.id %}">Delete Post</a>
+                      </div>
+                    </div>
+                    {% endifequal %}
+                    <!--/ dropdown -->
+                    <div class="media m-0">
+                      <div class="d-flex mr-3">
+                        <a href="{% url 'profile-detail' post.uploaded_by.profile.id post.uploaded_by.profile.slug %}"><img class="img-fluid rounded-circle" src="{{post.uploaded_by.profile.pic.url}}" alt="Post User"></a>
+                      </div>
+                      <div class="media-body">
+                        <p class="m-0 text-dark fw-bold">{{post.uploaded_by.get_full_name}}</p>
+                        <small><span><i class="fas fa-at"></i> {{post.uploaded_by.username}}</span></small>
+                        <small><span><i class="far fa-clock"></i> {{post.cr_date|naturaltime}}</span></small>
+                      </div>
+                    </div>
+                    <!--/ media -->
+                  </div>
+                  <!--/ cardbox-heading -->		  
+                  <div class="cardbox-item">
+                    <p style="font-size:14px;" class="card-text text-muted px-4">{{post.msg}}</p>
+                    <p style="font-size:12px;" class="card-text text-dark px-4 mb-1">{% for tag in post.tags.all %}
+                    <small class="text-dark"><a href="{% url 'tag' tag.slug %}" class="text-primary">#{{tag}}</a></small>
+                    {% endfor %}</p>
+                    <a href="{% url 'post-detail' post.id %}"><img class="img-fluid" src="{{post.pic.url}}" alt="Post Image"></a>
+                  </div>
+                  <!--/ cardbox-item -->
+                  <div class="cardbox-base">
+                    <ul class="float-right">
+                      <li><a><i class="fa fa-comments text-dark"></i></a></li>
+                      <li><a><em class="mr-5">{{post.postcomment_set.all.count}}</em></a></li>
+                    </ul>
+                    <ul>
+                      {% if post.liked %}
+                      <li><a href="{% url 'unlike-post' post.id %}"><i class="fas fa-heart text-danger"></i></a></li>
+                      {% else %}
+                      <li><a href="{% url 'like-post' post.id %}"><i class="far fa-heart text-dark"></i></a></li>
+                      {% endif %}
+                      <li><a><span class="like-count{{post.id}}">{{post.likedNo}} Likes</span></a></li>
+                    </ul>
+                    {% comment %} </form>	    {% endcomment %}
+                  </div>
+                  <!--/ cardbox-base -->
+                  <form action="" method="POST" class="">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value={{post.id}}>
+                    <div class="cardbox-comments">
+                      <span class="comment-avatar float-left">
+                        <a href="{% url 'profile-detail' request.user.profile.id request.user.profile.slug %}"><img class="rounded-circle" src="{{request.user.profile.pic.url}}" alt="User"></a>                            
+                      </span>
+                      <div class="search">
+                        {{ c_form|crispy }}
+                        <button type="submit" name="submit_c_form" class="btn btn-light btn-sm"><i class="fas fa-paper-plane text-dark"></i></button>
+                      </div>
+                      <!--/. Search -->
+                    </div>
+                    <!--/ cardbox-like -->
+                  </form>			  				
+                </div>
+                <!--/ cardbox -->
+              </div>
+              <!--/ col-lg-6 -->	
+              {% empty %}
+            <p class="font-family:calibri;">No Post Uploaded.</p>
+            {% endfor %}			
+          </div>
+          <!--/ row -->
+        </div>
+        <!--/ container -->
+      </section>
+  </div>
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+    <section class="hero">
+        <div class="container">
+          <div class="row">
+            {% for n1 in post_list %}		  
+              <div class="col-lg-6">			
+                <div class="cardbox shadow bg-white">		 
+                  <div class="cardbox-heading">
+                    <!-- START dropdown-->
+                    {% ifequal request.user n1.uploaded_by %}
+                    <div class="dropdown float-right">
+                      <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <em class="fa fa-ellipsis-v"></em>
+                      </button>
+                      <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a class="dropdown-item" href="{% url 'post-edit' n1.id %}">Edit Post</a>
+                        <a class="dropdown-item" href="{% url 'post-delete' n1.id %}">Delete Post</a>
+                      </div>
+                    </div>
+                    {% endifequal %}
+                    <!--/ dropdown -->
+                    <div class="media m-0">
+                      <div class="d-flex mr-3">
+                        <a href="{% url 'profile-detail' n1.uploaded_by.profile.id n1.uploaded_by.profile.slug %}"><img class="img-fluid rounded-circle" src="{{n1.uploaded_by.profile.pic.url}}" alt="Post User"></a>
+                      </div>
+                      <div class="media-body">
+                        <p class="m-0 text-dark fw-bold">{{n1.uploaded_by.get_full_name}}</p>
+                        <small><span><i class="fas fa-at"></i> {{n1.uploaded_by.username}}</span></small>
+                        <small><span><i class="far fa-clock"></i> {{n1.cr_date|naturaltime}}</span></small>
+                      </div>
+                    </div>
+                    <!--/ media -->
+                  </div>
+                  <!--/ cardbox-heading -->		  
+                  <div class="cardbox-item">
+                    <p style="font-size:14px;" class="card-text text-muted px-4">{{n1.msg}}</p>
+                    <p style="font-size:12px;" class="card-text text-dark px-4 mb-1">{% for tag in n1.tags.all %}
+                    <small class="text-dark"><a href="{% url 'tag' tag.slug %}" class="text-primary">#{{tag}}</a></small>
+                    {% endfor %}</p>
+                    <a href="{% url 'post-detail' n1.id %}"><img class="img-fluid" src="{{n1.pic.url}}" alt="Post Image"></a>
+                  </div>
+                  <!--/ cardbox-item -->
+                  <div class="cardbox-base">
+                    <ul class="float-right">
+                      <li><a><i class="fa fa-comments text-dark"></i></a></li>
+                      <li><a><em class="mr-5">{{n1.postcomment_set.all.count}}</em></a></li>
+                    </ul>
+                    <ul>
+                      {% if n1.liked1 %}
+                      <li><a href="{% url 'unlike-post' n1.id %}"><i class="fas fa-heart text-danger"></i></a></li>
+                      {% else %}
+                      <li><a href="{% url 'like-post' n1.id %}"><i class="far fa-heart text-dark"></i></a></li>
+                      {% endif %}
+                      <li><a><span class="like-count{{post.id}}">{{n1.likedno}} Likes</span></a></li>
+                    </ul>
+                    {% comment %} </form>	    {% endcomment %}
+                  </div>
+                  <!--/ cardbox-base -->
+                  <form action="" method="POST" class="">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value={{n1.id}}>
+                    <div class="cardbox-comments">
+                      <span class="comment-avatar float-left">
+                        <a href="{% url 'profile-detail' request.user.profile.id request.user.profile.slug %}"><img class="rounded-circle" src="{{request.user.profile.pic.url}}" alt="User"></a>                            
+                      </span>
+                      <div class="search">
+                        {{ c_form|crispy }}
+                        <button type="submit" name="submit_c_form" class="btn btn-light btn-sm"><i class="fas fa-paper-plane text-dark"></i></button>
+                      </div>
+                      <!--/. Search -->
+                    </div>
+                    <!--/ cardbox-like -->
+                  </form>			  				
+                </div>
+                <!--/ cardbox -->
+              </div>
+              <!--/ col-lg-6 -->	
+              {% empty %}
+            <p class="font-family:calibri;">No Followed Posts.</p>
+            {% endfor %}			
+          </div>
+          <!--/ row -->
+        </div>
+        <!--/ container -->
+      </section>
+  </div>
+  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <section class="hero">
+        <div class="container">
+          <div class="row">
+            {% for p1 in myPosts %}		  
+              <div class="col-lg-6">			
+                <div class="cardbox shadow bg-white">		 
+                  <div class="cardbox-heading">
+                    <!-- START dropdown-->
+                    {% ifequal request.user p1.uploaded_by %}
+                    <div class="dropdown float-right">
+                      <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <em class="fa fa-ellipsis-v"></em>
+                      </button>
+                      <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a class="dropdown-item" href="{% url 'post-edit' p1.id %}">Edit Post</a>
+                        <a class="dropdown-item" href="{% url 'post-delete' p1.id %}">Delete Post</a>
+                      </div>
+                    </div>
+                    {% endifequal %}
+                    <!--/ dropdown -->
+                    <div class="media m-0">
+                      <div class="d-flex mr-3">
+                        <a href="{% url 'profile-detail' p1.uploaded_by.profile.id p1.uploaded_by.profile.slug %}"><img class="img-fluid rounded-circle" src="{{p1.uploaded_by.profile.pic.url}}" alt="Post User"></a>
+                      </div>
+                      <div class="media-body">
+                        <p class="m-0 text-dark fw-bold">{{p1.uploaded_by.get_full_name}}</p>
+                        <small><span><i class="fas fa-at"></i> {{p1.uploaded_by.username}}</span></small>
+                        <small><span><i class="far fa-clock"></i> {{p1.cr_date|naturaltime}}</span></small>
+                      </div>
+                    </div>
+                    <!--/ media -->
+                  </div>
+                  <!--/ cardbox-heading -->		  
+                  <div class="cardbox-item">
+                    <p style="font-size:14px;" class="card-text text-muted px-4">{{p1.msg}}</p>
+                    <p style="font-size:12px;" class="card-text text-dark px-4 mb-1">{% for tag in p1.tags.all %}
+                    <small class="text-dark"><a href="{% url 'tag' tag.slug %}" class="text-primary">#{{tag}}</a></small>
+                    {% endfor %}</p>
+                    <a href="{% url 'post-detail' p1.id %}"><img class="img-fluid" src="{{p1.pic.url}}" alt="Post Image"></a>
+                  </div>
+                  <!--/ cardbox-item -->
+                  <div class="cardbox-base">
+                    <ul class="float-right">
+                      <li><a><i class="fa fa-comments text-dark"></i></a></li>
+                      <li><a><em class="mr-5">{{p1.postcomment_set.all.count}}</em></a></li>
+                    </ul>
+                    <ul>
+                      {% if p1.likes %}
+                      <li><a href="{% url 'unlike-post' p1.id %}"><i class="fas fa-heart text-danger"></i></a></li>
+                      {% else %}
+                      <li><a href="{% url 'like-post' p1.id %}"><i class="far fa-heart text-dark"></i></a></li>
+                      {% endif %}
+                      <li><a><span class="like-count{{post.id}}">{{p1.likesNo}} Likes</span></a></li>
+                    </ul>
+                  </div>
+                  <!--/ cardbox-base -->
+                  <form action="" method="POST" class="">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value={{p1.id}}>
+                    <div class="cardbox-comments">
+                      <span class="comment-avatar float-left">
+                        <a href="{% url 'profile-detail' request.user.profile.id request.user.profile.slug %}"><img class="rounded-circle" src="{{request.user.profile.pic.url}}" alt="User"></a>                            
+                      </span>
+                      <div class="search">
+                        {{ c_form|crispy }}
+                        <button type="submit" name="submit_c_form" class="btn btn-light btn-sm"><i class="fas fa-paper-plane text-dark"></i></button>
+                      </div>
+                      <!--/. Search -->
+                    </div>
+                    <!--/ cardbox-like -->
+                  </form>			  				
+                </div>
+                <!--/ cardbox -->
+              </div>
+              <!--/ col-lg-6 -->	
+              {% empty %}
+            <p class="font-family:calibri;">You haven't uploaded any post yet.</p>
+            {% endfor %}			
+          </div>
+          <!--/ row -->
+        </div>
+        <!--/ container -->
+      </section>
+  </div>
+  <div class="tab-pane fade show active" id="pills-post" role="tabpanel" aria-labelledby="pills-post-tab">
+      <section class="hero">
+        <div class="container">
+          <div class="row">
+            {% for p1 in request.user.profile.favourites.all %}		  
+              <div class="col-lg-6">			
+                <div class="cardbox shadow bg-white">		 
+                  <div class="cardbox-heading">
+                    <!-- START dropdown-->
+                    {% ifequal request.user p1.uploaded_by %}
+                    <div class="dropdown float-right">
+                      <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <em class="fa fa-ellipsis-v"></em>
+                      </button>
+                      <div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
+                        <a class="dropdown-item" href="{% url 'post-edit' p1.id %}">Edit Post</a>
+                        <a class="dropdown-item" href="{% url 'post-delete' p1.id %}">Delete Post</a>
+                      </div>
+                    </div>
+                    {% endifequal %}
+                    <!--/ dropdown -->
+                    <div class="media m-0">
+                      <div class="d-flex mr-3">
+                        <a href="{% url 'profile-detail' p1.uploaded_by.profile.id p1.uploaded_by.profile.slug %}"><img class="img-fluid rounded-circle" src="{{p1.uploaded_by.profile.pic.url}}" alt="Post User"></a>
+                      </div>
+                      <div class="media-body">
+                        <p class="m-0 text-dark fw-bold">{{p1.uploaded_by.get_full_name}}</p>
+                        <small><span><i class="fas fa-at"></i> {{p1.uploaded_by.username}}</span></small>
+                        <small><span><i class="far fa-clock"></i> {{p1.cr_date|naturaltime}}</span></small>
+                      </div>
+                    </div>
+                    <!--/ media -->
+                  </div>
+                  <!--/ cardbox-heading -->		  
+                  <div class="cardbox-item">
+                    <p style="font-size:14px;" class="card-text text-muted px-4">{{p1.msg}}</p>
+                    <p style="font-size:12px;" class="card-text text-dark px-4 mb-1">{% for tag in p1.tags.all %}
+                    <small class="text-dark"><a href="{% url 'tag' tag.slug %}" class="text-primary">#{{tag}}</a></small>
+                    {% endfor %}</p>
+                    <a href="{% url 'post-detail' p1.id %}"><img class="img-fluid" src="{{p1.pic.url}}" alt="Post Image"></a>
+                  </div>
+                  <!--/ cardbox-item -->
+                  <div class="cardbox-base">
+                    <ul class="float-right">
+                      <li><a><i class="fa fa-comments text-dark"></i></a></li>
+                      <li><a><em class="mr-5">{{p1.postcomment_set.all.count}}</em></a></li>
+                    </ul>
+                    <ul>
+                      {% if p1.likes %}
+                      <li><a href="{% url 'unlike-post' p1.id %}"><i class="fas fa-heart text-danger"></i></a></li>
+                      {% else %}
+                      <li><a href="{% url 'like-post' p1.id %}"><i class="far fa-heart text-dark"></i></a></li>
+                      {% endif %}
+                      <li><a><span class="like-count{{post.id}}">{{p1.likesNo}} Likes</span></a></li>
+                    </ul>
+                  </div>
+                  <!--/ cardbox-base -->
+                  <form action="" method="POST" class="">
+                    {% csrf_token %}
+                    <input type="hidden" name="pk" value={{p1.id}}>
+                    <div class="cardbox-comments">
+                      <span class="comment-avatar float-left">
+                        <a href="{% url 'profile-detail' request.user.profile.id request.user.profile.slug %}"><img class="rounded-circle" src="{{request.user.profile.pic.url}}" alt="User"></a>                            
+                      </span>
+                      <div class="search">
+                        {{ c_form|crispy }}
+                        <button type="submit" name="submit_c_form" class="btn btn-light btn-sm"><i class="fas fa-paper-plane text-dark"></i></button>
+                      </div>
+                      <!--/. Search -->
+                    </div>
+                    <!--/ cardbox-like -->
+                  </form>			  				
+                </div>
+                <!--/ cardbox -->
+              </div>
+              <!--/ col-lg-6 -->	
+              {% empty %}
+            <p class="font-family:calibri;">No Saved Posts.</p>
+            {% endfor %}			
+          </div>
+          <!--/ row -->
+        </div>
+        <!--/ container -->
+      </section>
+  </div>
+</div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

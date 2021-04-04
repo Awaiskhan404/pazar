@@ -1,0 +1,57 @@
+{% extends 'dashboard base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Stock |
+{% endblock title %}
+
+{% block stocksactive %}active
+{% endblock stocksactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/stocks">Stocks</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add stock</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block css %}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+{% endblock css %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <h1 class="h3 mb-0 text-gray-800">Add Stock</h1>
+        </div>
+        <!-- Main Content Here -->
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Add your stock</h1>
+                  </div>
+                <form method="POST" enctype='multipart/form-data' style="padding:1rem;">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-plus mr-2"></i>Add to stock</button>
+                </form>
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock body %}

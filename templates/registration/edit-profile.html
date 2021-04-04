@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Profile |
+{% endblock title %}
+
+{% block css %}
+.row{
+    margin-right:0;
+}
+.card-title{
+    font-size:1.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+.card-body{
+    padding:1.1rem;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+.text-muted{
+    font-family:calibri;
+}
+{% endblock css %}
+
+{% block body %}
+
+<div class="container mt-5">
+<div class="row justify-content-center">
+    <div class="col-12 col-md-4">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h4 class="card-title text-dark mb-2">Update your profile</h4>
+                <form method="POST" enctype="multipart/form-data" style="padding:1rem;font-family:calibri;">
+                    {% csrf_token %}
+                    {{user_form |crispy}}
+                    {{profile_form |crispy}}
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Products |
+{% endblock title %}
+
+{% block css %}
+.card{
+    margin:4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    transition:0.5s ease;
+}
+.card:hover{
+     transform: scale(1.05);
+     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.card-text{
+  font-family:calibri;
+}
+.card-img-overlay{
+    width:0px;
+}
+.product-head{
+    width:100%;
+    height:500px;
+    object-fit:contain;
+}
+{% endblock css %}
+
+{% block body %}
+<img src="{% static 'all category.jpeg' %}" class="img-fluid product-head" alt="All Products">
+<h2 class="text-center text-uppercase fw-bold text-primary mt-3 mb-3 fs-3" style="font-family:serif;">All Products</h2>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <nav class="navbar navbar-expand-lg navbar-light mt-2" style="padding:0;">
+                <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-action active bg-info border-0"><a style="text-decoration:none;color:white;font-family: 'Baloo Tamma 2', cursive;" href="{% url 'products' %}"><img src="{% static 'All Category Icon.png' %}" alt="Category Icon" style="display:inline-block;" class="img-fluid me-2">All Category</a></li>
+                        {% for category in cats %}
+                        <li class="list-group-item list-group-item-action"><a style="text-decoration:none; color:black;font-family: 'Baloo Tamma 2', cursive;" href="{% url 'product-category' category.id category.slug %}">{% if category.icon %}<img class="img-fluid me-2" src="{{category.icon.url}}" style="height:25px;width:25px;object-fit:scale-down;display:inline-block;" alt="{{category.name}}">{% endif %}{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="col-md-10">
+                <div class="d-flex flex-wrap">
+                {% for product in products %}
+                    <div class="card mb-3 mr-3 shadow-sm rounded" style="width: 18rem;">
+                        <a href="{% url 'product' product.pk %}"><img src="{{product.image.url}}" alt="{{product.name}}" class="card-img-top"></a>
+                        <div class="card-img-overlay">
+                            <button class="btn btn-light btn-sm"><h6 class="card-title mb-0 m-0" style="font-family: 'Syne Mono', monospace;">{{product.brand}}</h6></button>
+                        </div>
+                        <div class="card-body">
+                            <span class="badge bg-secondary text-light">{{product.category}}</span>
+                            <a href="{% url 'product' product.pk %}"><h3 class="card-title text-primary fs-5">{{product.name}}</h3></a>
+                            <p class="card-text">{{product.desc}}</p>
+                            <p class="card-text"><span class="text-dark fw-bold">Warranty- </span> {{product.warranty}}</p>
+                            <hr class="mb-2">
+                            <h6 class="mb-0">
+                                <span class="badge bg-danger text-light rounded-pill">&#8377; {% if product.offer_price %} {{product.offer_price}} {% else %} {{product.price}} {% endif %}</span>
+                                <span class="text-grey"><s>&#8377;{{product.price}}</s></span>
+                            </h6>
+                        </div>
+                    </div>
+                {% empty %}
+                    <h4 class="text-dark fs-5 fst-italic mb-4">No products yet!</h4>
+                {% endfor %}
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

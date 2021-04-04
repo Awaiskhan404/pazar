@@ -1,0 +1,151 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}{{supplier.name}}'s Profile |
+{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+{% block suppliersactive %}active
+{% endblock suppliersactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/suppliers">Supplier's List</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{supplier.name}}</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+<div class="container mt-3">
+    <div class="content-section">
+        <div class="media">
+            <div class="media-body rounded p-3" style="background:#000;">
+                <h2 style="color:#007fdd;">&nbsp;{{ supplier.name }}</h2>
+                <a href="{% url 'edit-supplier' supplier.pk %}" class="btn btn-primary btn-sm mr-3" style="float: right;">Edit Details</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="card-text mb-0">Phone No &nbsp; : <span class="text-light">{{ supplier.phone }}</span></p>
+                        <p  class="card-text mb-0">Email Id &nbsp;&nbsp;&nbsp;&nbsp; : <span class="text-light">{{ supplier.email }}</span></p>
+                        <p class="card-text mb-0">GSTIN No &nbsp; : <span class="text-light">{{ supplier.gstin }}</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="card-text mb-0">Address &nbsp; : <span class="text-light">{{ supplier.address }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+        <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Purchases <a class="btn btn-dark btn-sm mx-1" href="{% url 'select-supplier' %}"><i class="fas fa-plus-circle"></i></a></h2>
+    </div>
+    <div class="col-md-12 col-sm-12 mt-5">
+        <div class="table-responsive-md table-responsive-sm table-responsive-lg">
+            <table class="table table-striped table-hover shadow-sm">
+                <caption>Purchase Bills</caption>
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">Bill No</th>
+                    <th scope="col">Stocks Purchased</th>
+                    <th scope="col">Quantity Purchased</th>
+                    <th scope="col">Total Purchased Price</th>
+                    <th scope="col">Purchased Date</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for purchase in bills %}
+                    <tr>
+                        <th scope="row"><h4>{{forloop.counter}}</h4></th>
+                        <td>{% for item in purchase.get_items_list %} {{ item.stock.name }} <br> {% endfor %}</td>
+                        <td>{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>
+                        <td>{{ purchase.get_total_price|floatformat:2 }}</td>
+                        <td>{{ purchase.time|date:"F j, Y" }}</td>
+                        <td class="d-inline-flex">
+                            <a class="btn-sm btn-warning mx-1" href="{% url 'purchase-bill' purchase.pk %}"><i class="far fa-eye"></i></a>
+                            <a class="btn-sm btn-danger mx-1" href="{% url 'delete-purchase' purchase.pk %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <h5>You have no any purchase bills yet. Please add one first.</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="align-middle">
+        {% if bills.has_other_pages %}
+
+            {% if bills.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in bills.paginator.page_range %}
+                {% if bills.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > bills.number|add:'-3' and num < bills.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if bills.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.paginator.num_pages }}">Last</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+    <div class="d-sm-flex align-items-center justify-content-evenly mb-4 mt-4">
+        <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Stocks <a class="btn btn-dark btn-sm mx-1" href="{% url 'new-stock' %}"><i class="fas fa-plus-circle"></i></a></h2>
+    </div>
+    <div class="col-md-12 col-sm-12 mt-5">
+        <div class="table-responsive-md table-responsive-sm table-responsive-lg">
+            <table class="table table-striped table-hover shadow-sm">
+                <caption>Stocks</caption>
+                <thead class="bg-dark text-light">
+                    <tr>
+                    <th scope="col">Sr No.</th>
+                    <th scope="col">Stock Name</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">HSN Code</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Warranty</th>
+                    <th scope="col">Expiry Date</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stock in supplier.stock_set.all %}
+                    <tr>
+                        <th scope="row"><h4>{{forloop.counter}}</h4></th>
+                        <td>{{ stock.name }}</td>
+                        <td style="font-family:cursive;" class="text-info">{{ stock.brand }}</td>
+                        <td>{{ stock.hsn }}</td>                    
+                        <td>{% if stock.image %}<img src="{{ stock.image.url }}" style="height:100px;width:100px;">{% endif %}</td>                     
+                        <td>{{ stock.quantity }}</td>
+                        <td>{% if stock.offer_price %}{{stock.offer_price}}{% else %}{{stock.price}}{% endif %}</td>
+                        <td>{{stock.warranty}}</td>
+                        <td>{{ stock.exp_date|date:'j F, Y' }}</td>
+                        <td class="d-inline-flex">
+                            <a class="btn-sm btn-success mx-1" href="{% url 'edit-stock' stock.pk %}"><i class="fas fa-edit"></i></a>
+                            <a class="btn-sm btn-danger mx-1" href="{% url 'delete-stock' stock.pk %}"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                        <h5>You have no any stocks yet. Please add one first.</h5>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock body %}

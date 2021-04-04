@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Interests |
+{% endblock title %}
+
+{% block css %}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+{% endblock css %}
+
+{% load crispy_forms_tags %}
+
+{% block body %}
+  <div class="container mt-5 p-5">
+    <h2 class="mb-3 text-center fs-3" style="font-family:serif;">Update Your Interests</h2>
+    <div class="card p-5 border-0 shadow rounded">
+      <h3 class="card-heading mb-2" style="font-family:calibri;">Interested In:-</h3>
+      <div class="d-flex flex-wrap mb-2">
+        <p class="mr-3">
+        {% for interest in interests %}
+          {{interest.get_html_badge}}
+        {% endfor %}
+        </p>
+      </div>
+      <form method="post" novalidate style="font-family:calibri;">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success shadow me-3">Save changes</button>
+        <a href="{% url 'home' %}" class="btn btn-outline-warning">Nevermind</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

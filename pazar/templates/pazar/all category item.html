@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Category Item |
+{% endblock title %}
+
+{% block css %}
+.category-head{
+    height:500px;
+    width:100%;
+}
+.item-card img{
+  height:150px;
+  width:100%;
+}
+
+.item{
+  padding-left:5px;
+  padding-right:5px;
+}
+.item-card{
+  transition:0.5s;
+  cursor:pointer;
+}
+.item-card-title{  
+  font-size:15px;
+  transition:1s;
+  cursor:pointer;
+}
+.item-card-title i{  
+  font-size:15px;
+  transition:1s;
+  cursor:pointer;
+  color:#ffa710
+}
+.card-title i:hover{
+  transform: scale(1.25) rotate(100deg); 
+  color:#18d4ca;
+  
+}
+.card:hover{
+  transform: scale(1.05);
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.3);
+}
+
+.card::before, .card::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale3d(0, 0, 1);
+  transition: transform .3s ease-out 0s;
+  background: rgba(255, 255, 255, 0.1);
+  content: '';
+  pointer-events: none;
+}
+.card::before {
+  transform-origin: left top;
+}
+.card::after {
+  transform-origin: right bottom;
+}
+.card:hover::before, .card:hover::after, .card:focus::before, .card:focus::after {
+  transform: scale3d(1, 1, 1);
+}
+.card-img-overlay {
+    top: 35px;
+    left: 5px;
+    width:0;
+}
+{% endblock css %}
+
+{% block body %}
+<img src="{% static 'all category.jpeg' %}" class="img-fluid category-head" alt="Item Banner" style="object-fit:contain;">
+<h2 class="text-center text-uppercase fw-bold text-primary mt-2 fs-2" style='font-family:calibri;'>All Items To Sale</h2>
+<div class="container mt-2">
+    {% for category in categories %}
+        <h2 class="text-dark fs-1 mb-2" style="font-family:monospace;">{{category.name}}</h2>
+        <div class="row">
+            {% for item in category.sale_set.all %}
+                <div class="col-md-3 col-sm-6 item">
+                    <div class="card item-card card-block p-3 mr-3 mb-3">
+                        <h4 class="card-title text-right"><span class="badge">{{item.category.get_html_badge}}</span></h4>
+                        <img src="{{item.image.url}}" alt="Photo of item">
+                        <div class="card-img-overlay">
+                            <h5><span class="badge bg-info">New</span></h5>
+                        </div>
+                        <h5 class="item-card-title mt-3 mb-3"><b>{{item.name}}</b>&nbsp;&nbsp;  • Price - <i class="fas fa-rupee-sign fa-2x mr-2"></i><b>{{item.price}}</b></h5>
+                        <p class="card-text" style="font-family:calibri;">{{item.description}}</p>
+                        <a href="{% url 'item-detail' item.pk item.slug %}"><button class="btn btn-warning btn-sm mt-2"><i class="fas fa-eye text-dark mr-1"></i>View</button></a>
+                    </div>
+                </div>
+            {% empty %}
+            <p style="font-family:calibri;">No Items to Sell in this Category.</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock body %}

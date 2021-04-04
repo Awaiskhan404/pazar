@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Logged Out |
+{% endblock title %}
+
+{% block css %}
+.card{
+  border:0;
+}
+.card h2{
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+{% endblock css %}
+
+{% block body %}
+  <div class="container p-2" style="margin-top:50.4px;">
+  <div class="card mt-5">
+  <h2 class="text-primary">Logged out</h2>
+  <b>Thanks for spending some quality time with the Web site today.</b>
+  <p><a href="/account/login" class="btn btn-outline-info mt-1">Log in again</a></p>
+  </div>
+  </div>
+{% endblock %}

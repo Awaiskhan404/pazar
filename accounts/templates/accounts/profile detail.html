@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+
+{% block title %}{{object.user.get_full_name}}'s Profile |
+{% endblock title %}
+
+{% block css %}
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+.followbtn{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+.move{
+    transition:0.25s;
+}
+.move:hover{
+    transform:scale(1.1);
+}
+
+.hover {
+  position: relative;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.hover-item {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.hover:hover .image {
+  opacity: 0.3;
+}
+
+.hover:hover .hover-item {
+  opacity: 1;
+}
+.hover-item h3{
+  color: #000;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+}
+
+.hover-item p{
+  color: #000;
+  font-size: 0.8em;
+}
+
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5 p-5">
+    <div class="card bg-light">
+        <div class="row">
+            <div class="col-md-3 p-3">
+                <img src="{{object.pic.url}}" alt="{{object.user.username}}" style="height:200px;width:200px;margin-left:3em;pointer-events:none;" class="rounded-circle">
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 d-flex">
+                    <div>
+                        <h3 class="mb-0" style="font-size:1.5em;font-family: 'Amiri', serif;">{{object.user.get_full_name}}</h3>
+                        <i class="text-info" style="font-family: 'Gloria Hallelujah', cursive;">@{{object.user.username}}</i>
+                    </div>
+                    <div>
+                        {% for p1 in profiles %}
+                        {% if p1.followed %}
+                        <a href="{% url 'unfollow' p1.id %}"><button class="btn btn-danger btn-sm mx-3 followbtn">Unfollow</button></a>
+                        {% else %}
+                        <a href="{% url 'follow' p1.id %}"><button class="btn btn-primary btn-sm mx-3 followbtn">Follow</button></a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="d-flex">
+                    {% if object.user.is_shop_owner %}
+                    <p><a class="ms-3 me-3 fw-bold text-primary" style="text-decoration:none;font-family:calibri;">{{object.user.free_listing_set.all.count}}<span class="text-dark fw-bold"> shops</span></a></p>
+                    <p><a class="ms-3 me-3 fw-bold text-primary" style="text-decoration:none;font-family:calibri;">{{object.user.customer_set.all.count}}<span class="text-dark fw-bold"> customers</span></a></p>
+                    <p><a class="ms-3 me-3 fw-bold text-primary" style="text-decoration:none;font-family:calibri;">{{object.user.product_set.all.count}}<span class="text-dark fw-bold"> products</span></a></p>
+                    {% endif %}
+                    {% if object.user.is_user %}
+                    <p><a class="ms-3 me-3 fw-bold text-primary" style="text-decoration:none;font-family:calibri;">{{object.user.blog_set.all.count}}<span class="text-dark fw-bold"> blogs</span></a></p>
+                    <p><a class="ms-3 me-3 fw-bold text-primary" style="text-decoration:none;font-family:calibri;">{{object.user.post_set.all.count}}<span class="text-dark fw-bold"> posts</span></a></p>
+                    <p><a class="ms-3 me-3 fw-bold text-primary" style="text-decoration:none;font-family:calibri;">{{object.followerCount}}<span class="text-dark fw-bold"> followers</span></a></p>
+                    {% endif %}
+                </div>
+                <p style="font-family:cursive;margin-left:15px;" class="mt-2 mb-2">{{object.bio}}</p>
+                <div class="d-flex mt-3 mb-2">
+                    {% if object.website %}
+                    <a href="{{object.website}}" class="ms-3 text-secondary move"><i class="fas fa-globe fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.facebook %}
+                    <a href="{{object.facebook}}" class="ms-3 text-primary move"><i class="fab fa-facebook fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.instagram %}
+                    <a href="{{object.instagram}}" class="ms-3 text-warning move"><i class="fab fa-instagram fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.twitter %}
+                    <a href="{{object.twitter}}" class="ms-3 text-info move"><i class="fab fa-twitter-square fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.linkedin %}
+                    <a href="{{object.linkedin}}" class="ms-3 text-primary move"><i class="fab fa-linkedin-in fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.github %}
+                    <a href="{{object.github}}" class="ms-3 text-dark move"><i class="fab fa-github fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.youtube %}
+                    <a href="{{object.youtube}}" class="ms-3 text-danger move"><i class="fab fa-youtube fa-2x"></i></a>
+                    {% endif %}
+                    {% if object.pinterest %}
+                    <a href="{{object.pinterest}}" class="ms-3 text-danger move"><i class="fab fa-pinterest fa-2x"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <p class="text-muted" style="font-family:serif;"><i class="fas fa-pencil-alt me-2"></i>About Me</p>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title fw-bold" style="font-family:calibri;">Phone</h5>
+                    <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-mobile me-2"></i>{{object.phone_no}}</p>
+                    <h5 class="card-title fw-bold" style="font-family:calibri;">Address</h5>
+                    <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-map-marker-alt me-2"></i>{{object.address}}</p>
+                    <h5 class="card-title fw-bold" style="font-family:calibri;">Birthday</h5>
+                    <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="fas fa-birthday-cake me-2"></i>{{object.birthday|date:"F j, Y"}}</p>
+                    <h5 class="card-title fw-bold" style="font-family:calibri;">Age</h5>
+                    <p class="card-text mb-2" style="font-family: 'Slabo 27px', serif;"><i class="far fa-calendar-alt me-2"></i>{{object.age}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <p class="text-muted" style="font-family:serif;"><i class="fas fa-bars me-2"></i>Description</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-family: 'Slabo 27px', serif;">{{object.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <p class="text-muted" style="font-family:serif;"><i class="fas fa-trophy me-2"></i>Skills</p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" style="font-family: 'Slabo 27px', serif;">
+                        <div class="d-flex flex-wrap">
+                            {% for skill in object.user.skill_set.all %}
+                                <h1><span class="badge rounded-pill bg-secondary mt-2 mb-2 ms-2">{{skill.name}}</span></h1>
+                            {% endfor %}
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if object.user.is_shop_owner %}
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="card p-3">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-link active fw-bold" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-family: 'Raleway', sans-serif;"><i class="fas fa-store me-2 text-primary"></i>Shops</a>
+                        <a class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="fas fa-award me-2 text-primary"></i>Products</a>
+                        <a class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="fas fa-newspaper me-2 text-primary"></i>Blogs</a>
+                        <a class="nav-link fw-bold" id="nav-post-tab" data-bs-toggle="tab" href="#nav-post" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="far fa-images me-2 text-primary"></i>Posts</a>
+                        <a class="nav-link fw-bold" id="nav-favpost-tab" data-bs-toggle="tab" href="#nav-favpost" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="fas fa-bookmark me-2 text-primary"></i>Favourite Posts</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for shop in object.user.free_listing_set.all %}
+                                <div class="hover">
+                                    <a href="{% url 'listing-detail' shop.id shop.slug %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{shop.Business_Logo.url}}" alt="{{shop.Business_Name}}" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{shop.Business_Name}}</h3>
+                                        <p><h1><span class="badge bg-success">{{shop.Business_Category}}</span></h1></p>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for product in object.user.product_set.all %}
+                                <div class="hover">
+                                    <a href="#" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{product.image.url}}" alt="{{product.name}}" style="height:300px;width:300px;object-fit:contain;">
+                                    <div class="hover-item">
+                                        <h3>{{product.shop.Business_Name}}</h3>
+                                        <p><h1><span class="badge bg-success">{{product.name}}</span></h1></p>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for blog in object.user.blog_set.all %}
+                                <div class="hover">
+                                    <a href="{% url 'blog-post' blog.slug %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{blog.thumbnail.url}}" alt="{{blog.title}}" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{blog.title}}</h3>
+                                        <p><h1><span class="badge bg-success">{{blog.category}}</span></h1></p>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-post" role="tabpanel" aria-labelledby="nav-post-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for post in object.user.post_set.all %}
+                                <div class="hover">
+                                    <a href="{% url 'post-detail' post.id %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{post.pic.url}}" alt="Post Image" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{post.msg|truncatechars:50}}</h3>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% ifequal request.user object.user %}
+                    <div class="tab-pane fade" id="nav-favpost" role="tabpanel" aria-labelledby="nav-favpost-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for post in object.favourites.all %}
+                                <div class="hover">
+                                    <a href="{% url 'post-detail' post.id %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{post.pic.url}}" alt="Post Image" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{post.msg|truncatechars:50}}</h3>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endifequal %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if object.user.is_user %}
+    <div class="row mt-2">
+        <div class="col-md-12">
+            <div class="card p-3">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-link fw-bold" id="nav-blog-tab" data-bs-toggle="tab" href="#nav-blog" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="fas fa-newspaper me-2 text-primary"></i>Blogs</a>
+                        <a class="nav-link fw-bold" id="nav-posts-tab" data-bs-toggle="tab" href="#nav-posts" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="far fa-images me-2 text-primary"></i>Posts</a>
+                        <a class="nav-link fw-bold" id="nav-favposts-tab" data-bs-toggle="tab" href="#nav-favposts" role="tab" aria-controls="nav-contact" aria-selected="false" style="font-family: 'Raleway', sans-serif;"><i class="fas fa-bookmark me-2 text-primary"></i>Favourite Posts</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade" id="nav-blog" role="tabpanel" aria-labelledby="nav-blog-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for blog in object.user.blog_set.all %}
+                                <div class="hover">
+                                    <a href="{% url 'blog-post' blog.slug %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{blog.thumbnail.url}}" alt="{{blog.title}}" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{blog.title}}</h3>
+                                        <p><h1><span class="badge bg-success">{{blog.category}}</span></h1></p>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-posts" role="tabpanel" aria-labelledby="nav-posts-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for post in object.user.post_set.all %}
+                                <div class="hover">
+                                    <a href="{% url 'post-detail' post.id %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{post.pic.url}}" alt="{{post.msg|truncatechars:20}}" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{post.msg|truncatechars:50}}</h3>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% ifequal request.user object.user %}
+                    <div class="tab-pane fade" id="nav-favposts" role="tabpanel" aria-labelledby="nav-favposts-tab">
+                        <div class="d-flex flex-wrap">
+                            {% for post in object.favourites.all %}
+                                <div class="hover">
+                                    <a href="{% url 'post-detail' post.id %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{post.pic.url}}" alt="{{post.msg|truncatechars:20}}" style="height:300px;width:300px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{post.msg|truncatechars:50}}</h3>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endifequal %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock body %}

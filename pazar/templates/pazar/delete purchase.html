@@ -1,0 +1,49 @@
+{% extends 'dashboard base.html' %}
+
+{% block title %}Delete Purchase |
+{% endblock title %}
+
+{% block purchasesactive %}active
+{% endblock purchasesactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/purchases">Purchases List</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Delete Purchase</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block body %}
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <h1 class="h3 mb-0 text-gray-800">Delete Purchase</h1>
+        </div>
+        <!-- Main Content Here -->
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-3"></div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Delete your Purchase</h1>
+                  </div>
+                    <form method="POST">
+                        {% csrf_token %} 
+                        <em>Are you sure you want to delete <b>"{{ object }}"</b> ?</em><br>
+                        <input type="submit" value="Confirm" class="btn btn-danger shadow-sm btn-block mt-3">
+                        <a href="/purchases" class="btn btn-warning btn-block shadow-sm mt-3"><i class="fa fa-arrow-circle-left mr-2"></i>No, take me back!</a>
+                    </form> 
+                  <hr>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock body %}

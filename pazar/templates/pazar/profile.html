@@ -1,0 +1,555 @@
+{% extends 'dashboard base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}{{profile.user.get_full_name}}'s Profile |
+{% endblock title %}
+
+{% block profileactive %}active
+{% endblock profileactive %}
+
+{% block breadcrumb %}
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/home">Home</a></li>
+    <li class="breadcrumb-item"><a href="/Dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{profile.user.get_full_name}}'s Profile</li>
+  </ol>
+</nav>
+{% endblock breadcrumb %}
+
+{% block css %}
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@500&display=swap');
+.profile-cover {
+    position: relative;
+    z-index: 0;
+}
+
+.panel {
+    margin-bottom: 30px;
+    color: #696969;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.profile-cover__action {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    padding: 120px 30px 10px 153px;
+    border-radius: 5px 5px 0 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-pack: end;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: url(https://bootdey.com/img/Content/bg1.jpg) no-repeat;
+    background-size: cover;
+}
+
+.profile-cover__action > .btn {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.profile-cover__img {
+    position: absolute;
+    top: 120px;
+    left: 30px;
+    text-align: center;
+    z-index: 1;
+}
+
+.profile-cover__img > img {
+    max-width: 120px;
+    border: 5px solid #fff;
+    border-radius: 50%;
+}
+
+.profile-cover__img > .h3 {
+    color: #393939;
+    font-size: 20px;
+    line-height: 30px;
+}
+
+.profile-cover__img > img + .h3 {
+    margin-top: 0;
+}
+
+.profile-cover__info .nav {
+    margin-right: 28px;
+    padding: 15px 0 10px 170px;
+    color: #999;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+    -ms-flex-pack: end;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.profile-cover__info .nav li {
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.profile-cover__info .nav li:not(:first-child) {
+    margin-left: 30px;
+    padding-left: 30px;
+    border-left: 1px solid #eee;
+}
+
+.profile-cover__info .nav strong {
+    display: block;
+    margin-bottom: 10px;
+    color: #e16123;
+    font-size: 34px;
+}
+
+@media (min-width: 481px) {
+    .profile-cover__action > .btn {
+        min-width: 150px;
+    }
+
+    .profile-cover__action > .btn > span {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-cover__info .nav {
+        display: block;
+        margin: 90px auto 0;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .profile-cover__info .nav li:not(:first-child) {
+        margin-top: 8px;
+        margin-left: 0;
+        padding-top: 18px;
+        padding-left: 0;
+        border-top: 1px solid #eee;
+        border-left-width: 0;
+    }
+}
+
+.custom-progress {
+    height: 10px;
+    border-radius: 50px;
+    box-shadow: none;
+    margin-bottom: 25px;
+}
+.progress {
+    display: -ms-flexbox;
+    display: flex;
+    height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+}
+
+
+.bg-sky {
+    background-color: #02c2c7
+}
+
+.bg-orange {
+    background-color: #e95601
+}
+
+.bg-green {
+    background-color: #5bbd2a
+}
+
+.bg-yellow {
+    background-color: #f0d001
+}
+
+.bg-pink {
+    background-color: #ff48a4
+}
+
+.bg-purple {
+    background-color: #9d60ff
+}
+
+.bg-lightred {
+    background-color: #ff5722
+}
+.business-card{
+  transition:1s ease;
+}
+.business-card:hover{
+  transform:scale(1.1);
+}
+
+        .btn-arrow {
+            font-family: 'Baloo Tamma 2', cursive;
+            text-decoration: none;
+            font-size: 1rem;
+            user-select: none;
+            color: #0081e8;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-arrow:hover{
+          text-decoration:none;
+        }
+
+        .btn-arrow .arrow {
+            margin-right: 1rem;
+            height: 0.1rem;
+            width: 2.5rem;
+            position: relative;
+            background: #0081e8;
+            transition: width 0.2s ease;
+        }
+
+        .btn-arrow:hover .arrow {
+            width: 4rem;
+        }
+
+        .btn-arrow .arrow::before,
+        .btn-arrow .arrow::after {
+            content: "";
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: #0081e8;
+            height: 0.1rem;
+            width: 0.6rem;
+        }
+
+        .btn-arrow .arrow::before {
+            transform: rotate(45deg);
+            transform-origin: right bottom;
+        }
+
+        .btn-arrow .arrow::after {
+            transform: rotate(-45deg);
+            transform-origin: right top;
+        }
+
+.hover {
+  position: relative;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.hover-item {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.hover:hover .image {
+  opacity: 0.3;
+}
+
+.hover:hover .hover-item {
+  opacity: 1;
+}
+.hover-item h3{
+  color: #000;
+  font-weight: 300;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  font-size:20px;
+}
+
+.hover-item p{
+  color: #000;
+  font-size: 0.8em;
+}
+{% endblock css %}
+
+{% block body %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+      <h2 class="h3 mb-0 text-gray-800" style="margin-left:40px;">Business Owner Profile</h2>
+    </div>  
+    <div class="container mt-4">
+    <div class="col-lg-12">
+        <div class="panel profile-cover shadow-lg">
+            <div class="profile-cover__img">
+                <img src="{{user.profile.pic.url}}" alt="{{user.get_full_name}}" class="img-fluid img-responsive rounded-circle" style="height:120px;width:120px;">
+                <h3 class="h3 font-weight-bold text-dark">{{user.first_name}} {{user.last_name}}</h3>
+                {% if user.profile.bio %}
+                <p class="text-info" style="margin-top:-19px;">{{user.profile.bio}}</p>
+                {% endif %}
+            </div>
+            <div class="profile-cover__action bg--img" data-overlay="0.3">
+                <button class="btn btn-rounded btn-info mr-5 mr-sm-0 mr-md-0 mb-sm-0 mb-md-0 mt-sm-0 mt-md-0" style="margin-top:170px;">
+                    <i class="fas fa-phone-volume"></i>
+                    <a href="tel:{{user.profile.phone_no}}" style="text-decoration:none;color:white;"><span>Call Us</span></a>
+                </button>
+                <button class="btn btn-rounded btn-info mr-5 mr-md-0 mr-sm-0 mb-md-0 mb-sm-0 mt-sm-0 mt-md-0" style="margin-top:0px;">
+                    <i class="far fa-envelope"></i>
+                    <a href="mailto:{{user.email}}" style="text-decoration:none;color:white;"><span>Mail Us</span></a>
+                </button>
+            </div>
+            <div class="profile-cover__info">
+                <ul class="nav">
+                    <li><strong>{{shop.count}}</strong>Shops</li>
+                    <li><strong>{{customer.count}}</strong>Customers</li>
+                    <li><strong>{{product.count}}</strong>Products</li>
+                </ul>
+            </div>
+        </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card mb-3 shadow">
+                <div class="card-body">
+                  <h5 class="card-title font-weight-bold text-info">About</h5>
+                  <p class="card-text">{{profile.description}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card mb-3 shadow">
+                <div class="card-body">
+                  <h5 class="card-title font-weight-bold text-info">Social Media</h5>
+                   <div class="card mt-3 shadow-sm">
+                <ul class="list-group list-group-flush">
+                  {% if profile.website %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe mr-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
+                    <div><a href="{{profile.website}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.github %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github mr-2 icon-inline"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>Github</h6>
+                    <div><a href="{{profile.github}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.twitter %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
+                    <div><a href="{{profile.twitter}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.instagram %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram mr-2 icon-inline text-danger"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>Instagram</h6>
+                    <div><a href="{{profile.instagram}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.facebook %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
+                    <div><a href="{{profile.facebook}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.linkedin %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg enable-background="new 0 0 32 32" height="20px" style="margin-right:10px;margin-left:5px;" id="Layer_1" version="1.0" viewBox="0 0 32 32" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M32,30c0,1.104-0.896,2-2,2H2c-1.104,0-2-0.896-2-2V2c0-1.104,0.896-2,2-2h28c1.104,0,2,0.896,2,2V30z" class="feather feather-linkedin mr-2 icon-inline text-primary" fill="#007BB5"/><g><rect fill="#FFFFFF" height="14" width="4" x="7" y="11"/><path d="M20.499,11c-2.791,0-3.271,1.018-3.499,2v-2h-4v14h4v-8c0-1.297,0.703-2,2-2c1.266,0,2,0.688,2,2v8h4v-7    C25,14,24.479,11,20.499,11z" fill="#FFFFFF"/><circle cx="9" cy="8" fill="#FFFFFF" r="2"/></g></g><g/><g/><g/><g/><g/><g/></svg>Linkedin</h6>
+                    <div><a href="{{profile.linkedin}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.youtube %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg enable-background="new 0 0 512 512" height="25px" style="margin-left:3px;" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="25px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient gradientTransform="matrix(1 0 0 -1 -41.66 349.04)" gradientUnits="userSpaceOnUse" id="SVGID_1_" x1="67.6434" x2="694.2763" y1="323.1215" y2="-303.5114"><stop offset="0" style="stop-color:#DD272D"/><stop offset="0.5153" style="stop-color:#CA2429"/><stop offset="1" style="stop-color:#B22025"/></linearGradient><path class="feather feather-linkedin mr-2 icon-inline text-primary" d="M391.939,159.642c-11.485-12.816-24.349-12.892-30.247-13.618  c-42.252-3.275-105.625-3.275-105.625-3.275h-0.142c0,0-63.374,0-105.616,3.275c-5.898,0.727-18.752,0.802-30.247,13.618  c-9.041,9.777-11.995,31.984-11.995,31.984s-3.02,26.057-3.02,52.115v24.424c0,26.076,3.02,52.124,3.02,52.124  s2.945,22.197,11.995,31.955c11.495,12.816,26.566,12.429,33.286,13.769C177.499,368.487,256,369.251,256,369.251  s63.44-0.113,105.691-3.35c5.898-0.755,18.762-0.83,30.247-13.647c9.041-9.758,11.995-31.955,11.995-31.955s3.02-26.057,3.02-52.124  V243.75c0-26.066-3.02-52.124-3.02-52.124S400.99,169.42,391.939,159.642z M218.297,312.626V199.375l94.376,56.626L218.297,312.626z  " fill="url(#SVGID_1_)"/></svg>&nbsp YouTube</h6>
+                    <div><a href="{{profile.youtube}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                  {% if profile.pinterest %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0"><svg enable-background="new 0 0 32 32" height="20px" style="margin-right:10px;margin-left:5px;" id="Layer_1" version="1.0" viewBox="0 0 32 32" width="20px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path class="feather feather-linkedin mr-2 icon-inline text-primary" d="M15.996,0.007C7.162,0.007,0,7.168,0,16.004c0,6.551,3.938,12.177,9.575,14.65  c-0.045-1.118-0.008-2.459,0.278-3.672c0.308-1.301,2.058-8.719,2.058-8.719s-0.512-1.021-0.512-2.529  c0-2.369,1.376-4.14,3.087-4.14c1.454,0,2.157,1.091,2.157,2.4c0,1.462-0.934,3.65-1.412,5.676c-0.401,1.696,0.852,3.08,2.522,3.08  c3.031,0,5.072-3.891,5.072-8.504c0-3.505-2.361-6.128-6.655-6.128c-4.852,0-7.874,3.617-7.874,7.659  c0,1.394,0.411,2.377,1.054,3.138c0.297,0.35,0.338,0.489,0.229,0.891c-0.074,0.296-0.25,1.003-0.324,1.283  c-0.107,0.407-0.434,0.551-0.801,0.4c-2.235-0.91-3.275-3.358-3.275-6.11c0-4.543,3.831-9.993,11.433-9.993  c6.106,0,10.128,4.42,10.128,9.164c0,6.275-3.491,10.963-8.633,10.963c-1.728,0-3.353-0.934-3.907-1.992c0,0-0.93,3.686-1.125,4.396  c-0.34,1.231-1.004,2.466-1.61,3.427C12.901,31.769,14.421,32,15.996,32c8.834,0,15.995-7.16,15.995-15.996  S24.83,0.007,15.996,0.007z" fill="#CA2028"/><g/><g/><g/><g/><g/><g/></svg>Pinterest</h6>
+                    <div><a href="{{profile.pinterest}}" class="btn-arrow"><div class="arrow"></div>View</a></div>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="card mb-3 py-2 shadow no-border">
+          <div class="row">
+            <div class="col-lg-6 col-md">
+              <div class="card-body border-right">
+                <h5 class="card-title text-info font-weight-bold">Personal Information</h5>
+                  <div class="card shadow-sm border-0">
+                  <ul class="list-group list-group-flush">
+                    <li class="font-weight-bold list-group-item list-group-item-action">Username<br><p class="font-italic font-weight-normal mt-2"><i class="fas fa-user mr-2"></i>{{user.username}}</p></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">Age<br><p class="font-italic font-weight-normal mt-2"><i class="fa fa-calendar mr-2"></i>{{user.profile.age}}</p></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">Gender<br><p class="font-italic font-weight-normal mt-2">{% if user.profile.gender == 'Male' %}<i class="fas fa-mars mr-2"></i>{% else %}<i class="fas fa-venus mr-2"></i>{% endif %}{{user.profile.gender}}</p></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">E-mail<br><p class="font-italic font-weight-normal mt-2"><i class="fa fa-envelope mr-2"></i>{{user.email}}</p></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">Contact<br><p class="font-italic font-weight-normal mt-2"><i class="fas fa-mobile mr-2"></i>{{user.profile.phone_no}}</p></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">What's App<br><p class="font-italic font-weight-normal mt-2"><i class="fab fa-whatsapp mr-2"></i>{{user.profile.whatsapp}}</p></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">Address<br><address class="font-weight-normal font-italic"><i class="fas fa-map-marker-alt mr-2"></i>{{user.profile.address}}</address></li>
+                    <li class="font-weight-bold list-group-item list-group-item-action">Birthday<br><p class="font-italic font-weight-normal mt-2"><i class="fas fa-birthday-cake mr-2"></i>{{user.profile.birthday}}</p></li>
+                  </ul>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md">
+              <div class="card-body">
+                <h5 class="card-title text-info font-weight-bold">Skills</h5>
+                    <div class="sm-no-margin">
+                    {% for skill in skills %}
+                      <div class="progress-text">
+                            <div class="row">
+                                <div class="col-7">{{skill.name}}</div>
+                                <div class="col-5 text-right">{{skill.excellence}}%</div>
+                            </div>
+                        </div>
+                        <div class="custom-progress progress">
+                            <div role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:{{skill.excellence}}%;background-color:{{skill.color}};" class="animated custom-bar slideInLeft progress-bar-animated progress-bar-striped"></div>
+                        </div>
+                        {% empty %}
+                        <h5 style="font-family:calibri;">You haven't added any skill yet. Please add one first.</h5>
+                      {% endfor %} 
+                    </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="card shadow m-3">
+            <h5 class="card-title text-info font-weight-bold m-3">Business Information</h5>
+          <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2 ml-3 mr-3 business-card">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Shops</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{shop.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-store fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2 ml-3 mr-3 business-card">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Customers</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{customer.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2 ml-3 mr-3 business-card">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Products</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{product.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-briefcase fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2 mr-3 ml-3 business-card">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Blogs</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{profile.user.blog_set.all.count}}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-award fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+        <div class="container-fluid mt-3">
+          <div class="card shadow p-3 mb-3">
+            <h5 class="card-title text-info font-weight-bold m-3">Favourite Posts</h5>
+                        <div class="d-flex flex-wrap">
+                            {% for post in profile.favourites.all %}
+                                <div class="hover">
+                                    <a href="{% url 'post-detail' post.id %}" target="_blank"><img class="mt-3 ms-3 me-3 image" src="{{post.pic.url}}" alt="Post Image" style="height:250px;width:250px;object-fit:cover;">
+                                    <div class="hover-item">
+                                        <h3>{{post.msg|truncatechars:50}}</h3>
+                                    </div></a>
+                                </div>
+                            {% endfor %}
+                        </div>
+          </div>
+        </div>
+    {% comment %} <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
+        <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+        </div>          
+
+        <!-- Main Content Here -->
+        <div class="row">
+          <div class="col-lg-2"></div>
+          <div class="col-lg-3 my-5">
+            <img src="{{user.profile.pic.url}}" class="rounded float-right" height="300px" width="300px">
+          </div>
+          <div class="card o-hidden border-0 shadow-lg my-5 col-lg-5">
+            <div class="card-body">
+                <h2>{{user.first_name}} {{user.last_name}}</h2>
+                <p><strong>Username: </strong> {{user.username}} </p>
+                <p><strong>Email: </strong> {{user.email}} </p>
+                <p><strong>Bio: </strong> {{user.profile.bio}} </p>
+                <p><strong>Phone Number: </strong> {{user.profile.phone_no}} </p>
+                <p><strong>DOB: </strong> {{user.profile.birthday}} </p>
+                <a href="{% url 'edit-profile' %}" class="btn btn-sm btn-primary shadow-sm">Update Profile</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- /.container-fluid --> {% endcomment %}
+{% endblock body %}
+
+  {% block script %} 
+    {% comment %} function getRandomColor(){
+      var letters = "0123456789ABCDEF";
+      var color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random()*16)];    
+      };
+      return color;
+    }
+    setInterval(function(){
+      document.body.style.background = getRandomColor();
+    }, 2000);
+    console.log(getRandomColor()); {% endcomment %}
+  {% endblock script %}
+

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Signup as User | Pazar-Aapke Sapno Ka Bazaar</title>
+	<link rel="stylesheet" type="text/css" href="/static/CSS/user_signup_style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+
+	<!-- For Favicon -->
+    {% load static %}
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="apple-touch-icon" href="{% static 'Pazar Favicon.ico' %}" />
+    <link rel="icon" href="{% static 'Pazar Favicon.ico' %}" sizes="32x32" />
+    <link rel="icon" sizes="192x192" href="{% static 'Pazar Favicon.ico' %}" />
+
+	<!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/6170a67588.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+		::-webkit-scrollbar-track{
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar{
+			width: 6px;
+			background-color: #F5F5F5;
+		}
+
+		::-webkit-scrollbar-thumb{
+			background-color: #C0C0C0;
+		}
+
+		#messages{
+			color: #FF0000;
+			font-family:monospace;
+			font-size:18px;
+			list-style-type:none;
+		}
+
+		.errorlist{
+			list-style-type:none;
+			margin-bottom:0;
+			padding-left:0;
+		}
+		form{
+			width:450px;
+		}
+		.form-group{
+			margin:25px 0;
+		}
+		.card{
+			border:0;
+		}
+		h2{
+			font-size:2.5rem;
+		}
+		#loader{
+			margin:0;
+			padding:0;
+			position:fixed;
+			z-index:99999;
+			height:100vh;
+			width:100%;
+			background:#fff url('/static/loader.gif') no-repeat center; 
+		}
+
+.row{
+    margin-right:0;
+}
+.card-title{
+    font-size:1.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+.card-body{
+    padding:1.1rem;
+}
+.form-group{
+    margin-bottom:1.5rem;
+}
+label{
+    display:inline-block;
+    margin-bottom:0.5rem;
+    font-family:'Baloo Tamma 2', cursive;
+}
+small ul{
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    margin-top:1rem;
+    list-style-type:disc;
+    padding-inline-start: 40px;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+    </style>
+</head>
+<body onload="myFunction()" style="background:url('/static/b9.jpg')no-repeat center center/cover;"> 
+		<div id="loader">
+		</div>
+{% load crispy_forms_tags %}
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="col-md-6 col-12">
+			<div class="card bg-transparent mb-3">
+				<div class="card-body">
+					<img src="/static/Img/avatar.svg" class="img-fluid" style="margin-left:150px;" height="100px" width="100px">
+					<h2 style="margin-left:50px;display:flex;flex-wrap:wrap;">Sign up as a {{ user_type }}</h2>
+					<form method="POST" class="needs-validation" novalidate style="padding:1rem;font-family:calibri;">
+						{% csrf_token %}
+						<input type="hidden" name="next" value="{{ next }}">
+						{{ form|crispy }}
+						<div class="form-group">
+							<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+							<label class="form-check-label" for="invalidCheck">Agree to terms and conditions</label>
+							<div class="invalid-feedback">You must agree before submitting.</div>
+							</div>
+						</div>
+					<button type="submit" class="btn btn-primary shadow">Sign Up</button>
+					</form>
+				</div>
+				<a href="/" class="px-5 text-dark" style="text-decoration:none;font-family:calibri;"><i class="fas fa-long-arrow-alt-left"></i> back to <i class="fas fa-home text-primary"></i></a>
+			</div>
+		</div>
+	</div>
+</div>
+	<script>
+		var preloader = document.getElementById('loader');
+		function myFunction(){
+			preloader.style.display='none';
+		}
+	</script>
+    <script>
+    const inputs = document.querySelectorAll(".input");
+function addcl(){
+	let parent = this.parentNode.parentNode;
+	parent.classList.add("focus");
+}
+
+function remcl(){
+	let parent = this.parentNode.parentNode;
+	if(this.value == ""){
+		parent.classList.remove("focus");
+	}
+}
+inputs.forEach(input => {
+	input.addEventListener("focus", addcl);
+	input.addEventListener("blur", remcl);
+});
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+    </script>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+	<!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</body>
+</html>

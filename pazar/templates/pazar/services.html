@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Services |
+{% endblock title %}
+
+{% block css %}
+.card{
+    margin:5px;
+}
+.row>*{
+    padding-left:0;
+    padding-right:0;
+}
+.services-head{
+    height:500px;
+    width:100%;
+}
+.title{
+  width:100%;
+  text-align: center;
+}
+.title h1{
+  font-size:50px;
+  font-family: 'Exo', sans-serif;
+}
+.card{
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  height:450px;
+}
+.card:hover{
+    transform:scale(1.03);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.image{
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    height:250px;
+}
+.image:hover{
+    transform:translateY(-20px);
+}
+{% endblock css %}
+
+{% block body %}
+<img src="{% static 'Pazar Services.png' %}" class="img-fluid services-head" alt="Services">
+<div class="title text-uppercase fw-bold mt-2">
+  <h1 class="fs-2"><span style="color: #ff9f43">Serv</span><span style="color: #0abde3">ices</span> <span style="color: #ee5253">We </span><span style="color: #00d2d3">Off<span><span style="color: #5f27cd">er<span></h1>
+</div>
+<div class="container mt-3">
+    <div class="row mb-2 d-flex align-items-center justify-content-evenly">
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static 'shop1.jpg' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Business Management</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Are you a Business Owner? Here's a chance of getting your Business Online and get managed them any time any where for FREE, getting more reach & engagement of your Business Profile.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '5.jpg' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Business Advertisement</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Advertise your Business with Pazar, and get searches for your Business anywhere. This will increase the reach of your Business profile in searches across multiple search engines.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '4.jpg' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Customer Management</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Add your Customers and thier details on Pazar and manage through Internet.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '3.jpg' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Product Management</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Show your Products with their selling and offered price throughout Internet and sell it. Get much more sell of your Products in Local areas and cities.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '5.png' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Product Advertisement</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Advertiseme your Products with us and get more sales.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '1.jpg' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Employee Management</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Hiring the right team is one of the key pillars of your Business,
+                  then having a well-managed payroll and employee management system in place that helps you manage the team efficiently is another.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '2.jpg' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Employee Attendance & Salary</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Take Employee Attendance from anywhere. And also manage their Salary as per working days.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '3.png' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Invoices & Inventory</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">Pazar helps you manage your Stocks through graphs, manage your Supplier, generate Invoices easily for FREE & let you share directly to Customer What's App.</p>
+            </div>
+        </div>
+        <div class="card border-0 mb-2" style="width: 18rem;">
+            <img src="{% static '1.png' %}" class="card-img-top image img-fluid img-responsive" alt="...">
+            <div class="card-body">
+                <h5 class="card-title fs-5">Business Development Tools</h5>
+                <p class="card-text text-muted" style="font-family:calibri;">It's a rumour that running a Business is not a CUP OF TEA. But, We make it easier. Helps SMEs to manage their Business online for FREE by own.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

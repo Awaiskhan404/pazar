@@ -1,0 +1,564 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us |
+{% endblock title %}
+
+{% block css %}
+   .image-aboutus-banner {
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url("/static/about.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    padding-top: 110px;
+    padding-bottom:110px;
+ }
+ 
+  .image-aboutus-sm-banner {
+    background: linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)), url("/static/about.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    padding-top: 30px;
+    padding-bottom:30px;
+ }
+.lg-text {
+    font-size:52px;
+    font-weight: 600;
+    text-transform: none;
+    color:#fff;
+    font-family: 'Akaya Telivigala', cursive;
+}
+.image-aboutus-para {
+    color:#fff;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+.paddingTB60 {
+    padding-top:60px;
+    padding-bottom:60px;
+}
+
+.aboutus-section {
+    padding: 90px 0;
+    fofas fa-cogfont-size: 16px;
+}
+.aboutus-title {
+    font-size: 30px;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin: 0 0 39px;
+    padding: 0 0 11px;
+    position: relative;
+    text-transform: uppercase;
+    color: #000;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+.aboutus-title::after {
+    background: #fdb801 none repeat scroll 0 0;
+    bottom: 0;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    width: 54px;
+}
+.aboutus-text {
+    color: #606060;
+    font-size: 15px;
+    line-height: 22px;
+    margin: 0 0 35px;
+    font-family:calibri;
+}
+
+.aboutus-section a:hover, .aboutus-section a:active {
+    color: #ffb901;
+    text-decoration: none;
+    outline: 0;
+}
+.aboutus-more {
+    border: 1px solid #fdb801;
+    border-radius: 25px;
+    color: #fdb801;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    padding: 7px 20px;
+    text-transform: uppercase;
+}
+.feature .feature-box .iconset {
+    background: #fff none repeat scroll 0 0;
+    float: left;
+    position: relative;
+    width: 18%;
+}
+.feature .feature-box .iconset::after {
+    background: #fdb801 none repeat scroll 0 0;
+    content: "";
+    height: 57%;
+    left: 43%;
+    position: absolute;
+    top: 100%;
+    width: 1px;
+}
+
+.feature .feature-box .feature-content h4 {
+    color: #0f0f0f;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 22px;
+    margin: 0 0 5px;
+}
+
+
+.feature .feature-box .feature-content {
+    float: left;
+    padding-left: 28px;
+    width: 78%;
+}
+.feature .feature-box .feature-content h4 {
+    color:#074e8c;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 22px;
+    margin: 0 0 5px;
+    font-family: 'Baloo Tamma 2', cursive;
+}
+.feature .feature-box .feature-content p {
+    color: #676a6c;
+    font-size: 13px;
+    line-height: 22px;
+}
+.icon {
+    color : #f4b841;
+    padding:0px;
+    font-size:40px;
+    border: 1px solid #fdb801;
+    border-radius: 100px;
+    color: #fdb801;
+    font-size: 28px;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    width: 70px;
+}
+            .today-container ul {
+                margin-top: 30px;
+                list-style-image: url('/static/bullet.svg');
+            }
+                .today-container li {
+                    line-height: 25px;
+                    padding-left: 5px;
+                    font-size:16px;
+                    color: #676a6c;
+                    font-family:calibri;
+                }
+.today-container p {
+                font-size: 17px;
+                margin-top: 20px;
+                color: #676a6c;
+                font-family:calibri;
+}
+.gallery .row > div {
+      padding: 0 4px !important;
+}
+
+.gallery img {
+    margin-top: 8px;
+    vertical-align: middle;
+}
+.sectiontitle {
+  background-position: center;
+  margin: 30px 0 0px;
+  text-align: center;
+  min-height: 20px;
+}
+
+.sectiontitle h3 {
+  font-size: 30px;
+  color: #222;
+  margin-bottom: 0px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-family: 'Yusei Magic', sans-serif;
+}
+
+.headerLine {
+  width: 90px;
+  height: 2px;
+  display: inline-block;
+  background: #fdb801;
+}
+.team-container {
+    font-size: 14px;
+    color: #666666;
+    font-family: "Open Sans";
+}
+.card-custom {
+  overflow: hidden;
+  min-height: 450px;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+}
+
+.card-custom-img {
+  height: 200px;
+  min-height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-color: inherit;
+}
+
+/* First border-left-width setting is a fallback */
+.card-custom-img::after {
+  position: absolute;
+  content: '';
+  top: 161px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-top-width: 40px;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 545px;
+  border-left-width: calc(575px - 5vw);
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: inherit;
+}
+
+.card-custom-avatar img {
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+  position: absolute;
+  top: 100px;
+  left: 1.25rem;
+  width: 100px;
+  height: 100px;
+}
+.btns.btns-primary {
+  font-family: 'Quicksand', sans-serif;
+	font-weight: bold;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  padding: 0 3rem;
+  border: 0;
+  border-radius: 3rem;
+  background-image:linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+  background-size: 300% 100%;
+  transition: all 0.3s ease-in-out;
+  color:#fff;
+}
+
+.btns.btns-primary:hover:enabled {
+  box-shadow: 0 0.5em 0.5em -0.4em #ff923cba;
+  background-size: 100% 100%;
+  transform: translateY(-0.15em);
+}
+.twitter-hashtag-button{
+    margin-bottom:10px;
+}
+.twitter-mention-button{
+    margin-bottom:10px;
+}
+.twitter-follow-button{
+    margin-bottom:10px;
+}
+twitter-dm-button{
+    margin-bottom:10px;
+}
+{% endblock css %}
+
+{% block aboutactive %}active
+{% endblock aboutactive %}
+
+{% block body %}
+<div class="image-aboutus-banner" style="margin-top:50px">
+   <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+         <h1 class="lg-text">About Us</h1>
+         <p class="image-aboutus-para">PazarIndia - An Online Business Directory & Management Site</p>
+       </div>
+    </div>
+</div>
+</div>
+<div class="aboutus-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="aboutus">
+                        <h2 class="aboutus-title">About Us</h2>
+                        <p class="aboutus-text" style="color:#676a6c;">We <a href="/" style="color:#074e8c;">Pazar</a> here for you as for FREE Business Management Website for Small & Medim Businesses.</p>
+                        <p class="aboutus-text" style="color:#676a6c;">We help Business Owners in doing Business Online such as getting Customers, adding Business Online, Invoicing & Inventory, managing Employee Attendance, Payroll and many more Business Management activities.</p>
+                        <p class="aboutus-text" style="color:#676a6c;">Our mission is to make Business Owners work paperlessely by providing a Digital Platform for managing all paperwork on Internet anytime anywhere for FREE.</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="aboutus-banner">
+                        <img src="{% static 'arun.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-6 col-xs-12">
+                    <div class="feature">
+                        <div class="feature-box mt-2">
+                            <div class="clearfix">
+                                <div class="iconset">
+                                    <span class="fas fa-cog icon"></span>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Being Smart</h4>
+                                    <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-box mt-2">
+                            <div class="clearfix">
+                                <div class="iconset">
+                                    <span class="fas fa-cog icon"></span>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Reliable services</h4>
+                                    <p>Donec vitae sapien ut libero venenatis faucibu. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-box mt-4">
+                            <div class="clearfix">
+                                <div class="iconset">
+                                    <span class="fas fa-cog icon"></span>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Great support</h4>
+                                    <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-box mt-3">
+                            <div class="clearfix">
+                                <div class="iconset">
+                                    <span class="fas fa-cog icon"></span>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Great Experience</h4>
+                                    <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="feature-box mt-3">
+                            <div class="clearfix">
+                                <div class="iconset">
+                                    <span class="fas fa-cog icon"></span>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Creative Team</h4>
+                                    <p>Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="aboutus-secktion paddingTB60">
+    <div class="container">
+        <div class="row">
+                	<div class="col-md-6">
+                    	<h1 class="fw-bold fs-1" style="font-family: 'Open Sans',sans-serif;">Who we are <span style="color:#074e8c;">&</span><br>What we do</h1>
+                        <p class="lead" style="font-family: 'Baloo Tamma 2', cursive;color:#676a6c;">This is an Online Business Directory <br> and Management Site for SMEs.</p>
+                    </div>
+                    <div class="col-md-6">
+                    	<p style="font-family:calibri;color:#676a6c;" class="lead">We are Business Management Website for SMEs for FREE. We make Small Business Professional, Profitable and Cost-Effective.</p>
+                        <p style="font-family:calibri;color:#676a6c;" class="lead">We make Business Digital, Quick & Easy. Easily promote Business across Internet for FREE. Also, helps in managing Invoices, Inventory, Employee, Customers, Products and many more...</p>
+                    </div>
+</div>
+    </div>
+</div>
+            <div class="origin-story-container container p-5">
+                <h3 class="text-center fs-3 mb-2" style='color:#074e8c;'>
+                    Origin Story
+                </h3>
+                <p class="lead" style="font-family:calibri;color:#676a6c;">
+                    While doing research work for their PhDs from the University of Auckland in 2014, our founders came across one of the API industry's pain points: SDKs. They realized that API providers who spent hundreds of thousands of dollars every year on improving developer experience, by providing SDKs and user-friendly documentation were able to reach a wider developer audience for their APIs compared to API providers who weren't able to do so.
+                </p>
+                <p class="lead" style="font-family:calibri;color:#676a6c;">
+                    It was so clear that even though writing SDKs and documentation was a difficult and expensive task, it followed repeatable patterns which could be defined as logic blocks in a code generation engine. So, as a research project, they started working on a code generation engine which dynamically generated SDKs using API description as input.
+                </p>
+                <p class="lead" style="font-family:calibri;color:#676a6c;">
+                    After a rigorous journey, this research project was selected as a candidate for commercialization by Return on Science (a NZ national research commercialization program focused on bringing new academic research to market) and the concept was transformed into a product i.e. APIMatic.
+                </p>
+            </div>
+ <div class="today-container container p-5">
+                <h3 class="text-center fs-3 mb-2" style='color:#074e8c;'>
+                    Flash Forward Today
+                </h3>
+                <p class="lead">
+                    <a href="/">Pazar</a> is Free Business Management site made for SMEs of India. Our Mission is to help all SMEs of India in managing their Business Online.<br>
+                    How <a href="/">Pazar</a> will help 12 Million SMEs?
+                    Below are ours Key features....
+                </p>
+                <ul>
+                    <li>Register your Profile</li>
+                    <li>Add your Business</li>
+                    <li>Get potential Leads & Customers</li>
+                    <li>Serve your Customers</li>
+                    <li>Showcase your Products Online</li>
+                    <li>Invoices & Inventory</li>
+                    <li>Manage your Employee</li>
+                    <li>Get much more Business Development Tools</li>
+                </ul>
+            </div>
+            <div class="container-divider"></div>
+        </div>
+    </div>
+<div class="container team-container">
+    <div class="sectiontitle mb-3">
+      <h3 class="text-center fs-3" style="color:#074e8c;font-family: 'Baloo Tamma 2', cursive;">Meet The Team</h2>
+      <span class="headerLine"></span>
+    </div>
+    <div class="row pt-5 m-auto justify-content-around">
+         <div class="col-md-6 col-lg-4 pb-3">
+        <div class="card card-custom bg-white border-white border-0">
+          <div class="card-custom-img" style="background-image: url(/static/b8.jpg);"></div>
+          <div class="card-custom-avatar">
+            <img class="img-fluid" src="{% static 'arun.png' %}" alt="Arun Kumar" />
+          </div>
+          <div class="card-body" style="overflow-y:auto">
+            <h4 class="card-title fw-bold fs-5 text-dark">Arun Kumar</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Founder</h6>
+            <p class="card-text">Passionate Digital Marketer and Social Media expert. Has great Experience in SEO and Content Writing. Great Achievement in Marketing Industry.</p>
+            <p class="text-center mt-3">
+                <a href="https://www.facebook.com/digitalarunkumar" target="_blank"><i class="fab fa-facebook fa-2x text-primary mr-2"></i></a>
+                <a href="https://instagram.com/arunkumardigi" target="_blank"><i class="fab fa-instagram fa-2x text-danger mr-2"></i></a>
+                <a href="https://www.twitter.com/arunkumardigi" target="_blank"><i class="fab fa-twitter fa-2x text-info mr-2"></i></a>
+                <a href="https://www.linkedin.com/in/arun-kumardigi" target="_blank"><i class="fab fa-linkedin fa-2x text-primary"></i></a>
+            </p>
+          </div>
+          <div class="text-center" style="background: inherit; border-color: inherit;">
+            <a href="{% url 'arun' %}" target="_blank"><button class="btns btns-primary mt-3 mb-3">Read more</button></a>
+          </div>
+        </div>
+        <!-- Copy until here -->
+
+      </div>
+      <div class="col-md-6 col-lg-4 pb-3">
+
+        <!-- Copy the content below until next comment -->
+        <div class="card card-custom bg-white border-white border-0">
+          <div class="card-custom-img" style="background-image: url(/static/b5.jpg);"></div>
+          <div class="card-custom-avatar">
+            <img class="img-fluid" src="{% static 'mohak.jpg' %}" alt="Mohak Kumar" />
+          </div>
+          <div class="card-body" style="overflow-y: auto">
+            <h4 class="card-title fw-bold fs-5 text-dark">Mohak Kumar</h4>
+            <h6 class="card-subtitle mb-2 text-muted">Co-founder & Developer</h6>
+            <p class="card-text">Card has minimum height set but will expand if more space is needed for card body content. You can use Bootstrap <a href="https://getbootstrap.com/docs/4.0/components/card/#card-decks" target="_blank">card-decks</a> to align multiple cards nicely in a row.</p>
+            <p class="text-center mt-3">
+                <a href="https://www.facebook.com/mohak.kumar.735" target="_blank"><i class="fab fa-facebook fa-2x text-primary mr-2"></i></a>
+                <a href="https://instagram.com/__.mohak" target="_blank"><i class="fab fa-instagram fa-2x text-danger mr-2"></i></a>
+                <a href="https://www.twitter.com/_____kr_Mohak" target="_blank"><i class="fab fa-twitter fa-2x text-info mr-2"></i></a>
+                <a href="https://www.linkedin.com/in/mohak-kumar-82199b1a7" target="_blank"><i class="fab fa-linkedin fa-2x text-primary"></i></a>
+            </p>
+          </div>
+          <div class="text-center" style="background: inherit; border-color: inherit;">
+            <a href="{% url 'mohak' %}" target="_blank"><button class="btns btns-primary mt-3 mb-3">Read more</button></a>
+          </div>
+        </div>
+    </div>
+      </div>
+      </div>
+<div class="container p-5 gallery">
+    <div class="sectiontitle mb-3">
+      <h3 class="text-center fs-3" style="color:#074e8c;font-family: 'Baloo Tamma 2', cursive;">Gallery</h2>
+      <span class="headerLine"></span>
+    </div>
+<div class="row"> 
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+    <img src="https://www.w3schools.com/w3images/wedding.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/rocks.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/falls2.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/paris.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/nature.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/mist.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/paris.jpg"  class="img-fluid">
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+    <img src="https://www.w3schools.com/w3images/underwater.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/ocean.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/wedding.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/mountainskies.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/rocks.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/underwater.jpg"  class="img-fluid">
+  </div>  
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+    <img src="https://www.w3schools.com/w3images/wedding.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/rocks.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/falls2.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/paris.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/nature.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/mist.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/paris.jpg"  class="img-fluid">
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+    <img src="https://www.w3schools.com/w3images/underwater.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/ocean.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/wedding.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/mountainskies.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/rocks.jpg"  class="img-fluid">
+    <img src="https://www.w3schools.com/w3images/underwater.jpg"  class="img-fluid">
+  </div>
+</div>
+</div>
+<div class='container'>
+    <div class="sectiontitle mb-3">
+      <h3 class="text-center fs-3" style="color:#074e8c;font-family: 'Baloo Tamma 2', cursive;">Our Social Feeds</h2>
+      <span class="headerLine"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-12 mb-5">
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fmypazarindia%2F&tabs=timeline&width=500&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=218916806025452" width="500" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+        <div class="col-md-5 col-12 mb-5">
+            <a class="twitter-timeline" data-width="500" data-height="500" data-theme="light" href="https://twitter.com/pazar_india?ref_src=twsrc%5Etfw">Tweets by pazar_india</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="col-md-2 col-12">
+            <h3 style="font-family: 'Akaya Telivigala', cursive;" class="mb-2">Get Us On Twitter</h3>
+            <a class="twitter-follow-button" href="https://twitter.com/pazar_india" data-size="large">Follow @pazar_india</a>
+
+            <a href="https://twitter.com/intent/tweet?screen_name=pazar_india&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false" data-size="large">Tweet to @pazar_india</a>
+
+            <h3 style="font-family: 'Akaya Telivigala', cursive;" class="mb-2">Follow Our Hashtags</h3>
+            <a href="https://twitter.com/intent/tweet?button_hashtag=pazar&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false" data-size="large">Tweet #pazar</a>
+
+            <a href="https://twitter.com/intent/tweet?button_hashtag=pazar_india&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false" data-size='large'>Tweet #pazar_india</a>
+
+            <a href="https://twitter.com/intent/tweet?button_hashtag=aapke_sapno_ka_bazaar&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false" data-size="large">Tweet #aapke_sapno_ka_bazaar</a>
+
+            <h3 style="font-family: 'Akaya Telivigala', cursive;" class="mb-2">Message Us</h3>
+            <a href="https://twitter.com/messages/compose?recipient_id=1362329290004570113&text=Hello%20Pazar%20Team!" class="twitter-dm-button" data-screen-name="@pazar_india" data-size="large">Message @pazar_india</a>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+
+{% block js %}
+$(document).ready(function() {
+  $( ".card" ).hover(
+  function() {
+    $(this).addClass('shadow-lg').css('cursor', 'pointer'); 
+  }, function() {
+    $(this).removeClass('shadow-lg');
+  }
+); 
+});
+{% endblock js %}
+
+{% comment %} https://twitter.com/intent/tweet
+?url=http%3A%2F%2Fcss-tricks.com%2F
+&text=Tips%2C+Tricks%2C+and+Techniques+on+using+Cascading+Style+Sheets.
+&hashtags=css,html {% endcomment %}

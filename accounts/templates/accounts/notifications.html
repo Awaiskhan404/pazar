@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block title %}Notifications |
+{% endblock title %}
+
+{% block css %}
+.card{
+    position:relative;
+}
+.card .delete-notification{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+{% endblock css %}
+
+{% block body %}
+<div class="container mt-5 p-5">
+<h2 class="fs-2 mb-3" style="font-family:cursive;text-align:center;">Recent notifications</h2>
+<div class="d-flex align-items-center justify-content-center flex-column" >
+{% for notification in notifications %}
+{% if notification.notification_type == 2 %}
+    <div class="card mb-3 w-50">
+        <div class="card-header d-inline-flex">
+            <div>
+                <a href="{% url 'profile-detail' notification.sender.profile.id notification.sender.profile.slug %}"><img src="{{notification.sender.profile.pic.url}}" style="height:50px;width:50px;" class="rounded-circle"></a>
+            </div>
+            <div class="ml-3">
+                <h6 class="fw-bold"> {{notification.sender.get_full_name}} </h6>
+                <p style="font-family:calibri;"><small> @{{notification.sender.username}} </small></p>
+            </div>
+            <div class="delete-notification">
+                <a href="{% url 'delete-notification' notification.id %}" class="btn btn-light btn-sm delete"><i class="far fa-times-circle"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <p style="font-family:calibri;"><i>Commented:</i><br> <b>{{notification.text_preview}}</b></p>
+            </div>
+            <div class="">
+                <p><span class="badge bg-secondary ml-2 float-start mt-2 mr-2 mb-2"><i class="far fa-clock"></i> {{notification.date|naturaltime}}</span></p>
+                <a href="{% url 'post-detail' notification.post.id %}"><img src="{{notification.post.pic.url}}" class="img-fluid img-responsive float-end" style="height:100px;width:100px;"></a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% if notification.notification_type == 3 %}
+    <div class="card mb-3 w-50">
+        <div class="card-header d-inline-flex">
+            <div>
+                <a href="{% url 'profile-detail' notification.sender.profile.id notification.sender.profile.slug %}"><img src="{{notification.sender.profile.pic.url}}" style="height:50px;width:50px;" class="rounded-circle"></a>
+            </div>
+            <div class="ml-3">
+                <h6 class="fw-bold">{{notification.sender.get_full_name}}</h6>
+                <p style="font-family:calibri;"><small> @{{notification.sender.username}}</small></p>
+            </div>
+            <div class="delete-notification">
+                <a href="{% url 'delete-notification' notification.id %}" class="btn btn-light btn-sm delete"><i class="far fa-times-circle"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <p style="font-family:calibri;"><i class="fas fa-user-plus mr-2"></i><b class="fs-4">Followed you!</b></p>
+                <a href="{% url 'profile-detail' notification.user.profile.id notification.user.profile.slug %}"><img src="{{notification.user.profile.pic.url}}" class="img-fluid img-responsive float-end" style="height:100px;width:100px;"></a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% if notification.notification_type == 1 %}
+    <div class="card mb-3 w-50">
+        <div class="card-header d-inline-flex">
+            <div>
+                <a href="{% url 'profile-detail' notification.sender.profile.id notification.sender.profile.slug %}"><img src="{{notification.sender.profile.pic.url}}" style="height:50px;width:50px;" class="rounded-circle"></a>
+            </div>
+            <div class="ml-3">
+                <h6 class="fw-bold">{{notification.sender.get_full_name}}</h6>
+                <p style="font-family:calibri;"><small> @{{notification.sender.username}}</small></p>
+            </div>
+            <div class="delete-notification">
+                <a href="{% url 'delete-notification' notification.id %}" class="btn btn-light btn-sm delete"><i class="far fa-times-circle"></i></a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <p style="font-family:calibri;"><i class="fas fa-thumbs-up mr-2 text-info"></i><b class="fs-4">Liked your post!</b></p>
+            </div>
+            <div class="">
+                <p><span class="badge bg-secondary ml-2 float-start mt-2 mr-2 mb-2"><i class="far fa-clock"></i> {{notification.date|naturaltime}}</span></p>
+                <a href="{% url 'post-detail' notification.post.id %}"><img src="{{notification.post.pic.url}}" class="img-fluid img-responsive float-end" style="height:100px;width:100px;"></a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endfor %}
+    </div>
+</div>
+{% endblock body %}
+
+
+
+
+{% comment %} <div class="container mt-5 p-5">
+    <div class="d-flex align-items-center">
+        {% for notification in notifications %}
+            {% if notification.notification_type == 2 %}
+                <div class="card mb-3 w-50">
+                    <div class="delete-notification">
+                        <a href="{% url 'delete-notification' notification.id %}" class="btn btn-light btn-sm"><i class="far fa-times-circle"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-row align-items-center feed-text px-2"><a href="{% url 'profile-detail' notification.sender.profile.slug %}"><img class="rounded-circle" src="{{notification.sender.profile.pic.url}}" style="height:80px;width:80px;"></a>
+                        <div class="d-flex flex-column flex-wrap ml-2"><span class="fw-bold">{{notification.sender.get_full_name}}</span><small><span class="text-muted">@{{notification.sender.username}}</span></small>
+                        <p style="font-family:calibri;"><i>Commented:</i><br> <b class="fs-4">{{ notification.text_preview }}</b></p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <span class="time badge bg-secondary text-light"><i class="far fa-clock"></i> {{notification.date|naturaltime}}</span>
+                        <img src="{{notification.post.pic.url}}" class="img-fluid img-responsive" style="height:100px;width:100px;">
+                    </div>
+                </div>
+            {% endif %}
+            {% if notification.notification_type == 3 %}
+                <div class="card mb-3 w-50">
+                    <div class="delete-notification">
+                        <a href="{% url 'delete-notification' notification.id %}" class="btn btn-light btn-sm"><i class="far fa-times-circle"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-row align-items-center feed-text px-2"><a href="{% url 'profile-detail' notification.sender.profile.slug %}"><img class="rounded-circle" src="{{notification.sender.profile.pic.url}}" style="height:80px;width:80px;"></a>
+                        <div class="d-flex flex-column flex-wrap ml-2"><span class="fw-bold">{{notification.sender.get_full_name}}</span><small><span class="text-muted">@{{notification.sender.username}}</span></small>
+                        <p style="font-family:calibri;"><i class="fas fa-user-plus mr-2"></i><b class="fs-4">Followed you!</b></p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end mt-2">
+                        <span class="time badge bg-secondary text-light"><i class="far fa-clock"></i> {{notification.date|naturaltime}}</span>
+                    </div>
+                {% endif %}
+            </div>
+            {% if notification.notification_type == 1 %}
+                <div class="card w-50 mb-3">
+                    <div class="delete-notification">
+                        <a href="{% url 'delete-notification' notification.id %}" class="btn btn-light btn-sm"><i class="far fa-times-circle"></i></a>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-row align-items-center feed-text px-2"><a href="{% url 'profile-detail' notification.sender.profile.slug %}"><img class="rounded-circle" src="{{notification.sender.profile.pic.url}}" style="height:80px;width:80px;"></a>
+                        <div class="d-flex flex-column flex-wrap ml-2"><span class="fw-bold">{{notification.sender.get_full_name}}</span><small><span class="text-muted">@{{notification.sender.username}}</span></small>
+                        <p style="font-family:calibri;"><i class="fas fa-thumbs-up mr-2 text-info"></i><b class="fs-4">Liked your post!</b></p>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-end">
+                        <span class="time badge bg-secondary text-light"><i class="far fa-clock"></i> {{notification.date|naturaltime}}</span>
+                        <img src="{{notification.post.pic.url}}" class="img-fluid img-responsive" style="height:100px;width:100px;">
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div> {% endcomment %}
